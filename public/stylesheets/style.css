@@ -7,6 +7,10 @@ a {
   color: gray;
 }
 
+form {
+  margin-top: 30px;
+}
+
 .spacebar {
   margin-left: 5px;
   margin-right: 5px;
