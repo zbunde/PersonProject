@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  div.container
+    div.well.well-lg
+      h2 Signin
+        form(action='' method='post')
+          div.form-group
+            label(for='username') Username
+            input.form-control(id='username' type='text' name='username' placeholder='email')
+          div.form-group
+            label(for='password') Password
+            input.form-control(id='password' type='password' name='password' placeholder='password')
+          div.form-group
+            input.form-control(type='submit' value='Submit')
