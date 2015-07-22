@@ -5,7 +5,7 @@ var validUser = require('../lib/user_validation');
 /* GET users listing. */
 
 router.get('/', function(req, res, next) {
-  res.render('users/index', { user: req.cookies.username });
+  res.render('users/index', { user: app.locals.user });
 });
 
 router.get('/signup', function(req, res, next) {
@@ -16,9 +16,14 @@ router.get('/signin', function(req, res, next) {
   res.render('users/signin');
 });
 
+router.get('/logout', function(req, res, next) {
+  app.locals.user = null
+  res.redirect('/');
+});
+
 router.post('/signin', function(req, res, next) {
   if(validUser(req.body)){
-    res.cookie("username", "user@example.com");
+    app.locals.user = req.body.username;
     res.redirect('/users');
   } else {
     res.render("users/signin", { errors: "Invalid username/password" })
