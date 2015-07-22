@@ -13,6 +13,7 @@ html
     div.container
       nav.navbar.navbar-default.navbar-fixed-top
         div.container
+        if !user
           ol.breadcrumb.text-right
             li
               a(href="/") Home
@@ -22,3 +23,10 @@ html
             li.spacebar |
             li
               a(href="/users/signin") Signin
+        else
+          ol.breadcrumb.text-right
+            li
+              a(href="/") Home
+            li.spacebar |
+            li
+              a(href="/users/logout") Logout
