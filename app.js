@@ -4,8 +4,18 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var pg = require('pg');
+var _ = require('lodash');
 app = express();
+var Promise = require('bluebird');
 var user = app.locals.user;
+var bookshelf = require('./models/database')
+app.set('bookshelf', bookshelf);
+
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+};
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
