@@ -32,3 +32,11 @@ form {
   padding-left: 20px;
   float: right;
 }
+
+.errors {
+  color: red;
+}
+
+.success {
+  color: green;
+}

@@ -1,4 +1,5 @@
 var express = require('express');
+var cookieSession = require('cookie-session')
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -6,10 +7,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var pg = require('pg');
 var _ = require('lodash');
+var session = require('express-session');
+var flash = require('connect-flash');
 app = express();
 var Promise = require('bluebird');
 var user = app.locals.user;
 var bookshelf = require('./models/database')
+require('dotenv').load()
 app.set('bookshelf', bookshelf);
 
 var allowCrossDomain = function(req, res, next) {
@@ -30,7 +34,9 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('secret'));
+app.use(session({cookie: { maxAge: 60000 }}));
+app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);

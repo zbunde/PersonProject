@@ -5,7 +5,9 @@ block content
     div.well.well-lg
       h2 Signin
       if errors
-        p= errors
+        p.errors= errors
+      if info
+        p.success= info
       form(action='' method='post')
         div.form-group
           label(for='username') Username
