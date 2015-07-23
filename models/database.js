@@ -1,7 +1,7 @@
 var dbConfig = {
   client: 'pg',
   connection: {
-    host: 'localhost',
+    host: process.env.DATABASE_URL || 'localhost',
     database: 'princeton-development',
     charset: 'utf8'
   }
