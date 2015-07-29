@@ -2,7 +2,7 @@ var dbConfig = {
   client: 'pg',
   connection: {
     host: process.env.DATABASE_URL || 'localhost',
-    database: 'princeton-development',
+    database: 'person-project-development',
     charset: 'utf8'
   }
 };
