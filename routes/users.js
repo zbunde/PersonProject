@@ -22,7 +22,7 @@ router.post('/signup', function(req, res, next) {
       if(result){
         res.render('users/signup', { errors: ["Username already exists"] })
       } else {
-        createUser(req.body, function (data) {
+        createUser(req.body.username, req.body.password, function (data) {
           req.flash("success", "Account successfully created. Login to continue.")
           res.redirect('/users/signin');
         });
