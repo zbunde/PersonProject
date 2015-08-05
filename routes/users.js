@@ -18,7 +18,7 @@ router.post('/signup', function(req, res, next) {
   if(errors.length){
     res.render('users/signup', { errors: errors })
   } else {
-    validUser.userExists(req.body, function (result) {
+    validUser.userExists(req.body.username, function (result) {
       if(result){
         res.render('users/signup', { errors: ["Username already exists"] })
       } else {
@@ -42,7 +42,7 @@ router.get('/logout', function(req, res, next) {
 });
 
 router.post('/signin', function(req, res, next) {
-  validUser.userExists(req.body, function(record) {
+  validUser.userExists(req.body.username, function(record) {
     if(!record) {
       res.render('users/signin', { errors: "Username does not exist"});
     } else if(record && validUser.checkPassword(req.body, record)){
@@ -57,6 +57,7 @@ router.post('/signin', function(req, res, next) {
 // test authentication
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
+  if (app.locals.user) { return next(); }
   res.redirect('/')
 }
 

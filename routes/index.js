@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var validUser = require('../lib/user_validation');
+var createUser = require('../lib/create_user');
 var config = require('../oauth.js')
 var passport = require('passport')
 var FacebookStrategy = require('passport-facebook').Strategy;
@@ -34,13 +36,13 @@ done(null, obj);
 
 // config
 passport.use(new FacebookStrategy({
- clientID: config.facebook.clientID,
- clientSecret: config.facebook.clientSecret,
- callbackURL: config.facebook.callbackURL
+  clientID: config.facebook.clientID,
+  clientSecret: config.facebook.clientSecret,
+  callbackURL: config.facebook.callbackURL
 },
 function(accessToken, refreshToken, profile, done) {
- process.nextTick(function () {
-   return done(null, profile);
+  process.nextTick(function () {
+    return done(null, profile);
  });
 }
 ));
