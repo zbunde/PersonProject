@@ -41,6 +41,11 @@ passport.use(new FacebookStrategy({
   callbackURL: config.facebook.callbackURL
 },
 function(accessToken, refreshToken, profile, done) {
+  validUser.userExists(profile.displayName, function (result) {
+    if(result){} else {
+      createUser(profile.displayName, "facebookuser", function () {});
+    }
+  });
   process.nextTick(function () {
     return done(null, profile);
  });
