@@ -11,10 +11,6 @@ router.get('/', function(req, res, next) {
 
 // Facebook Oauth
 
-router.get('/account', ensureAuthenticated, function(req, res){
-res.render('account', { user: req.user });
-});
-
 router.get('/auth/facebook',
 passport.authenticate('facebook'),
 function(req, res){
@@ -23,19 +19,8 @@ function(req, res){
 router.get('/auth/facebook/callback',
 passport.authenticate('facebook', { failureRedirect: '/' }),
 function(req, res) {
- res.redirect('/users');
+  app.locals.user = req.user.displayName;
+  res.redirect('/users');
 });
-
-router.get('/logout', function(req, res){
-req.logout();
-res.redirect('/');
-});
-
-// test authentication
-function ensureAuthenticated(req, res, next) {
-if (req.isAuthenticated()) { return next(); }
-res.redirect('/')
-}
-
 
 module.exports = router;

@@ -5,7 +5,7 @@ var createUser = require('../lib/create_user');
 
 /* GET users listing. */
 
-router.get('/', function(req, res, next) {
+router.get('/', ensureAuthenticated, function(req, res, next) {
   res.render('users/index', { user: app.locals.user });
 });
 
@@ -53,5 +53,11 @@ router.post('/signin', function(req, res, next) {
     }
   });
 });
+
+// test authentication
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/')
+}
 
 module.exports = router;
