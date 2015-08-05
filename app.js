@@ -14,32 +14,8 @@ app = express();
 var user = app.locals.user;
 var bookshelf = require('./models/database')
 require('dotenv').load()
-var config = require('./oauth.js')
 var passport = require('passport')
-var FacebookStrategy = require('passport-facebook').Strategy;
-
-// serialize and deserialize
 app.set('bookshelf', bookshelf);
-passport.serializeUser(function(user, done) {
-done(null, user);
-});
-passport.deserializeUser(function(obj, done) {
-done(null, obj);
-});
-
-// config
-passport.use(new FacebookStrategy({
- clientID: config.facebook.clientID,
- clientSecret: config.facebook.clientSecret,
- callbackURL: config.facebook.callbackURL
-},
-function(accessToken, refreshToken, profile, done) {
- process.nextTick(function () {
-   return done(null, profile);
- });
-}
-));
-
 
 var allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');

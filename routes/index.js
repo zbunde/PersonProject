@@ -19,8 +19,30 @@ function(req, res){
 router.get('/auth/facebook/callback',
 passport.authenticate('facebook', { failureRedirect: '/' }),
 function(req, res) {
+
   app.locals.user = req.user.displayName;
   res.redirect('/users');
 });
+
+// serialize and deserialize
+passport.serializeUser(function(user, done) {
+done(null, user);
+});
+passport.deserializeUser(function(obj, done) {
+done(null, obj);
+});
+
+// config
+passport.use(new FacebookStrategy({
+ clientID: config.facebook.clientID,
+ clientSecret: config.facebook.clientSecret,
+ callbackURL: config.facebook.callbackURL
+},
+function(accessToken, refreshToken, profile, done) {
+ process.nextTick(function () {
+   return done(null, profile);
+ });
+}
+));
 
 module.exports = router;
