@@ -22,7 +22,7 @@ router.get('/auth/facebook/callback',
 passport.authenticate('facebook', { failureRedirect: '/' }),
 function(req, res) {
 
-  app.locals.user = req.user.displayName;
+  req.session.currentUser = req.user.displayName;
   res.redirect('/users');
 });
 

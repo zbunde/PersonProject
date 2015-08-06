@@ -40,3 +40,7 @@ form {
 .success {
   color: green;
 }
+
+.link {
+  margin-top: 10px;
+}

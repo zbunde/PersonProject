@@ -6,8 +6,10 @@ block content
       h2 Signin
       if errors
         p.errors= errors
-      if info
-        p.success= info
+      if success
+        p.success= success
+      if error
+        p.errors= error
       form(action='' method='post')
         div.form-group
           label(for='username') Username
@@ -17,3 +19,5 @@ block content
           input.form-control(id='password' type='password' name='password' placeholder='password')
         div.form-group
           input.form-control(type='submit' value='Submit')
+        p.link
+          a(href="/users/signup") Create an account

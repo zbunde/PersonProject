@@ -11,7 +11,6 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var Promise = require('bluebird');
 app = express();
-var user = app.locals.user;
 var bookshelf = require('./models/database')
 require('dotenv').load()
 var passport = require('passport')
