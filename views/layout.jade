@@ -9,6 +9,11 @@ html
     script(src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
     script(src='/bootstrap/js/bootstrap.min.js')
   body
+    div.container
+      if success
+        p.success= success
+      if error
+        p.errors= error
     block content
     div.container
       nav.navbar.navbar-default.navbar-fixed-top

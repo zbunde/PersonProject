@@ -6,7 +6,11 @@ var createUser = require('../lib/create_user');
 /* GET users listing. */
 
 router.get('/', ensureAuthenticated, function(req, res, next) {
-  res.render('users/index', { currentUser: req.session.currentUser });
+  if(req.session.isAdmin) {
+    res.redirect('/admin');
+  } else {
+    res.render('users/index', { currentUser: req.session.currentUser, error: req.flash('error') });
+  }
 });
 
 router.get('/signup', function(req, res, next) {
@@ -32,9 +36,7 @@ router.post('/signup', function(req, res, next) {
 });
 
 router.get('/signin', function(req, res, next) {
-  var success = req.flash('success');
-  var error = req.flash('error');
-  res.render('users/signin', { success: success, error: error });
+  res.render('users/signin', { success: req.flash('success'), error: req.flash('error') });
 });
 
 router.get('/logout', function(req, res, next) {
@@ -47,6 +49,7 @@ router.post('/signin', function(req, res, next) {
     if(!record) {
       res.render('users/signin', { errors: "Username does not exist"});
     } else if(record && validUser.checkPassword(req.body, record)){
+      req.session.isAdmin = record.attributes.admin;
       req.session.currentUser = record.attributes.username;
       res.redirect('/users');
     } else {
@@ -59,7 +62,8 @@ router.post('/signin', function(req, res, next) {
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   if (req.session.currentUser) { return next(); }
-  req.flash("error", "You must be logged in to do that")
+  req.flash('error');
+  req.flash("error", "You must be logged in to do that.")
   res.redirect('/users/signin');
 }
 

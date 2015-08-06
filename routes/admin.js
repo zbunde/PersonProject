@@ -3,8 +3,8 @@ var router = express.Router();
 var validUser = require('../lib/user_validation');
 var createAdmin = require('../lib/create_admin');
 
-router.get('/', function(req, res, next) {
-  res.render('admin/index');
+router.get('/', ensureIsAdmin, function(req, res, next) {
+  res.render('admin/index', { currentUser: req.session.currentUser });
 });
 
 router.get('/new', function(req, res, next) {
@@ -28,5 +28,15 @@ router.post('/new', function (req, res, next) {
     });
   }
 });
+
+function ensureIsAdmin(req, res, next) {
+  if (req.session.isAdmin) { return next(); }
+  if(req.session.currentUser){
+    req.flash('error');
+    req.flash('error', "Access denied")
+    res.redirect('/users');
+  }
+    res.redirect('/users/signin');
+}
 
 module.exports = router;
