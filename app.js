@@ -36,16 +36,25 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser('secret'));
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(session({
     cookie: {maxAge: 60000 },
     secret: process.env.SECRET,
     resave: true,
     saveUninitialized: true
 }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
-app.use(express.static(path.join(__dirname, 'public')));
+
+function setLocalsCurrentUser(req, res, next) {
+  res.locals.currentUser = req.session.currentUser;
+  next();
+}
+
+app.use(setLocalsCurrentUser);
 
 app.use('/', routes);
 app.use('/users', users);

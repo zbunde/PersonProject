@@ -9,7 +9,7 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
   if(req.session.isAdmin) {
     res.redirect('/admin');
   } else {
-    res.render('users/index', { currentUser: req.session.currentUser, error: req.flash('error') });
+    res.render('users/index', { error: req.flash('error') });
   }
 });
 
