@@ -2,12 +2,15 @@ var express = require('express');
 var router = express.Router();
 var validUser = require('../lib/user_validation');
 var createUser = require('../lib/create_user');
+var getAllUsers = require('../lib/users');
 
 /* GET users listing. */
 
 router.get('/', ensureAuthenticated, function(req, res, next) {
   if(req.session.isAdmin) {
-    res.redirect('/admin');
+    getAllUsers(function (users) {
+      res.render('users/index', { users: users });
+    });
   } else {
     res.render('users/index', { error: req.flash('error') });
   }
