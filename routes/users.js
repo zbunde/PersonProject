@@ -60,7 +60,7 @@ router.post('/signin', function(req, res, next) {
 });
 
 router.get('/logout', function(req, res, next) {
-  req.session.currentUser = null;
+  req.session.sess_id = null;
   res.redirect('/');
 });
 // test authentication
