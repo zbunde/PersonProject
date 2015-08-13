@@ -1,0 +1,7 @@
+extends ../../layout
+
+block content
+  h1 Showing All Users
+  each user in users
+    li
+      a(href="/users/" + user.attributes.id)= user.attributes.username

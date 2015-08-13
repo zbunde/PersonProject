@@ -43,18 +43,17 @@ app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-    cookie: {maxAge: 600000 },
     secret: process.env.SECRET,
     resave: true,
     saveUninitialized: true
 }));
 
-function setLocalsCurrentUser(req, res, next) {
+function setCurrentUser(req, res, next) {
   res.locals.currentUser = req.session.currentUser;
   next();
 }
 
-app.use(setLocalsCurrentUser);
+app.use(setCurrentUser);
 
 app.use('/', routes);
 app.use('/users', users);

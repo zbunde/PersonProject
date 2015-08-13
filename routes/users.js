@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var validUser = require('../lib/user_validation');
 var createUser = require('../lib/create_user');
-var getAllUsers = require('../lib/users');
+var getAllUsers = require('../lib/users').getUsers;
+var getUser = require('../lib/users').getUser;
 
 /* GET users listing. */
 
@@ -52,7 +53,7 @@ router.post('/signin', function(req, res, next) {
       req.session.sess_id = record.attributes.id;
         if(req.session.isAdmin) {
           res.redirect('/admin')
-        } else { res.redirect('/users')};
+        } else { res.redirect('/users/' + record.attributes.id)};
     } else {
       res.render('users/signin', { errors: "Password is incorrect" })
     }
@@ -64,6 +65,13 @@ router.get('/logout', function(req, res, next) {
   req.session.currentUser = null;
   res.redirect('/');
 });
+
+router.get('/:id', authorizeUser, function (req, res, next) {
+  getUser(req.params.id, function (user) {
+    res.render('users/show', { user: user.attributes.username, error: req.flash('error') });
+  })
+})
+
 // test authentication
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
@@ -71,6 +79,14 @@ function ensureAuthenticated(req, res, next) {
   req.flash('error');
   req.flash("error", "You must be logged in to do that.")
   res.redirect('/users/signin');
+}
+
+function authorizeUser(req, res, next) {
+  if(req.session.isAdmin) { return next(); }
+  if(req.session.sess_id == req.params.id){ return next(); }
+  req.flash('error');
+  req.flash("error", "You are not authorized to do that.")
+  res.redirect('/users/' + req.session.sess_id);
 }
 
 module.exports = router;
