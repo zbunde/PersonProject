@@ -12,7 +12,7 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
       res.render('users/index', { users: users });
     });
   } else {
-    res.render('users/index', { error: req.flash('error') });
+    res.render('users/show', { error: req.flash('error') });
   }
 });
 
@@ -42,11 +42,6 @@ router.get('/signin', function(req, res, next) {
   res.render('users/signin', { success: req.flash('success'), error: req.flash('error') });
 });
 
-router.get('/logout', function(req, res, next) {
-  req.session.currentUser = null;
-  res.redirect('/');
-});
-
 router.post('/signin', function(req, res, next) {
   validUser.userExists(req.body.username, function(record) {
     if(!record) {
@@ -54,13 +49,20 @@ router.post('/signin', function(req, res, next) {
     } else if(record && validUser.checkPassword(req.body, record)){
       req.session.isAdmin = record.attributes.admin;
       req.session.currentUser = record.attributes.username;
-      res.redirect('/users');
+      req.session.sess_id = record.attributes.id;
+        if(req.session.isAdmin) {
+          res.redirect('/admin')
+        } else { res.redirect('/users')};
     } else {
       res.render('users/signin', { errors: "Password is incorrect" })
     }
   });
 });
 
+router.get('/logout', function(req, res, next) {
+  req.session.currentUser = null;
+  res.redirect('/');
+});
 // test authentication
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
