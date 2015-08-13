@@ -61,6 +61,7 @@ router.post('/signin', function(req, res, next) {
 
 router.get('/logout', function(req, res, next) {
   req.session.sess_id = null;
+  req.session.currentUser = null;
   res.redirect('/');
 });
 // test authentication
