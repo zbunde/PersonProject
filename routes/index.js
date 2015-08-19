@@ -22,7 +22,10 @@ router.get('/auth/facebook/callback',
 passport.authenticate('facebook', { failureRedirect: '/' }),
 function(req, res) {
   req.session.currentUser = req.user.displayName;
-  res.redirect('/users');
+  var user = validUser.userExists(req.user.displayName, function (user) {
+    req.session.sess_id = user.id;
+    res.redirect('/users/' + user.id);
+  });
 });
 
 // serialize and deserialize
@@ -42,7 +45,8 @@ passport.use(new FacebookStrategy({
 function(accessToken, refreshToken, profile, done) {
   validUser.userExists(profile.displayName, function (result) {
     if(result){} else {
-      createUser(profile.displayName, "facebookuser", function () {});
+      var pw = process.env.FB_PW
+      createUser(profile.displayName, pw, function () {});
     }
   });
   process.nextTick(function () {

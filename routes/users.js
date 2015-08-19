@@ -13,7 +13,7 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
       res.render('users/index', { users: users });
     });
   } else {
-    res.render('users/show', { error: req.flash('error') });
+    res.redirect('/users/show');
   }
 });
 
@@ -61,9 +61,9 @@ router.post('/signin', function(req, res, next) {
 });
 
 router.get('/logout', function(req, res, next) {
-  req.session.sess_id = null;
-  req.session.currentUser = null;
-  res.redirect('/');
+  req.session.destroy(function (err) {
+    res.redirect('/');
+  })
 });
 
 router.get('/:id', authorizeUser, function (req, res, next) {
@@ -72,7 +72,6 @@ router.get('/:id', authorizeUser, function (req, res, next) {
   })
 })
 
-// test authentication
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   if (req.session.currentUser) { return next(); }
