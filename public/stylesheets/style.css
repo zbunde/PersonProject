@@ -1,46 +1,16 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.navbar-default {
+  background-color: #FF6600;
 }
 
-a {
-  color: gray;
+.navbar {
+  border: none;
+  border-radius: 0px;
 }
 
-form {
-  margin-top: 30px;
+.navbar-default .navbar-brand {
+  color: #FFFFFF;
 }
 
-.spacebar {
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-.panel {
-  overflow: hidden;
-}
-
-.well-left {
-  width: 46%;
-  border-right: 1px solid black;
-  padding-right: 20px;
-  float: left;
-}
-
-.well-right {
-  width: 50%;
-  padding-left: 20px;
-  float: right;
-}
-
-.errors {
-  color: red;
-}
-
-.success {
-  color: green;
-}
-
-.link {
-  margin-top: 10px;
+.navbar-default .navbar-nav>li>a {
+  color: #337ab7;
 }
