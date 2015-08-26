@@ -20,11 +20,7 @@ var allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   next();
 };
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var admin = require('./routes/admin');
-
+var api = require('./routes/api');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,6 +38,13 @@ app.use(passport.session());
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api', api);
+
+// send all routes to index.html and let angular handle the routing
+app.use('*', function (req, res, next) {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 app.use(session({
     secret: process.env.SECRET,
     resave: true,
@@ -54,10 +57,6 @@ function setCurrentUser(req, res, next) {
 }
 
 app.use(setCurrentUser);
-
-app.use('/', routes);
-app.use('/users', users);
-app.use('/admin', admin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
