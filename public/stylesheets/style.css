@@ -1,4 +1,14 @@
+.jumbotron {
+  opacity: .8;
+  margin-top: 6 0px;
+}
+
+.about {
+  background-image: url('/images/background.jpeg');
+}
+
 .navbar-default {
+  opacity: .95;
   background-color: #FF6600;
 }
 
