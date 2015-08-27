@@ -1,6 +1,24 @@
+
 .jumbotron {
-  opacity: .8;
-  margin-top: 6 0px;
+  opacity: .85;
+  margin-top: 60px;
+  background-color: #FFFFFF;
+}
+
+.jumbotron h1 {
+  color: #337ab7;
+}
+
+.signup {
+  opacity: 1;
+  width: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 90px;
+  -webkit-box-shadow: 4px 3px 15px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 4px 3px 15px -1px rgba(0,0,0,0.75);
+  box-shadow: 4px 3px 15px -1px rgba(0,0,0,0.75);
+  background-color: #FF6600;
 }
 
 .about {
@@ -22,5 +40,5 @@
 }
 
 .navbar-default .navbar-nav>li>a {
-  color: #337ab7;
+  color: black;
 }

@@ -8,5 +8,9 @@ router.get('/users', function (req, res, next) {
   })
 });
 
+router.post('/signup', function (req, res, next) {
+  res.redirect('/');
+})
+
 
 module.exports = router;
