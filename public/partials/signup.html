@@ -1,4 +1,7 @@
 <div class="jumbotron signup" ng-controller="SignupController">
+  <div class="errors" ng-show="errors">
+    {{ errors }}
+  </div>
   <form ng-submit="createUser()">
     <div class="form-group">
       <label for="email">Email Address</label>

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="stylesheets/style.css" media="screen" title="no title" charset="utf-8">
+    <base href='/' />
   </head>
   <body ng-controller="ApplicationController" ng-class="{about: setBackground()}">
     <nav class="navbar navbar-default">
@@ -18,7 +19,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/#/"><i class="fa fa-users"></i> person | project</a>
+          <a class="navbar-brand" href="/"><i class="fa fa-users"></i> person | project</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -35,7 +36,7 @@
             <button type="submit" class="btn btn-primary">Sign In</button>
           </form>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#/signup"><i class="fa fa-user"></i> Signup</a></li>
+            <li><a href="/signup"><i class="fa fa-user"></i> Signup</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -45,6 +46,7 @@
     </div>
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
   </body>
 </html>

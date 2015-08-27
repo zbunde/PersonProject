@@ -1,4 +1,16 @@
+body {
+  background-image: url('/images/background.jpeg');
+}
+.errors {
+  margin-bottom: 5px;
+  display: inline-block;
+  color: white;
+  border-radius: 2px;
+}
 
+.users {
+  opacity: 0;
+}
 .jumbotron {
   opacity: .85;
   margin-top: 60px;
@@ -21,9 +33,6 @@
   background-color: #FF6600;
 }
 
-.about {
-  background-image: url('/images/background.jpeg');
-}
 
 .navbar-default {
   opacity: .95;
