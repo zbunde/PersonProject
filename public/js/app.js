@@ -25,7 +25,7 @@ app.config(function ($routeProvider, $locationProvider) {
 })
 
 app.controller('ApplicationController', function ($scope, $location) {
-  
+
 });
 
 app.controller('SignupController', function ($scope, $location, $cookies, UsersService) {
@@ -40,29 +40,5 @@ app.controller('SignupController', function ($scope, $location, $cookies, UsersS
         $location.path('/users/' + response.data.id);
       }
     });
-  }
-})
-
-app.controller('UsersController', function ($scope, UsersService) {
-  UsersService.all().then(function (users) {
-    $scope.users = users;
-  })
-})
-
-app.factory('UsersService', function($http) {
-  var users;
-  return {
-    create: function(attrs) {
-      return $http.post('/api/signup', attrs);
-    },
-    all: function () {
-      return $http.get('/api/users').then(function (response) {
-        users = response.data
-        return users;
-      })
-    },
-    signin: function () {
-      return $http.get('/api/signin');
-    }
   }
 })
