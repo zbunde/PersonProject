@@ -5,7 +5,10 @@ body {
   margin-bottom: 5px;
   display: inline-block;
   color: white;
-  border-radius: 2px;
+}
+
+.errors li {
+  color: white;
 }
 
 .users {

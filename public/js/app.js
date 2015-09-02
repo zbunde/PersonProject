@@ -23,7 +23,3 @@ app.config(function ($routeProvider, $locationProvider) {
 
   $locationProvider.html5Mode(true);
 })
-
-app.controller('ApplicationController', function ($scope, $location) {
-
-});

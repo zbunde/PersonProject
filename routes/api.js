@@ -11,25 +11,23 @@ router.get('/users', function (req, res, next) {
 });
 
 router.post('/signup', function (req, res, next) {
-  validate.userExists(req.body.username, function (result) {
+  validate.userExists(req.body.username).then(function (result) {
     if(!result) {
       createUser(req.body.username, req.body.password).then(function (user) {
         res.json(user);
         })
     } else {
-      res.json({error: true});
+      res.json({error: "Invalid username / password"});
     }
   });
 })
 
 router.post('/signin', function (req, res, next) {
-  validate.userExists(req.body.username, function (result) {
-    if(!result) {
-      res.json({error: "User does not exist"})
-    } else if (validate.checkPassword(req.body.password, result.hashed_pass)) {
-      res.json(result)
+  validate.userExists(req.body.username).then(function (result) {
+    if(result && validate.checkPassword(req.body.password, result.attributes)){
+      res.json(result.attributes);
     } else {
-      res.json({ error: "Passwords do not match"})
+      res.json({ error: "Invalid username / passsword"})
     }
   })
 });

@@ -10,8 +10,10 @@ app.factory('UsersService', function($http) {
         return users;
       })
     },
-    signin: function () {
-      return $http.get('/api/signin');
+    signin: function (user) {
+      return $http.post('/api/signin', user ).then(function (response) {
+        return response.data;
+      });
     }
   }
 })
