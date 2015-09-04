@@ -14,21 +14,18 @@ app = express();
 var bookshelf = require('./models/database')
 require('dotenv').load()
 var passport = require('passport')
+var cors = require('cors');
 app.set('bookshelf', bookshelf);
 
-var allowCrossDomain = function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-};
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var admin = require('./routes/admin');
+app.use(cors());
 
+
+var api = require('./routes/api');
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -42,22 +39,13 @@ app.use(passport.session());
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({
-    secret: process.env.SECRET,
-    resave: true,
-    saveUninitialized: true
-}));
 
-function setCurrentUser(req, res, next) {
-  res.locals.currentUser = req.session.currentUser;
-  next();
-}
+app.use('/api', api);
 
-app.use(setCurrentUser);
-
-app.use('/', routes);
-app.use('/users', users);
-app.use('/admin', admin);
+// send all routes to index.html and let angular handle the routing
+app.use('*', function (req, res, next) {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
