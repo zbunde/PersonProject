@@ -3,6 +3,7 @@ var router = express.Router();
 var db = require('../lib/users');
 var validate = require('../lib/user_validation');
 var createUser = require('../lib/create_user');
+var createAdmin = require('../lib/create_admin');
 
 router.get('/users', function (req, res, next) {
   db.getUsers().then(function(users) {
@@ -28,6 +29,18 @@ router.post('/signin', function (req, res, next) {
       res.json(result.attributes);
     } else {
       res.json({ error: "Invalid username / passsword"})
+    }
+  })
+});
+
+router.post('/admin/new', function (req, res, next) {
+  validate.userExists(req.body.username).then(function (result) {
+    if(!result){
+      createAdmin(req.body.username, req.body.password).then(function (admin) {
+        res.json(admin);
+      })
+    } else {
+      res.json({ error: "Invalid username / password" });
     }
   })
 });
