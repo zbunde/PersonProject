@@ -45,6 +45,16 @@ router.post('/admin/new', function (req, res, next) {
   })
 });
 
+router.get('/users/:id', function(req, res, next) {
+  db.getUser(req.params.id).then(function (user) {
+    res.json(user.attributes);
+  })
+})
 
+router.delete('/users/:id', function (req, res, next) {
+  db.remove(req.params.id).then(function (response) {
+    res.json(response)
+  })
+})
 
 module.exports = router;
