@@ -21,7 +21,7 @@ app.set('bookshelf', bookshelf);
 app.use(cors());
 
 
-var api = require('./routes/api');
+var usersAPI = require('./routes/api/users');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -40,7 +40,7 @@ app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/api', api);
+app.use('/api/users', usersAPI);
 
 // send all routes to index.html and let angular handle the routing
 app.use('*', function (req, res, next) {
