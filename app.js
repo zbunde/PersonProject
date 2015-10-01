@@ -11,7 +11,7 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var Promise = require('bluebird');
 app = express();
-var bookshelf = require('./models/database')
+var bookshelf = require('./models/user')
 require('dotenv').load()
 var passport = require('passport')
 var cors = require('cors');
