@@ -22,6 +22,7 @@ app.use(cors());
 
 
 var usersAPI = require('./routes/api/v1/users');
+var surveysAPI = require('./routes/api/v1/surveys');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/api/v1/users', usersAPI);
+app.use('/api/v1/surveys', surveysAPI);
 
 // send all routes to index.html and let angular handle the routing
 app.use('*', function (req, res, next) {
