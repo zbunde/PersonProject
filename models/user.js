@@ -1,4 +1,4 @@
-var usersConnectionConfig = {
+var usersKnexConfig = {
     client: 'pg',
     connection: {
       host: process.env.DB_HOST || 'localhost',
@@ -9,10 +9,10 @@ var usersConnectionConfig = {
     }
 };
 
-var usersDatabaseConnection = require('knex')(usersConnectionConfig);
-var bookshelf = require('bookshelf')(usersDatabaseConnection);
+var usersBookshelfConnection = require('knex')(usersKnexConfig);
+var usersBookshelf = require('bookshelf')(usersBookshelfConnection);
 
-var User = bookshelf.Model.extend({
+var User = usersBookshelf.Model.extend({
   tableName: 'users'
   // add associations here
   // many-to-many

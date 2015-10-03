@@ -1,14 +1,20 @@
-require('dotenv').load()
-var pg = require('pg');
-var connectionString = process.env.SURVEY_DATABASE_URL || 'postgres://localhost:5432/person-project-surveys-development';
+var surveysBookshelfConfig = {
+    client: 'pg',
+    connection: {
+      host: process.env.SURVEYS_DB_HOST || 'localhost',
+      database: process.env.SURVEYS_DB_NAME || 'person-project-surveys-development',
+      user     : process.env.USER || '',
+      password : process.env.PASS || '',
+      charset: 'utf8'
+    }
+};
 
-var createSurveys = 'CREATE TABLE surveys(id SERIAL PRIMARY KEY, name VARCHAR(40) not null, ' +
-'description VARCHAR(255) not null, ' +
-'version INTEGER not null, ' +
-'estimated_time_to_complete INTEGER not null, ' +
-'status VARCHAR(40) not null)'
+var surveysBookshelfConnection = require('knex')(surveysBookshelfConfig);
+var surveysBookshelf = require('bookshelf')(surveysBookshelfConnection);
 
-var client = new pg.Client(connectionString);
-client.connect();
-var query = client.query(createSurveys);
-query.on('end', function() { client.end(); });
+var Survey = surveysBookshelf.Model.extend({
+  tableName: 'surveys'
+  // add associations here
+});
+
+module.exports = Survey;
