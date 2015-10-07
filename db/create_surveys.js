@@ -1,6 +1,6 @@
 require('dotenv').load()
 var pg = require('pg');
-var connectionString = process.env.SURVEY_DATABASE_URL || 'postgres://localhost:5432/person-project-surveys-development';
+var connectionString = process.env.HEROKU_POSTGRESQL_BLACK_URL || 'postgres://localhost:5432/person-project-surveys-development';
 
 var createSurveys = 'CREATE TABLE surveys(id SERIAL PRIMARY KEY, name VARCHAR(40) not null, ' +
 'description TEXT not null, ' +
