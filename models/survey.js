@@ -1,3 +1,4 @@
+require('dotenv').load();
 var surveysKnexConfig = {
     client: 'pg',
     connection: {
