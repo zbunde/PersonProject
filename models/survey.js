@@ -4,8 +4,8 @@ var surveysKnexConfig = {
     connection: {
       host: process.env.DB_HOST_SURVEYS || 'localhost',
       database: process.env.DB_NAME_SURVEYS || 'person-project-surveys-development',
-      user     : process.env.USER || '',
-      password : process.env.PASS || '',
+      user     : process.env.SURVEY_DB_USER || '',
+      password : process.env.SURVEY_DB_PASS || '',
       charset: 'utf8'
     }
 };
