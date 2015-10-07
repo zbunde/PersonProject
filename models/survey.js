@@ -1,15 +1,15 @@
-var surveysBookshelfConfig = {
+var surveysKnexConfig = {
     client: 'pg',
     connection: {
-      host: process.env.SURVEYS_DB_HOST || 'localhost',
-      database: process.env.SURVEYS_DB_NAME || 'person-project-surveys-development',
+      host: process.env.DB_HOST_SURVEYS || 'localhost',
+      database: process.env.DB_NAME_SURVEYS || 'person-project-surveys-development',
       user     : process.env.USER || '',
       password : process.env.PASS || '',
       charset: 'utf8'
     }
 };
 
-var surveysBookshelfConnection = require('knex')(surveysBookshelfConfig);
+var surveysBookshelfConnection = require('knex')(surveysKnexConfig);
 var surveysBookshelf = require('bookshelf')(surveysBookshelfConnection);
 
 var Survey = surveysBookshelf.Model.extend({
