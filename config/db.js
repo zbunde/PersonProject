@@ -1,11 +1,13 @@
+var config = require('./config')
+
 module.exports = {
   'users' : {
     client: 'pg',
     connection: {
-      host: process.env.DB_HOST || 'localhost',
-      database: process.env.DB_NAME || 'princeton-users-development',
-      user     : process.env.USER || '',
-      password : process.env.PASS || '',
+      host: config.db.users.host,
+      database: config.db.users.database,
+      user: config.db.users.user,
+      password: config.db.users.password,
       charset: 'utf8'
     },
     pool: {
@@ -19,10 +21,10 @@ module.exports = {
   'surveys' : {
     client: 'pg',
     connection: {
-      host: process.env.DB_HOST || 'localhost',
-      database: process.env.DB_NAME || 'princeton-surveys-development',
-      user     : process.env.USER || '',
-      password : process.env.PASS || '',
+      host: config.db.surveys.host,
+      database: config.db.surveys.database,
+      user: config.db.surveys.user,
+      password: config.db.surveys.password,
       charset: 'utf8'
     },
     pool: {
