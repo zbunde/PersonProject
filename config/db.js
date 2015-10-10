@@ -1,7 +1,7 @@
 var config = require('./config')
 
 module.exports = {
-  'users' : {
+  users : {
     client: 'pg',
     connection: {
       host: config.db.users.host,
@@ -18,7 +18,7 @@ module.exports = {
       directory: './migrations/users'
     }
   },
-  'surveys' : {
+  surveys : {
     client: 'pg',
     connection: {
       host: config.db.surveys.host,

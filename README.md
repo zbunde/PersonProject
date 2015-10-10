@@ -2,6 +2,7 @@
 
 ```
 npm install knex -g
+npm install nodemon -g
 createdb princeton-users-development
 createdb princeton-surveys-development
 cp .env{.example,}
@@ -51,4 +52,20 @@ To seed the database, run:
 
 ```
 node db/seed.js
+```
+
+## Running tests
+
+The test suite uses Mocha, Chai and Supertest.
+
+To prepare the test database, run:
+
+```
+node db/prepare.js
+```
+
+To run tests, run:
+
+```
+npm test
 ```
