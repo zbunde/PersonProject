@@ -5,9 +5,17 @@ var validate = require('../../../lib/user_validation');
 var createUser = require('../../../lib/create_user');
 var createAdmin = require('../../../lib/create_admin');
 
+function toJSON(user) {
+  return {
+    id: user.attributes.id,
+    username: user.attributes.username,
+    admin: user.attributes.admin,
+  }
+}
+
 router.get('/', function (req, res, next) {
   db.getUsers().then(function(users) {
-    res.json(users);
+    res.json(users.models.map(toJSON));
   })
 });
 
@@ -15,7 +23,7 @@ router.post('/signup', function (req, res, next) {
   validate.userExists(req.body.username).then(function (result) {
     if(!result) {
       createUser(req.body.username, req.body.password).then(function (user) {
-        res.json(user);
+        res.json(toJSON(user));
         })
     } else {
       res.json({error: "Invalid username / password"});
@@ -36,8 +44,8 @@ router.post('/signin', function (req, res, next) {
 router.post('/', function (req, res, next) {
   validate.userExists(req.body.username).then(function (result) {
     if(!result){
-      createAdmin(req.body.username, req.body.password).then(function (admin) {
-        res.json(admin);
+      createAdmin(req.body.username, req.body.password).then(function (user) {
+        res.json(toJSON(user));
       })
     } else {
       res.json({ error: "Invalid username / password" });
@@ -47,7 +55,7 @@ router.post('/', function (req, res, next) {
 
 router.get('/:id', function(req, res, next) {
   db.getUser(req.params.id).then(function (user) {
-    res.json(user.attributes);
+    res.json(toJSON(user));
   })
 })
 
