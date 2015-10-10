@@ -9,11 +9,31 @@ npm install
 nodemon
 ```
 
+## Databases
+
+The app requires two databases, so most Knex commands won't _just work_.  To that end, there are custom database migration scripts:
+
+### Running Migrations
+
 To migrate to the latest version, run:
 
 ```
 node db/migrate.js
 ```
+
+To migrate just one database run:
+
+```
+node db/migrate.js users
+```
+
+To rollback just one database run:
+
+```
+node db/migrate.js users rollback
+```
+
+### Creating Migrations
 
 To create new migrations for the **users** database, run:
 
