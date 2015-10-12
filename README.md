@@ -1,13 +1,71 @@
 ## Set Up
 
 ```
+npm install knex -g
+npm install nodemon -g
+createdb princeton-users-development
+createdb princeton-surveys-development
+cp .env{.example,}
 npm install
-add .env with facebook credentials
-in your public directory, bower install the following:
-  angular
-  bootstrap
-  angular-route
-  angular-cookies
-
 nodemon
+```
+
+## Databases
+
+The app requires two databases, so most Knex commands won't _just work_.  To that end, there are custom database migration scripts:
+
+### Running Migrations
+
+To migrate to the latest version, run:
+
+```
+node db/migrate.js
+```
+
+To migrate just one database run:
+
+```
+node db/migrate.js users
+```
+
+To rollback just one database run:
+
+```
+node db/migrate.js users rollback
+```
+
+### Creating Migrations
+
+To create new migrations for the **users** database, run:
+
+```
+node db/make-migration.js users migration-name
+```
+
+To create new migrations for the **surveys** database, run:
+
+```
+node db/make-migration.js surveys migration-name
+```
+
+To seed the database, run:
+
+```
+node db/seed.js
+```
+
+## Running tests
+
+The test suite uses Mocha, Chai and Supertest.
+
+To prepare the test database, run:
+
+```
+node db/prepare.js
+```
+
+To run tests, run:
+
+```
+npm test
 ```
