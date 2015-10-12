@@ -10,7 +10,7 @@ exports.up = function(knex, Promise) {
     t.integer('position').notNullable();
     t.json('options');
     t.json('sub_questions');
-    t.hasTimestamps();
+    t.timestamps();
   });
 };
 
