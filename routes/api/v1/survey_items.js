@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
   })
 })
 
-router.get('/:id', function (req, res, next) {;
+router.get('/:id', function (req, res, next) {
   return new SurveyItem({ survey_id: req.params.id }).fetch().then(function (response) {
     res.json(response.attributes);
   })

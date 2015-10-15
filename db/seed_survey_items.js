@@ -1,6 +1,6 @@
 var SurveyItem = require('../models/survey_item');
 
-var options = JSON.stringify([
+var options_1 = JSON.stringify([
   {
     text: "Less than 1 day: Rarely",
     value: 1,
@@ -23,7 +23,7 @@ var options = JSON.stringify([
   }
 ])
 
-var subQuestions = JSON.stringify([
+var subQuestions_1 = JSON.stringify([
   {
     text: "I was bothered by things that usually don't bother me."
   },
@@ -86,15 +86,92 @@ var subQuestions = JSON.stringify([
   }
 ])
 
-var survey_item = {
+var survey_item_1 = {
   survey_id: 1,
   strategy: "n/a",
   item_type: "multiple_choice",
   title: "n/a",
   layout: "table",
   position: 1,
-  options: options,
-  sub_questions: subQuestions
+  options: options_1,
+  sub_questions: subQuestions_1
 }
 
-new SurveyItem(survey_item).save();
+var options_2 = JSON.stringify([
+  {
+    text: "Strongly Disagree",
+    value: 1,
+    additionalTextField: false
+  },
+  {
+    text: "Moderately Disagree",
+    value: 2,
+    additionalTextField: false
+  },
+  {
+    text: "Slightly Disagree",
+    value: 3,
+    additionalTextField: false
+  },
+  {
+    text: "Slightly Agree",
+    value: 4,
+    additionalTextField: false
+  },
+  {
+    text: "Moderately Agree",
+    value: 5,
+    additionalTextField: false
+  },
+  {
+    text: "Strongly Agree",
+    value: 6,
+    additionalTextField: false
+  }
+])
+
+var subQuestions_2 = JSON.stringify([
+  {
+    text: "I don't like situations that are uncertain."
+  },
+  {
+    text: "I feel uncomfortable when I don't understand the reason why an event occurred in my life."
+  },
+  {
+    text: "When I am confused about an important issue, I feel very upset."
+  },
+  {
+    text: "In most social conflicts, I can easily see which side is right and which is."
+  },
+  {
+    text: "I like to know what people are thinking all the time."
+  },
+  {
+    text: "I like to know what people are thinking all the time."
+  },
+  {
+    text: "I dislike it when a person's statement could mean many different things."
+  },
+  {
+    text: "It's annoying to listen to someone who cannot seem to make up his or her mind."
+  },
+  {
+    text: "I feel uncomfortable when someone's meaning or intention is unclear to me."
+  },
+  {
+    text: "I'd rather know bad news than stay in a state of uncertainty."
+  }
+])
+
+var survey_item_2 = {
+  survey_id: 22,
+  strategy: "n/a",
+  item_type: "multiple_choice",
+  title: "n/a",
+  layout: "table",
+  position: 1,
+  options: options_2,
+  sub_questions: subQuestions_2
+}
+
+new SurveyItem(survey_item_2).save();
