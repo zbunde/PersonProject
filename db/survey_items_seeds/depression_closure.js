@@ -86,16 +86,6 @@ var subQuestions_1 = JSON.stringify([
   }
 ])
 
-var survey_item_1 = {
-  survey_id: 1,
-  strategy: "n/a",
-  item_type: "multiple_choice",
-  title: "n/a",
-  layout: "table",
-  position: 1,
-  options: options_1,
-  sub_questions: subQuestions_1
-}
 //------------------------------------------------------------
 var options_2 = JSON.stringify([
   {
@@ -165,7 +155,7 @@ var subQuestions_2 = JSON.stringify([
 
 var survey_items = [
  {
-  survey_id: 1,
+  survey_id: 25,
   strategy: "n/a",
   item_type: "multiple_choice",
   title: "n/a",
@@ -175,7 +165,7 @@ var survey_items = [
   sub_questions: subQuestions_1
  },
  {
-  survey_id: 22,
+  survey_id: 47,
   strategy: "n/a",
   item_type: "multiple_choice",
   title: "n/a",
