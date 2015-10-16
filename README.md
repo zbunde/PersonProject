@@ -51,7 +51,9 @@ node db/make-migration.js surveys migration-name
 To seed the database, run:
 
 ```
-node db/seed.js
+node db/seed_surveys.js
+node db/survey_items_seeds/depression_closure.js
+node db/survey_items_seeds/determining_causality.js
 ```
 
 ## Running tests
