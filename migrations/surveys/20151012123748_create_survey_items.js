@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
     t.integer('survey_id').references('surveys.id')
     t.string('strategy');
     t.string('item_type').notNullable();
-    t.string('title').notNullable();
+    t.text('title').notNullable();
     t.string('layout').notNullable();
     t.integer('position').notNullable();
     t.json('options');
