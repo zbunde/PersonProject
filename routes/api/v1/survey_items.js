@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var SurveyItem = require('../../../models/survey_item');
+var Survey = require('../../../models/survey');
 
 router.get('/', function (req, res, next) {
   SurveyItem.fetchAll().then(function (surveyItems) {
@@ -9,8 +10,8 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/:id', function (req, res, next) {
-  return new SurveyItem({ survey_id: req.params.id }).fetch().then(function (response) {
-    res.json(response.attributes);
+  Survey.where({id: req.params.id}).fetch({withRelated: ['surveyItems']}).then(function (response) {
+    res.json(response.related('surveyItems'));
   })
 })
 
