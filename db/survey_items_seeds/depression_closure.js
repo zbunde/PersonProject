@@ -1,4 +1,4 @@
-var SurveyItem = require('../models/survey_item');
+var SurveyItem = require('../../models/survey_item');
 
 var options_1 = JSON.stringify([
   {
@@ -96,7 +96,7 @@ var survey_item_1 = {
   options: options_1,
   sub_questions: subQuestions_1
 }
-
+//------------------------------------------------------------
 var options_2 = JSON.stringify([
   {
     text: "Strongly Disagree",
@@ -163,7 +163,18 @@ var subQuestions_2 = JSON.stringify([
   }
 ])
 
-var survey_item_2 = {
+var survey_items = [
+ {
+  survey_id: 1,
+  strategy: "n/a",
+  item_type: "multiple_choice",
+  title: "n/a",
+  layout: "table",
+  position: 1,
+  options: options_1,
+  sub_questions: subQuestions_1
+ },
+ {
   survey_id: 22,
   strategy: "n/a",
   item_type: "multiple_choice",
@@ -172,6 +183,11 @@ var survey_item_2 = {
   position: 1,
   options: options_2,
   sub_questions: subQuestions_2
-}
+ }
+]
+//--------------------------------------------------------
 
-new SurveyItem(survey_item_2).save();
+survey_items.forEach(function (item) {
+  new SurveyItem(item).save();
+
+})

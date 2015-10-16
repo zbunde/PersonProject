@@ -147,9 +147,15 @@ var surveys = [
     version: 1,
     estimated_time_to_complete: 20,
     status: "in_design"
-  }
+  },
+  {
+      name: "Determining Causality",
+      description: "In this part of the survey you will read a few scenarios. Then, based on each question, you will select a reason for the outcome of the scenario.",
+      version: 1,
+      estimated_time_to_complete: 20,
+      status: "in_design"
+    }
 ]
-
 surveys.forEach(function (survey) {
   new Survey(survey).save()
 })
