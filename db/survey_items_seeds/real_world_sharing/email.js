@@ -28,7 +28,7 @@ var survey_items = [
     item_type: "numeric_input",
     title: title_1,
     layout: "free_form",
-    position: 1,
+    position: 18,
     options: options_1,
     sub_questions: subQuestions_1
   },
@@ -38,7 +38,7 @@ var survey_items = [
     item_type: "numeric_input",
     title: title_2,
     layout: "free_form",
-    position: 2,
+    position: 19,
     options: options_2,
     sub_questions: subQuestions_2
   },
@@ -48,7 +48,7 @@ var survey_items = [
     item_type: "numeric_input",
     title: title_3,
     layout: "free_form",
-    position: 3,
+    position: 20  ,
     options: options_3,
     sub_questions: subQuestions_3
   }

@@ -89,7 +89,7 @@ var survey_items = [
     position: 2,
     options: options_2,
     sub_questions: subQuestions_2,
-    depends_on: {id: 43, value: 1}
+    depends_on: {id: 78, value: 1}
   },
   {
     survey_id: 44,
@@ -100,7 +100,7 @@ var survey_items = [
     position: 3,
     options: options_3,
     sub_questions: subQuestions_3,
-    depends_on: {id: 43, value: 1}
+    depends_on: {id: 78, value: 1}
   },
   {
     survey_id: 44,
@@ -111,7 +111,7 @@ var survey_items = [
     position: 4,
     options: options_4,
     sub_questions: subQuestions_4,
-    depends_on: {id: 43, value: 1}
+    depends_on: {id: 78, value: 1}
   },
   {
     survey_id: 44,
@@ -122,7 +122,7 @@ var survey_items = [
     position: 5,
     options: options_5,
     sub_questions: subQuestions_5,
-    depends_on: {id: 43, value: 1}
+    depends_on: {id: 78, value: 1}
   }
 ]
 

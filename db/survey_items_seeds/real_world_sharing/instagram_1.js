@@ -24,7 +24,7 @@ var surveyItem_1 = new SurveyItem({
   item_type: "multiple_choice",
   title: title_1,
   layout: "multiple_choice",
-  position: 1,
+  position: 6,
   options: options_1,
   sub_questions: subQuestions_1
 }).save();

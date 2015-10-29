@@ -79,10 +79,10 @@ var survey_items = [
     item_type: "numeric_input",
     title: title_2,
     layout: "free_form",
-    position: 2,
+    position: 14,
     options: options_2,
     sub_questions: subQuestions_2,
-    depends_on: {id: 48, value: 1}
+    depends_on: {id: 83, value: 1}
   },
   {
     survey_id: 44,
@@ -90,10 +90,10 @@ var survey_items = [
     item_type: "numeric_input",
     title: title_3,
     layout: "free_form",
-    position: 3,
+    position: 15,
     options: options_3,
     sub_questions: subQuestions_3,
-    depends_on: {id: 48, value: 1}
+    depends_on: {id: 83, value: 1}
   },
   {
     survey_id: 44,
@@ -101,10 +101,10 @@ var survey_items = [
     item_type: "multiple_choice",
     title: title_4,
     layout: "multiple_choice",
-    position: 4,
+    position: 16,
     options: options_4,
     sub_questions: subQuestions_4,
-    depends_on: {id: 48, value: 1}
+    depends_on: {id: 83, value: 1}
   },
   {
     survey_id: 44,
@@ -112,10 +112,10 @@ var survey_items = [
     item_type: "numeric_input",
     title: title_5,
     layout: "free_form",
-    position: 5,
+    position: 17,
     options: options_5,
     sub_questions: subQuestions_5,
-    depends_on: {id: 48, value: 1}
+    depends_on: {id: 83, value: 1}
   }
 ]
 

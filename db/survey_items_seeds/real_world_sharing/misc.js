@@ -203,7 +203,7 @@ var survey_items = [
     item_type: "multiple_choice",
     title: title_1,
     layout: "multiple_choice",
-    position: 1,
+    position: 21,
     options: options_1,
     sub_questions: subQuestions_1
   },
@@ -213,7 +213,7 @@ var survey_items = [
     item_type: "multiple_choice",
     title: title_2,
     layout: "table",
-    position: 2,
+    position: 22,
     options: options_2,
     sub_questions: subQuestions_2
   },
@@ -223,7 +223,7 @@ var survey_items = [
     item_type: "multiple_choice",
     title: title_3,
     layout: "table",
-    position: 3,
+    position: 23,
     options: options_3,
     sub_questions: subQuestions_3
   },
@@ -233,7 +233,7 @@ var survey_items = [
     item_type: "multiple_choice",
     title: title_4,
     layout: "multiple_choice",
-    position: 4,
+    position: 24,
     options: options_4,
     sub_questions: subQuestions_4
   },
@@ -243,7 +243,7 @@ var survey_items = [
     item_type: "multiple_choice",
     title: title_5,
     layout: "multiple_choice",
-    position: 5,
+    position: 25,
     options: options_5,
     sub_questions: subQuestions_5
   }
