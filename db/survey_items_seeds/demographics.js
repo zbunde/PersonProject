@@ -133,7 +133,7 @@ var survey_items =  [
   {
   survey_id: 45,
   strategy: "n/a",
-  item_type: "text_input",
+  item_type: "numeric_input",
   title: title_2,
   layout: "free_form",
   position: 2,
@@ -163,7 +163,7 @@ var survey_items =  [
   {
   survey_id: 45,
   strategy: "n/a",
-  item_type: "text_input",
+  item_type: "numeric_input",
   title: title_5,
   layout: "free_form",
   position: 5,
