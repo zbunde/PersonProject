@@ -1,4 +1,6 @@
 var SurveyItem = require('../../models/survey_item');
+var Survey = require('../../models/survey');
+var saveSurveyItems = require('../../lib/save_survey_items');
 
 var options_1 = JSON.stringify([
   {
@@ -304,99 +306,107 @@ var subQuestions_9 = JSON.stringify([]);
 var title_9 = "Joseph is a genetic engineer who works on designer pets, specializing in dogs. Because potential dog owners worry about not being seen by car drivers when walking their dogs at night, they tend to choose dogs with brightly colored noses. Joseph doesn’t realize that they choose such noses because they’re attention grabbing, but he does notice that bright noses are popular. As a result he decides to engineer dogs with glow-in-the-dark noses. The new dogs are an instant hit. Why do Joseph's dogs have glow-in-the-dark noses?"
 
 
-var survey_items = [
-  {
-    survey_id: 46,
-    strategy: "n/a",
-    item_type: "multiple_choice",
-    title: title_1,
-    layout: "multiple_choice",
-    position: 1,
-    options: options_1,
-    sub_questions: subQuestions_1
-  },
-  {
-    survey_id: 46,
-    strategy: "n/a",
-    item_type: "multiple_choice",
-    title: title_2,
-    layout: "multiple_choice",
-    position: 2,
-    options: options_2,
-    sub_questions: subQuestions_2
-  },
-  {
-    survey_id: 46,
-    strategy: "n/a",
-    item_type: "multiple_choice",
-    title: title_3,
-    layout: "multiple_choice",
-    position: 3,
-    options: options_3,
-    sub_questions: subQuestions_3
-  },
-  {
-    survey_id: 46,
-    strategy: "n/a",
-    item_type: "multiple_choice",
-    title: title_4,
-    layout: "multiple_choice",
-    position: 4,
-    options: options_4,
-    sub_questions: subQuestions_4
-  },
-  {
-    survey_id: 46,
-    strategy: "n/a",
-    item_type: "multiple_choice",
-    title: title_5,
-    layout: "multiple_choice",
-    position: 5,
-    options: options_5,
-    sub_questions: subQuestions_5
-  },
-  {
-    survey_id: 46,
-    strategy: "n/a",
-    item_type: "multiple_choice",
-    title: title_6,
-    layout: "multiple_choice",
-    position: 6,
-    options: options_6,
-    sub_questions: subQuestions_6
-  },
-  {
-    survey_id: 46,
-    strategy: "n/a",
-    item_type: "multiple_choice",
-    title: title_7,
-    layout: "multiple_choice",
-    position: 7,
-    options: options_7,
-    sub_questions: subQuestions_7
-  },
-  {
-    survey_id: 46,
-    strategy: "n/a",
-    item_type: "multiple_choice",
-    title: title_8,
-    layout: "multiple_choice",
-    position: 8,
-    options: options_8,
-    sub_questions: subQuestions_8
-  },
-  {
-    survey_id: 46,
-    strategy: "n/a",
-    item_type: "multiple_choice",
-    title: title_9,
-    layout: "multiple_choice",
-    position: 9,
-    options: options_9,
-    sub_questions: subQuestions_9
-  }
-]
+var survey_items = [];
 
-survey_items.forEach(function (item) {
-  new SurveyItem(item).save();
-})
+new Survey({name: "Mindfulness Attention Awareness"}).fetch()
+  .then(function(model) {
+  var id = model.get('id');
+  survey_items = [
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "multiple_choice",
+      title: title_1,
+      layout: "multiple_choice",
+      position: 1,
+      options: options_1,
+      sub_questions: subQuestions_1
+    },
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "multiple_choice",
+      title: title_2,
+      layout: "multiple_choice",
+      position: 2,
+      options: options_2,
+      sub_questions: subQuestions_2
+    },
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "multiple_choice",
+      title: title_3,
+      layout: "multiple_choice",
+      position: 3,
+      options: options_3,
+      sub_questions: subQuestions_3
+    },
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "multiple_choice",
+      title: title_4,
+      layout: "multiple_choice",
+      position: 4,
+      options: options_4,
+      sub_questions: subQuestions_4
+    },
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "multiple_choice",
+      title: title_5,
+      layout: "multiple_choice",
+      position: 5,
+      options: options_5,
+      sub_questions: subQuestions_5
+    },
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "multiple_choice",
+      title: title_6,
+      layout: "multiple_choice",
+      position: 6,
+      options: options_6,
+      sub_questions: subQuestions_6
+    },
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "multiple_choice",
+      title: title_7,
+      layout: "multiple_choice",
+      position: 7,
+      options: options_7,
+      sub_questions: subQuestions_7
+    },
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "multiple_choice",
+      title: title_8,
+      layout: "multiple_choice",
+      position: 8,
+      options: options_8,
+      sub_questions: subQuestions_8
+    },
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "multiple_choice",
+      title: title_9,
+      layout: "multiple_choice",
+      position: 9,
+      options: options_9,
+      sub_questions: subQuestions_9
+    }
+  ];
+}).then(function () {
+  saveSurveyItems(survey_items);
+});
+
+
+
+
