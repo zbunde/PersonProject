@@ -14,11 +14,7 @@ app = express();
 var bookshelf = require('./models/user')
 require('dotenv').load()
 var passport = require('passport')
-var cors = require('cors');
 app.set('bookshelf', bookshelf);
-
-
-app.use(cors());
 
 
 var usersAPI = require('./routes/api/v1/users');
