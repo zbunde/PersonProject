@@ -1,5 +1,5 @@
 app.factory('SurveysService', function ($http) {
-  var url = 'https://person-project.herokuapp.com/api/v1';
+  var url = '/api/v1';
   return {
     all: function () {
       return $http.get(url + '/surveys').then(function (response) {
