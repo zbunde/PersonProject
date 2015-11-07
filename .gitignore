@@ -1,3 +1,5 @@
 .env
 bower_components
 node_modules
+.divshot-cache
+

@@ -1,0 +1,21 @@
+<div class="jumbotron signup" ng-controller="UsersController">
+  <div class="errors" ng-show="errors">
+    {{ errors }}
+  </div>
+  <form ng-submit="newAdmin()">
+    <div class="form-group">
+      <h3 class='form-title'>Create A New Admin</h3>
+      <label for="email">Username</label>
+      <input ng-model="admin.username" type="text" class="form-control" id="email" placeholder="Username">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input ng-model="admin.password" type="password" class="form-control" id="password" placeholder="Password">
+    </div>
+    <div class="form-group">
+      <label for="password-confirmation">Password Confirmation</label>
+      <input ng-model="admin.password_confirmation" type="password" class="form-control" id="password-confirmation" placeholder="Password Confirmation">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>

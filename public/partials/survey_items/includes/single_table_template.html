@@ -1,0 +1,8 @@
+<div class='table-responsive'>
+  <form ng-submit='submitSurvey()'>
+    <div ng-include="'/partials/survey_items/includes/table.html'"></div>
+    <p ng-show='submitted && answers.length !== totalQuestions' class='empty'>You have unanswered questions</p>
+    <input ng-show='submitted' class='btn btn-warning pull-right' type='submit' value='Submit Anyway'></input>
+    <input ng-hide='submitted' class='btn btn-primary pull-right' type='submit'></input>
+  </form>
+</div>
