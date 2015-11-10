@@ -1,0 +1,8 @@
+<h5>{{item.title}}</h5>
+<div ng-init='subQuestions=shuffle(item.sub_questions)' ng-repeat='question in item.sub_questions'>
+  <label>{{question.text}}
+    <span ng-if='item.item_type === "numeric_input"'>
+      <input ng-class='{empty:!answers[$parent.$parent.$index][$index] && submitted}' class='form-control surveys' type='number' min='0' ng-model='answers[$parent.$parent.$index][$index]'>{{option.text}}
+    </span>
+  </label>
+</div>

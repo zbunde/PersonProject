@@ -1,0 +1,3 @@
+<p ng-class='{empty:!answers[$parent.$index] && submitted}'>{{item.title}}
+<input class="form-control surveys" type='text' ng-model='answers[$parent.$index]' value='{{$index+1}}'>
+</p>

@@ -1,0 +1,87 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Adult Consent Form</h4>
+      </div>
+      <div class="modal-body">
+        <h5>TITLE OF RESEARCH: [Insert study title]</h5>
+        <h5>PRINCIPAL INVESTIGATOR: [Insert Principal Investigator’s name]</h5>
+        <h5>PRINCIPAL INVESTIGATOR’S DEPARTMENT: [Insert Principal Investigator’s Department]</h5>
+        <p>
+          You are being invited to take part in a research study. Before you decide to participate in this study, it is important that you understand why the research is being done and what it will involve. Please take the time to read the following information carefully. Please ask the researcher if there is anything that is not clear or if you need more information.
+        </p>
+        <div>
+          <h5>Purpose of the research:</h5>
+          <p>
+          [Provide a brief, usually one-paragraph, explanation of what the research is about and state why the subject is being asked to participate (e.g., inclusion/exclusion criteria).]
+          <p>
+        </div>
+        <div>
+          <h5>Study Procedures:</h5>
+          <p>
+          [Describe all study procedures, including an identification of those that are experimental]
+          <p>
+            <p>
+              Your total expected time commitment for this study is: [Insert total time commitment]
+            </p>
+        </div>
+        <div>
+          <h5>Benifit and Risk</h5>
+          <p>
+            [Describe any possible benefit to the participants or others that may reasonably be expected from the research; then describe any reasonably foreseeable risks or discomforts to the participants, or state “there are no foreseeable risks,” if none are identified.]
+          </p>
+        </div>
+        <div>
+          <h5>Confidentiality</h5>
+          <p>
+            [Use the sample below to describe the extent to which confidentiality of records identifying the participants will be maintained; state whether their information will remain either anonymous or confidential and who will have access. If tape recordings or videotapes are made, explain who will have access, and when they will be erased. Note: Participant identifying information will be anonymous only if there is no link to their responses and it is not possible at any point to identify the participant.]
+          </p>
+          <p>
+            All records from this study will be kept confidential. Your responses will be kept private, and we will not include any information that will make it possible to identify you in any report we might publish. Research records will be stored securely in a locked cabinet and/or on password-protected computers. The research team will be the only party that will have access to your data.
+          </p>
+        </div>
+        <div>
+          <h5>Compensation</h5>
+          <p>
+            [Specify whether participants will be compensated and if so, the amount. If amount will be prorated for any reason, state this.]
+          </p>
+        </div>
+        <div>
+          <h5>Who to contact with questions:</h5>
+          PRINCIPAL INVESTIGATOR: [Insert contact information for Principal Investigator(s) here]
+        </div>
+        <div>
+          If you have questions regarding your rights as a research subject, or if problems arise which you do not feel you can discuss with the Investigator, please contact the Institutional Review Board at:
+
+          Office of Research Integrity and Assurance<br>
+          Human Research Protection Program<br>
+          Assistant Director<br>
+          Phone: (609) 258-0865<br>
+          Email: irb@princeton.edu
+        </div>
+        <div>
+          <p>
+            I understand the information that was presented and that:
+          </p>
+          <p>
+            A.	My participation is voluntary, and I may withdraw my consent and discontinue participation in the project at any time.  My refusal to participate will not result in any penalty.
+          </p>
+          <p>
+            B.	I do not waive any legal rights or release Princeton University, its agents, or you from liability for negligence.
+          </p>
+          <p class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="consent"> I hereby give my consent to be the subject of your research.
+            </label>
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button ng-click="submitConsentForm()" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>

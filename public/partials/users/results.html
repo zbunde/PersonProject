@@ -1,0 +1,17 @@
+<h3>Results</h3>
+<span ng-show='demographicsComplete'>
+  Score: {{score}}
+</span>
+<div ng-hide='demographicsComplete'>
+
+  <div class="list-group-item survey-info well">
+    <h3>{{survey.name}}</h3>
+    <p>
+      {{survey.description}}
+    </p>
+    <p>
+      Estimated time to complete: {{survey.estimated_time_to_complete}} minutes
+    </p>
+  </div>
+  <div ng-include="'/partials/survey_items/includes/free_form_template.html'"></div>
+</div>

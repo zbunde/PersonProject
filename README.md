@@ -3,6 +3,8 @@
 ```
 npm install knex -g
 npm install nodemon -g
+npm install bower -g
+bower install
 createdb princeton-users-development
 createdb princeton-surveys-development
 cp .env{.example,}
