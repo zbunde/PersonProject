@@ -156,6 +156,14 @@ var surveys = [
       status: "in_design"
     }
 ]
-surveys.forEach(function (survey) {
-  new Survey(survey).save()
-})
+;
+
+Promise.all(surveys.map(function (survey) {
+  return new Survey(survey).save();
+})).then(function() {
+  console.log("Surveys seeded");
+  process.exit();
+}, function() {
+  console.log("ERROR: Surveys did not seed");
+  process.exit(1);
+});
