@@ -1,3 +1,3 @@
-app.controller('AdminController', function ($scope) {
+app.controller('AdminController', ["$scope", function ($scope) {
 
-})
+}]);

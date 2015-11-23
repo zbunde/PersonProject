@@ -1,4 +1,6 @@
-app.factory('SurveysService', function ($http) {
+app.factory('SurveysService', ["$http",
+  function ($http) {
+  
   var url = '/api/v1';
   return {
     all: function () {
@@ -21,5 +23,5 @@ app.factory('SurveysService', function ($http) {
     requestSurvey: function (survey) {
       this.survey = survey;
     }
-  }
-})
+  };
+}]);

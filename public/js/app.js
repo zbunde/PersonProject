@@ -1,6 +1,8 @@
 var app = angular.module('person-project', ['ui.router', 'ngCookies', 'angularModalService', 'formly', 'formlyBootstrap', 'angularUtils.directives.dirPagination']);
 
-app.config(function ($stateProvider, $urlRouterProvider) {
+app.config(["$stateProvider", "$urlRouterProvider",
+  function($stateProvider, $urlRouterProvider) {
+  
   $urlRouterProvider.otherwise('/');
   $stateProvider
     .state('home', {
@@ -90,4 +92,4 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       templateUrl: '/partials/welcome/terms.html',
       controller: 'UsersController'
     })
-})
+}]);

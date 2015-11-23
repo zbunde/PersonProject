@@ -1,4 +1,6 @@
-app.controller('SurveyItemController', function ($scope, $state, $location, SurveyItemsService, $stateParams) {
+app.controller('SurveyItemController', ["$scope",  $state, $location, SurveyItemsService, "$stateParams",
+  function ($scope, $state, $location, SurveyItemsService, $stateParams) {
+  
   $scope.shuffle = SurveyItemsService.shuffle;
   $scope.submitted=false;
   $scope.submitAnyway = false;
@@ -20,7 +22,7 @@ app.controller('SurveyItemController', function ($scope, $state, $location, Surv
       $scope.subQuestions = SurveyItemsService.shuffle(response[0].sub_questions);
       $scope.table = true;
     }
-  })
+  });
 
   $scope.submitSurvey = function () {
     if(SurveyItemsService.hasUnansweredQuestions($scope.answers, $scope.totalQuestions) && !$scope.submitAnyway){
@@ -31,5 +33,6 @@ app.controller('SurveyItemController', function ($scope, $state, $location, Surv
       var path = 'users/' + $stateParams.id + '/results/' + $scope.score
       $location.path(path);
     }
-  }
-})
+  };
+
+}]);

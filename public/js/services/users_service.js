@@ -1,4 +1,6 @@
-app.factory('UsersService', function($http, $cookies) {
+app.factory('UsersService', ["$http", "$cookies",
+  function($http, $cookies) {
+  
   var users;
   return {
     create: function(attrs) {
@@ -32,5 +34,5 @@ app.factory('UsersService', function($http, $cookies) {
         return response.status === 200 ? true : false;
       })
     }
-  }
-})
+  };
+}]);

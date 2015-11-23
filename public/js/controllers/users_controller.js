@@ -1,4 +1,6 @@
-app.controller('UsersController', function ($scope, UsersService, $location, $cookies, SessionService, $stateParams) {
+app.controller('UsersController', ["$scope", "UsersService", "$location", "$cookies", "SessionService", "$stateParams", 
+  function ($scope, UsersService, $location, $cookies, SessionService, $stateParams) {
+
   $scope.loggedInUser = SessionService;
   UsersService.all().then(function (users) {
     $scope.users = users;
@@ -69,4 +71,4 @@ app.controller('UsersController', function ($scope, UsersService, $location, $co
       return response ? $location.path(success_url) : $location.path(fail_url)
     })
   }
-})
+}]);

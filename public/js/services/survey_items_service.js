@@ -1,4 +1,6 @@
-app.factory('SurveyItemsService', function ($http) {
+app.factory('SurveyItemsService', ["$http",
+  function ($http) {
+  
   var url = '/api/v1';
   return {
     find: function(id){
@@ -68,6 +70,6 @@ app.factory('SurveyItemsService', function ($http) {
       if(emptyQuestions || emptySubQuestions > 0){
         return true;
       }
-     }
-  }
-})
+    }
+  };
+}]);

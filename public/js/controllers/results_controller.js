@@ -1,5 +1,5 @@
-app.controller('ResultsController', function ($scope, $stateParams, SurveysService,
-SurveyItemsService) {
+app.controller('ResultsController', ["$scope", "$stateParams", "SurveysService", "SurveyItemsService",
+  function ($scope, $stateParams, SurveysService, SurveyItemsService) {
   $scope.score = $stateParams.score;
   $scope.answers = [];
 
@@ -18,4 +18,4 @@ SurveyItemsService) {
   $scope.submitSurvey = function () {
     $scope.demographicsComplete = true;
   }
-})
+}]);
