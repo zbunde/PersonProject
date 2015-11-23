@@ -1,4 +1,6 @@
 var SurveyItem = require('../../models/survey_item');
+var Survey = require('../../models/survey');
+var saveSurveyItems = require('../../lib/save_survey_items');
 
 var options_1 = JSON.stringify([
   {
@@ -119,69 +121,73 @@ var subQuestions_6 = JSON.stringify([]);
 
 var title_6 = "Which of the following best describes your family's socioeconomic status?";
 
-var survey_items =  [
-  {
-  survey_id: 45,
-  strategy: "n/a",
-  item_type: "multiple_choice",
-  title: title_1,
-  layout: "free_form",
-  position: 1,
-  options: options_1,
-  sub_questions: subQuestions_1
-  },
-  {
-  survey_id: 45,
-  strategy: "n/a",
-  item_type: "numeric_input",
-  title: title_2,
-  layout: "free_form",
-  position: 2,
-  options: options_2,
-  sub_questions: subQuestions_2
-  },
-  {
-  survey_id: 45,
-  strategy: "n/a",
-  item_type: "multiple_choice",
-  title: title_3,
-  layout: "free_form",
-  position: 3,
-  options: options_3,
-  sub_questions: subQuestions_3
-  },
-  {
-  survey_id: 45,
-  strategy: "n/a",
-  item_type: "text_input",
-  title: title_4,
-  layout: "free_form",
-  position: 4,
-  options: options_4,
-  sub_questions: subQuestions_4
-  },
-  {
-  survey_id: 45,
-  strategy: "n/a",
-  item_type: "numeric_input",
-  title: title_5,
-  layout: "free_form",
-  position: 5,
-  options: options_5,
-  sub_questions: subQuestions_5
-  },
-  {
-  survey_id: 45,
-  strategy: "n/a",
-  item_type: "multiple_choice",
-  title: title_6,
-  layout: "free_form",
-  position: 6,
-  options: options_6,
-  sub_questions: subQuestions_6
-  }
-]
 
-survey_items.forEach(function (item) {
-  new SurveyItem(item).save();
-})
+var survey_items = [];
+new Survey({name: "Demographics"}).fetch()
+  .then(function(model) {
+  var id = model.get('id');
+  survey_items = [
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "multiple_choice",
+      title: title_1,
+      layout: "free_form",
+      position: 1,
+      options: options_1,
+      sub_questions: subQuestions_1
+    },
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "numeric_input",
+      title: title_2,
+      layout: "free_form",
+      position: 2,
+      options: options_2,
+      sub_questions: subQuestions_2
+    },
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "multiple_choice",
+      title: title_3,
+      layout: "free_form",
+      position: 3,
+      options: options_3,
+      sub_questions: subQuestions_3
+    },
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "text_input",
+      title: title_4,
+      layout: "free_form",
+      position: 4,
+      options: options_4,
+      sub_questions: subQuestions_4
+    },
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "numeric_input",
+      title: title_5,
+      layout: "free_form",
+      position: 5,
+      options: options_5,
+      sub_questions: subQuestions_5
+    },
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "multiple_choice",
+      title: title_6,
+      layout: "free_form",
+      position: 6,
+      options: options_6,
+      sub_questions: subQuestions_6
+    }
+  ];
+}).then(function() {
+  saveSurveyItems(survey_items);
+});
