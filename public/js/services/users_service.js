@@ -4,7 +4,7 @@ app.factory('UsersService', ["$http", "$cookies",
   var users;
   return {
     create: function(attrs) {
-      return $http.post('/api/v1/users/signup', attrs).then(function (response) {
+      return $http.post('/api/v1/users', attrs).then(function (response) {
         return response.data;
       });
     },
