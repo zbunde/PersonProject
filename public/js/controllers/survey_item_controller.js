@@ -1,4 +1,4 @@
-app.controller('SurveyItemController', ["$scope",  $state, $location, SurveyItemsService, "$stateParams",
+app.controller('SurveyItemController', ["$scope",  "$state", "$location", "SurveyItemsService", "$stateParams",
   function ($scope, $state, $location, SurveyItemsService, $stateParams) {
   
   $scope.shuffle = SurveyItemsService.shuffle;
