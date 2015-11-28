@@ -5,7 +5,13 @@ var validate = require('../lib/user_validation');
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
-
+  function userToJSON(user) {
+    return {
+      id: user.attributes.id,
+      username: user.attributes.username,
+      admin: user.attributes.admin,
+    }
+  }
   // used to serialize the user for the session
   passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -15,7 +21,7 @@ module.exports = function(passport) {
   passport.deserializeUser(function(id, done) {
     new User({id: id}).fetch().then(function(user) {
       if (user) {
-        done(null, user.attributes);
+        done(null, userToJSON(user));
       } else {
         done(null, false);
       }

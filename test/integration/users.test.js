@@ -16,31 +16,60 @@ function truncateAll(knex) {
 describe("/api/v1/users", function () {
 
   var authSessionRegex = new RegExp('^person.session=.*; path=/;.*httponly.*');
-  var successfulLoginKeyWhitelist = {success:true};
+  var successfulLoginKeyWhitelist = {id: true, admin:true, username: true};
+
   beforeEach(function () {
     return Promise.all([
       truncateAll(dbConfig.users.knex),
       truncateAll(dbConfig.surveys.knex)
     ])
   })
-
-  describe("GET /", function () {
-    it("shows users", function (done) {
-      new User({username: 'cat', hashed_pass: 'pass'})
-        .save()
-        .then(function (user) {
-          request.get('/api/v1/users')
-            .expect(200)
-            .end(function (err, res) {
-              if (err) return done(err);
-              expect(res.body.length).to.equal(1)
-              expect(res.body[0]).to.have.property('id')
-              expect(res.body[0]).to.not.have.property('hashed_pass')
-              expect(res.body[0].username).to.equal("cat")
-              expect(res.body[0].admin).to.equal(false)
-              done()
-            })
+  describe("Authenticated requests", function() {
+    var authCookies;
+    beforeEach(function(done) {
+      request.post('/api/v1/users')
+        .send({username: 't@testing.com', password: 'password123'})
+        .expect(200)
+        .end(function (err, res) {
+          if (err) return done(err);
+          authCookies = res.headers['set-cookie'].map(function(cookie) {
+            return cookie.split(';')[0];
+          }).join(';');
+          done();
         });
+    });
+
+    describe("GET /", function () {
+
+      it("shows logged in user's info", function (done) {
+        request.get('/api/v1/users/me')
+          .set('Cookie', authCookies)
+          .expect(200)
+          .end(function(err, res) {
+            if (err) return done(err);
+            done();
+          });
+      });
+
+      it("fails without authentication credentials", function(done) {
+        request.get('/api/v1/users/me')
+          .expect(401)
+          .end(function(err, res) {
+            if (err) return done(err);
+            done();
+          })
+      });
+
+      it("fails without signature cookie", function(done) {
+        var cookie = authCookies.split(';')[0] + ';'
+        request.get('/api/v1/users/me')
+          .set('Cookie', cookie)
+          .expect(401)
+          .end(function(err, res) {
+            if (err) return done(err);
+            done();
+          })
+      });
     });
   });
 
@@ -58,7 +87,7 @@ describe("/api/v1/users", function () {
           new User({username: 'testing@testing.com'}).fetch().then(function(user) {
             expect(user).to.exist;
             expect(user.get('username')).to.exist;
-            expect(user.get('username')).to.equal('testing@testing.com');
+            expect(user.get('username')).to.equal(userData.username);
             expect(user.get('hashed_pass')).to.exist;
             expect(user.get('hashed_pass')) .to.not.equal('password');
             expect(user.get('admin')).to.exist;
@@ -81,6 +110,12 @@ describe("/api/v1/users", function () {
           for (key in res.body) {
             expect(successfulLoginKeyWhitelist[key]).to.exist;
           }
+          expect(res.body.admin).to.exist;
+          expect(res.body.admin).to.be.a('boolean');
+          expect(res.body.admin).to.be.false;
+
+          expect(res.body.username).to.exist;
+          expect(res.body.username).to.equal(userData.username);
           done();
       });
     });
@@ -157,6 +192,13 @@ describe("/api/v1/users", function () {
           for (key in res.body) {
             expect(successfulLoginKeyWhitelist[key]).to.exist;
           }
+
+          expect(res.body.admin).to.exist;
+          expect(res.body.admin).to.be.a('boolean');
+          expect(res.body.admin).to.be.false;
+
+          expect(res.body.username).to.exist;
+          expect(res.body.username).to.equal(userData.username);
           done();
         });
     });
