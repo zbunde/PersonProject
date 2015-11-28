@@ -4,7 +4,6 @@
 npm install knex -g
 npm install nodemon -g
 npm install bower -g
-bower install
 createdb princeton-users-development
 createdb princeton-surveys-development
 cp .env{.example,}
@@ -68,8 +67,20 @@ To prepare the test database, run:
 node db/prepare.js
 ```
 
-To run tests, run:
+To run server tests, run:
 
 ```
 npm test
+```
+
+To run integration tests, first run the server:
+
+```
+npm start
+```
+
+Then run protractor:
+
+```
+npm run protractor
 ```

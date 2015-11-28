@@ -46,18 +46,18 @@ app.use('/api/v1/users', usersAPI);
 app.use('/api/v1/surveys', surveysAPI);
 app.use('/api/v1/survey-items', surveyItemsAPI);
 
+app.use('/api/*', function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
 // send all routes to index.html and let angular handle the routing
 app.use('*', function (req, res, next) {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
 // error handlers
 
 // development error handler

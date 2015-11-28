@@ -1,8 +1,10 @@
 var app = angular.module('person-project', ['ui.router', 'ngCookies', 'angularModalService', 'formly', 'formlyBootstrap', 'angularUtils.directives.dirPagination']);
 
-app.config(["$stateProvider", "$urlRouterProvider",
-  function($stateProvider, $urlRouterProvider) {
-  
+app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider",
+  function($stateProvider, $urlRouterProvider, $locationProvider) {
+
+  $locationProvider.html5Mode(true);
+
   $urlRouterProvider.otherwise('/');
   $stateProvider
     .state('home', {

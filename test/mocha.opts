@@ -1,2 +1,3 @@
+test/server-test
 --require test/helper
 --recursive

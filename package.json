@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/mocha",
+    "postinstall": "bower install",
+    "update-webdriver": "webdriver-manager update",
+    "preprotractor": "npm run update-webdriver",
+    "protractor": "./node_modules/.bin/protractor test/protractor-conf.js"
   },
   "dependencies": {
     "bcryptjs": "^2.2.0",
@@ -38,6 +42,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.4.2",
     "mocha": "^2.3.3",
+    "protractor": "^3.0.0",
     "supertest": "^1.1.0",
     "supertest-session": "^2.0.0"
   }

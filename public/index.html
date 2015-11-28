@@ -28,7 +28,7 @@
             <button type="submit" class="btn btn-primary" ng-click="signin()">Sign In</button>
           </form>
           <ul class="nav navbar-nav navbar-right">
-            <li ng-hide="loggedInUser.currentUser"><a href="#/signup"><i class="fa fa-user"></i> Signup</a></li>
+            <li ng-hide="loggedInUser.currentUser"><a id="signuplink" href="#/signup"><i class="fa fa-user"></i> Signup</a></li>
             <li ng-show="loggedInUser.currentUser" ng-click="logout()"><a href="#"><i class="fa fa-user"></i> Log Out</a></li>
           </ul>
         </div>
