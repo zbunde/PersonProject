@@ -1,13 +1,49 @@
-app.factory('SessionService', ["$cookies",
-  function ($cookies) {
-  
+app.service("AuthInterceptor", ['$location', '$q', 'LocalAuthService',
+  function($location,$q, LocalAuthService){
+    return {
+      responseError: function(err){
+        if(err.status === 401) {
+          LocalAuthService.clearCredentials();
+        }
+        return $q.reject(err);
+      }
+    };
+}]);
+
+app.factory('LocalAuthService', function() {
+  var user;
+
+  var isAuthenticated = function() {
+      return user && user.id !== undefined && user.username && user.admin !== undefined;
+  };
   return {
-    set: function(id){
-      $cookies.put('session_id', id);
-      this.currentUser = id;
+    isAuthenticated: isAuthenticated,
+    setUserInfo: function(userInfo) {
+      if (userInfo && userInfo.username && userInfo.admin) {
+        user = userInfo;
+        if (userInfo.facebook_user_info && userInfo.facebook_user_info.displayName) {
+          user.username = user.displayName;
+        } else if (userInfo.facebook_user_info && userInfo.facebook_user_info.givenName) {
+          user.username = user.facebook_user_info.givenName;
+        }
+      }
+    },
+    clearCredentials: function() {
+      user = undefined;
+    },
+    isAdmin: function() {
+      return isAuthenticated() && user.admin;
+    },
+    userId: function() {
+      if (isAuthenticated()) {
+        return user.id;
+      }
+
+      // If the user is not authneticated, there is no id
+      return undefined;
     }
   };
-}]);
+});
 
 app.factory('SurveyItemsService', ["$http",
   function ($http) {
@@ -113,23 +149,26 @@ app.factory('SurveysService', ["$http",
   };
 }]);
 
-app.factory('UsersService', ["$http", "$cookies",
-  function($http, $cookies) {
+app.factory('UsersService', ["$http", "LocalAuthService",
+  function($http, LocalAuthService) {
   
   var users;
   return {
     create: function(attrs) {
       return $http.post('/api/v1/users', attrs).then(function (response) {
+        LocalAuthService.setUserInfo(response.data);
         return response.data;
       });
     },
-    all: function () {
-      return $http.get('/api/v1/users').then(function (response) {
-       return response.data
-      })
+    verifyLogin: function() {
+      return $http.get('/api/v1/users/me').then(function(response) {
+        LocalAuthService.setUserInfo(response.data);
+        return response.data;
+      });
     },
     signin: function (user) {
       return $http.post('/api/v1/users/signin', user ).then(function (response) {
+        LocalAuthService.setUserInfo(response.data);
         return response.data;
       });
     },
@@ -143,7 +182,15 @@ app.factory('UsersService', ["$http", "$cookies",
         return response
       })
     },
-
+    logout: function() {
+      return $http.delete('/api/v1/users/session').then(function(response) {
+        LocalAuthService.clearCredentials();
+        return response.data;
+      }).catch(function(error) {
+        LocalAuthService.clearCredentials();
+        return error;
+      })
+    },
     destroy: function (user) {
       return $http.delete('/api/v1/users/' + user).then(function (response) {
         return response.status === 200 ? true : false;

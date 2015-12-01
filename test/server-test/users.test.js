@@ -71,6 +71,47 @@ describe("/api/v1/users", function () {
           })
       });
     });
+
+    describe("DELETE /session", function() {
+      it("does not allow an unauthenticated user to delete a session", function(done) {
+        request.delete('/api/v1/users/session')
+          .expect(401)
+          .end(function(err, res) {
+            if (err) return done(err);
+            done();
+          });
+      });
+
+      it("deletes the session of an authenticated user", function(done) {
+        request.delete('/api/v1/users/session')
+          .set('Cookie', authCookies)
+          .expect(200)
+          .end(function(err, res) {
+            if (err) return done(err);
+            done();
+          });
+      });
+
+      it("a new non authenticated session is set after logout", function(done) {
+        request.delete('/api/v1/users/session')
+          .set('Cookie', authCookies)
+          .expect(200)
+          .end(function(err, res) {
+            if (err) return done(err);
+            expect(res.headers['set-cookie']).to.exist;
+            var newSessionCookies = res.headers['set-cookie'].map(function(cookie) {
+              return cookie.split(';')[0];
+            }).join(';');
+            request.delete('/api/v1/users/session')
+              .set('Cookie', newSessionCookies )
+              .expect(401)
+              .end(function(err, res) {
+                if (err) return done(err);
+                done();
+              })
+          });
+      });
+    });
   });
 
   describe("POST /", function() {

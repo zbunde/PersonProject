@@ -2,8 +2,9 @@ app.controller('AdminController', ["$scope", function ($scope) {
 
 }]);
 
-app.controller('ApplicationController', ["$scope", "$location", "$cookies", "SessionService", function ($scope, $location, $cookies, SessionService) {
-    $scope.session = SessionService;
+// TODO: Can this be removed?
+app.controller('ApplicationController', ["$scope", "$location", "$cookies",
+  function ($scope, $location, $cookies) {
 }]);
 
 app.controller('ResultsController', ["$scope", "$stateParams", "SurveysService", "SurveyItemsService",
@@ -28,8 +29,8 @@ app.controller('ResultsController', ["$scope", "$stateParams", "SurveysService",
   }
 }]);
 
-app.controller('SurveyController', ["$scope", "$stateParams", "$location", "$state", "ModalService", "SurveysService", "SurveyItemsService", "SessionService",
-  function ($scope, $stateParams, $location, $state, ModalService, SurveysService, SurveyItemsService, SessionService) {
+app.controller('SurveyController', ["$scope", "$stateParams", "$location", "$state", "ModalService", "SurveysService", "SurveyItemsService", "LocalAuthService",
+  function ($scope, $stateParams, $location, $state, ModalService, SurveysService, SurveyItemsService, LocalAuthService) {
 
   if ($stateParams.survey_id) {
     SurveysService.find($stateParams.survey_id).then(function (response) {
@@ -51,9 +52,9 @@ app.controller('SurveyController', ["$scope", "$stateParams", "$location", "$sta
 
   $scope.submitConsentForm = function () {
     var survey = SurveysService.survey;
-    if($scope.consent && SessionService.currentUser){
-      $location.path('/users/' + SessionService.currentUser + '/surveys/' + survey.id);
-    } else if($scope.consent && !SessionService.currentUser) {
+    if($scope.consent && LocalAuthService.isAuthenticated()){
+      $location.path('/users/' + LocalAuthService.userId() + '/surveys/' + survey.id);
+    } else if($scope.consent) {
       $location.path('/users/00/surveys/' + survey.id );
     }
   }
@@ -177,27 +178,29 @@ app.controller('SurveyItemController', ["$scope",  "$state", "$location", "Surve
 
 }]);
 
-app.controller('SurveysController', ["$scope", "$state", "SurveysService", "SurveyItemsService", "ModalService", "$location", "SessionService",
-  function ($scope, $state, SurveysService, SurveyItemsService, ModalService, $location, SessionService) {
+app.controller('SurveysController', ["$scope", "$state", "SurveysService", "SurveyItemsService", "ModalService", "$location", "LocalAuthService",
+  function ($scope, $state, SurveysService, SurveyItemsService, ModalService, $location, LocalAuthService) {
 
   SurveysService.all().then(function (response) {
     $scope.surveys = SurveyItemsService.shuffle(response);
-  })
-  $scope.loggedInUser = SessionService;
+  });
+
+  $scope.userId = function() {
+    return LocalAuthService.userId();
+  }
+
   $scope.newSurvey = function () {
     $state.go('admin.new_survey');
   };
 }]);
   
-app.controller('UsersController', ["$scope", "UsersService", "$location", "$cookies", "SessionService", "$stateParams", 
-  function ($scope, UsersService, $location, $cookies, SessionService, $stateParams) {
+app.controller('UsersController', ["$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
+  function ($scope, UsersService, $location, LocalAuthService, $stateParams) {
 
-  $scope.loggedInUser = SessionService;
-  UsersService.all().then(function (users) {
-    $scope.users = users;
-  })
+  $scope.view = {loginInfo: {}};
 
   $scope.user = $stateParams.user_id
+
   $scope.signup = function() {
     UsersService.create($scope.newUser).then(function(response) {
       if (response.error) {
@@ -205,35 +208,32 @@ app.controller('UsersController', ["$scope", "UsersService", "$location", "$cook
         $scope.newUser = {};
         $location.path('/signup');
       } else {
-        SessionService.set(response.id);
         $location.path('/users/' + response.id + '/surveys');
       }
     });
-  }
+  };
 
   $scope.logout = function () {
-    $cookies.remove('session_id');
-    SessionService.currentUser = null;
-    $location.path("/");
-  }
+    UsersService.logout().finally(function() {
+      $location.path("/");
+    });
+  };
 
   $scope.signin = function () {
-    UsersService.signin($scope.session).then(function (response) {
-      if(response.error){
-        $scope.session.password = "";
+    UsersService.signin($scope.view.loginInfo).then(function (response) {
+      if(response.error || !LocalAuthService.isAuthenticated()){
+        $scope.view.loginInfo.password = "";
         $scope.errors = response.error;
       } else {
-        SessionService.set(response.id);
-        $scope.session = {};
-        if(response.admin){
-          SessionService.admin = true;
+        $scope.view.loginInfo = {};
+        if(LocalAuthService.isAdmin()){
           $location.path('/admin/' + response.id + '/surveys');
         } else {
           $location.path('/users/' + response.id + '/surveys');
         }
       }
     });
-  }
+  };
 
   $scope.newAdmin = function () {
     UsersService.createAdmin($scope.admin).then(function (response) {

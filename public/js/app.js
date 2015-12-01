@@ -1,9 +1,11 @@
 var app = angular.module('person-project', ['ui.router', 'ngCookies', 'angularModalService', 'formly', 'formlyBootstrap', 'angularUtils.directives.dirPagination']);
 
-app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider",
-  function($stateProvider, $urlRouterProvider, $locationProvider) {
+app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpProvider",
+  function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
   $locationProvider.html5Mode(true);
+
+  $httpProvider.interceptors.push("AuthInterceptor");
 
   $urlRouterProvider.otherwise('/');
   $stateProvider
@@ -94,4 +96,18 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider",
       templateUrl: '/partials/welcome/terms.html',
       controller: 'UsersController'
     })
+}]);
+
+app.run(["UsersService", "$rootScope", "LocalAuthService",
+  function(UsersService, $rootScope, LocalAuthService) {
+  UsersService.verifyLogin();
+
+  $rootScope.rAuth = {};
+  $rootScope.rAuth.isAuthenticated = function() {
+    return LocalAuthService.isAuthenticated();
+  };
+
+  $rootScope.rAuth.isAdmin = function() {
+    return LocalAuthService.isAdmin();
+  };
 }]);

@@ -42,7 +42,8 @@ var usersApi = function(passport) {
   });
 
   router.delete('/session', auth.ensureLoggedIn, function(req, res, next) {
-
+    req.logout();
+    return res.json({success: "Logged out"});
   });
 
   router.delete('/me', auth.ensureLoggedIn, function (req, res, next) {

@@ -10,10 +10,10 @@ var facebookApi = function(passport) {
 
   router.get('/', passport.authenticate('facebook', { scope : 'public_profile,email' }));
 
-      // handle the callback after facebook has authenticated the user
+  // handle the callback after facebook has authenticated the user
   router.get('/callback',
           passport.authenticate('facebook', {
-              successRedirect : '/api/v1/users/me',
+              successRedirect : '/',
               failureRedirect : '/api/v1/auth/facebook/failure'
           })
   );
