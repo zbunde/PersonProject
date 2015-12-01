@@ -14,7 +14,7 @@ app.factory('LocalAuthService', function() {
   var user;
 
   var isAuthenticated = function() {
-      return user && user.id !== undefined && user.username && user.admin !== undefined;
+    return (user !== undefined && user.id !== undefined && user.username && user.admin !== undefined);
   };
   return {
     isAuthenticated: isAuthenticated,
@@ -32,7 +32,7 @@ app.factory('LocalAuthService', function() {
       user = undefined;
     },
     isAdmin: function() {
-      return isAuthenticated() && user.admin;
+      return (isAuthenticated() && user.admin);
     },
     userId: function() {
       if (isAuthenticated()) {

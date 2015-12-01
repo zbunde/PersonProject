@@ -2,11 +2,6 @@ app.controller('AdminController', ["$scope", function ($scope) {
 
 }]);
 
-// TODO: Can this be removed?
-app.controller('ApplicationController', ["$scope", "$location", "$cookies",
-  function ($scope, $location, $cookies) {
-}]);
-
 app.controller('ResultsController', ["$scope", "$stateParams", "SurveysService", "SurveyItemsService",
   function ($scope, $stateParams, SurveysService, SurveyItemsService) {
   $scope.score = $stateParams.score;
@@ -221,17 +216,20 @@ app.controller('UsersController', ["$scope", "UsersService", "$location", "Local
 
   $scope.signin = function () {
     UsersService.signin($scope.view.loginInfo).then(function (response) {
-      if(response.error || !LocalAuthService.isAuthenticated()){
-        $scope.view.loginInfo.password = "";
-        $scope.errors = response.error;
-      } else {
+      if(LocalAuthService.isAuthenticated()){
         $scope.view.loginInfo = {};
         if(LocalAuthService.isAdmin()){
           $location.path('/admin/' + response.id + '/surveys');
         } else {
           $location.path('/users/' + response.id + '/surveys');
         }
+      } else {
+        throw new Error("Login Failed");
       }
+    }).catch(function(error) {
+      LocalAuthService.clearCredentials();
+      $scope.view.loginInfo.password = "";
+      $scope.errors = error.statusText || error.message || "Login Failed";
     });
   };
 
