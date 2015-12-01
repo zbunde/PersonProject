@@ -21,6 +21,7 @@ app.set('bookshelf', bookshelf);
 
 
 var usersAPI = require('./routes/api/v1/users')(passport);
+var facebookAPI = require('./routes/api/v1/auth/facebook')(passport);
 var surveysAPI = require('./routes/api/v1/surveys');
 var surveyItemsAPI = require('./routes/api/v1/survey_items');
 
@@ -43,6 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/api/v1/users', usersAPI);
+app.use('/api/v1/auth/facebook', facebookAPI);
 app.use('/api/v1/surveys', surveysAPI);
 app.use('/api/v1/survey-items', surveyItemsAPI);
 
