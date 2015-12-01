@@ -169,7 +169,7 @@ Promise.all([
       sub_questions: subQuestions_1
     });
   }),
-  new Survey({name: "Narcissism"}).fetch().then(function(model) {
+  new Survey({name: "Need For Closure"}).fetch().then(function(model) {
     survey_items.push({
       survey_id: model.get('id'),
       strategy: "n/a",
@@ -183,6 +183,6 @@ Promise.all([
   })
 ]).then(function() {
   saveSurveyItems(survey_items);
+}).catch(function(data) {
+  console.log("There was an error", data);
 });
-//
-

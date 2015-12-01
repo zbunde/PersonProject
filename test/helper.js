@@ -1,3 +1,5 @@
 'use strict'
 process.env.NODE_ENV = 'test'
-global.expect = require('chai').expect
+var chai = require('chai');
+global.expect = chai.expect;
+global.should = chai.should();

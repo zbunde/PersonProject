@@ -149,14 +149,20 @@ var surveys = [
     status: "in_design"
   },
   {
-      name: "Determining Causality",
-      description: "In this part of the survey you will read a few scenarios. Then, based on each question, you will select a reason for the outcome of the scenario.",
-      version: 1,
-      estimated_time_to_complete: 20,
-      status: "in_design"
-    }
-]
-;
+    name: "Determining Causality",
+    description: "In this part of the survey you will read a few scenarios. Then, based on each question, you will select a reason for the outcome of the scenario.",
+    version: 1,
+    estimated_time_to_complete: 20,
+    status: "in_design"
+  },
+  {
+    name: "Need For Closure",
+    description: "In this section, please read each of the following statements and decide how much you agree with each  according to your beliefs and experiences. Please respond according to the scale provided.",
+    version: 1,
+    estimated_time_to_complete: 10,
+    status: "in_design"
+  }
+];
 
 Promise.all(surveys.map(function (survey) {
   return new Survey(survey).save();

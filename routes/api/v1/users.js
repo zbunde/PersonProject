@@ -4,65 +4,55 @@ var db = require('../../../lib/users');
 var validate = require('../../../lib/user_validation');
 var createUser = require('../../../lib/create_user');
 var createAdmin = require('../../../lib/create_admin');
+var auth = require('../../../middleware/auth/index');
 
-function toJSON(user) {
-  return {
-    id: user.attributes.id,
-    username: user.attributes.username,
-    admin: user.attributes.admin,
-  }
-}
+var usersApi = function(passport) {
 
-router.get('/', function (req, res, next) {
-  db.getUsers().then(function(users) {
-    res.json(users.models.map(toJSON));
-  })
-});
-
-router.post('/signup', function (req, res, next) {
-  validate.userExists(req.body.username).then(function (result) {
-    if(!result) {
-      createUser(req.body.username, req.body.password).then(function (user) {
-        res.json(toJSON(user));
-        })
-    } else {
-      res.json({error: "Invalid username / password"});
-    }
+  router.post('/signin', function (req, res, next) {
+    passport.authenticate('local-signin', function(err, user, info) {
+      if (err || !user) return res.status(401).json( {error: "Invalid login"} );
+      req.login(user, function(err) {
+        if (err) return next(err);
+        return res.json({id: user.id,
+                         admin: user.admin === true ? true : false,
+                         username: user.username}
+          );
+      });
+    })(req, res, next);
   });
-})
 
-router.post('/signin', function (req, res, next) {
-  validate.userExists(req.body.username).then(function (result) {
-    if(result && validate.checkPassword(req.body.password, result.attributes)){
-      res.json(result.attributes);
-    } else {
-      res.json({ error: "Invalid username / passsword"})
-    }
+  // TODO: Add a create admin user api that verifies that
+  // the user who is creating an admin is an admin
+
+  router.post('/', function(req, res, next) {
+    passport.authenticate('local-signup', function(err, user, info) {
+      if (err || !user) return res.status(401).json( {error: "Invalid login"} );
+      req.login(user, function(err) {
+        if (err) return next(err);
+        return res.json({id: user.id,
+                         admin: user.admin === true ? true : false,
+                         username: user.username}
+        );
+      });
+    })(req, res, next);
+  });
+
+  router.get('/me', auth.ensureLoggedIn, function(req, res, next) {
+    return res.json(req.user);
+  });
+
+  router.delete('/session', auth.ensureLoggedIn, function(req, res, next) {
+    req.logout();
+    return res.json({success: "Logged out"});
+  });
+
+  router.delete('/me', auth.ensureLoggedIn, function (req, res, next) {
+    db.remove(req.params.id).then(function (response) {
+      res.json(response)
+    })
   })
-});
 
-router.post('/', function (req, res, next) {
-  validate.userExists(req.body.username).then(function (result) {
-    if(!result){
-      createAdmin(req.body.username, req.body.password).then(function (user) {
-        res.json(toJSON(user));
-      })
-    } else {
-      res.json({ error: "Invalid username / password" });
-    }
-  })
-});
+  return router;
+};
 
-router.get('/:id', function(req, res, next) {
-  db.getUser(req.params.id).then(function (user) {
-    res.json(toJSON(user));
-  })
-})
-
-router.delete('/:id', function (req, res, next) {
-  db.remove(req.params.id).then(function (response) {
-    res.json(response)
-  })
-})
-
-module.exports = router;
+module.exports = usersApi;

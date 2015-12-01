@@ -1,4 +1,6 @@
 var SurveyItem = require('../../models/survey_item');
+var Survey = require('../../models/survey');
+var saveSurveyItems = require('../../lib/save_survey_items');
 
 var options_1 = JSON.stringify([]);
 
@@ -15,7 +17,6 @@ var subQuestions_2 = JSON.stringify([]);
 var title_2 = "About how many CLOSE friends and relatives do you have (people you feel at ease with and can talk to about what is on your mind)? Write in the number of close friends and close relatives:";
 
 // ------------------------------------------------
-
 var options_3 = JSON.stringify([
   {
     text: "1 - None of the time",
@@ -107,41 +108,43 @@ var subQuestions_3 = JSON.stringify([
 var title_3 = "People sometimes look to others for companionship, assistance, or other types of support. How often is each of the following kinds of support available to YOU if you need it?"
 
 // -------------------------------------
+var survey_items = [];
 
-
-var survey_items = [
-  {
-    survey_id: 33,
-    strategy: "n/a",
-    item_type: "numeric_input",
-    title: title_1,
-    layout: "free_form",
-    position: 1,
-    options: options_1,
-    sub_questions: subQuestions_1
-  },
-  {
-    survey_id: 33,
-    strategy: "n/a",
-    item_type: "numeric_input",
-    title: title_2,
-    layout: "free_form",
-    position: 2,
-    options: options_2,
-    sub_questions: subQuestions_2
-  },
-  {
-   survey_id: 33,
-   strategy: "n/a",
-   item_type: "multiple_choice",
-   title: title_3,
-   layout: "table",
-   position: 3,
-   options: options_3,
-   sub_questions: subQuestions_3
-  }
-]
-
-survey_items.forEach(function (item) {
-  new SurveyItem(item).save();
-})
+new Survey({name: "MOS Social Support"}).fetch()
+  .then(function(model) {
+  var id = model.get('id');
+  survey_items = [
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "numeric_input",
+      title: title_1,
+      layout: "free_form",
+      position: 1,
+      options: options_1,
+      sub_questions: subQuestions_1
+    },
+    {
+      survey_id: id,
+      strategy: "n/a",
+      item_type: "numeric_input",
+      title: title_2,
+      layout: "free_form",
+      position: 2,
+      options: options_2,
+      sub_questions: subQuestions_2
+    },
+    {
+     survey_id: id,
+     strategy: "n/a",
+     item_type: "multiple_choice",
+     title: title_3,
+     layout: "table",
+     position: 3,
+     options: options_3,
+     sub_questions: subQuestions_3
+    }
+  ];
+}).then(function() {
+  saveSurveyItems(survey_items);
+});

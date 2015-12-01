@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/mocha",
+    "postinstall": "bower install",
+    "update-webdriver": "webdriver-manager update",
+    "preprotractor": "npm run update-webdriver",
+    "protractor": "./node_modules/.bin/protractor test/protractor-conf.js"
   },
   "dependencies": {
     "bcryptjs": "^2.2.0",
@@ -22,8 +26,10 @@
     "knex": "^0.8.6",
     "lodash": "^3.10.0",
     "morgan": "~1.5.3",
+    "node-uuid": "^1.4.7",
     "passport": "^0.2.2",
     "passport-facebook": "^2.0.0",
+    "passport-local": "^1.0.0",
     "pg": "^4.4.0",
     "request": "^2.58.0",
     "serve-favicon": "~2.2.1",
@@ -31,7 +37,14 @@
   },
   "devDependencies": {
     "chai": "^3.3.0",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.4.2",
     "mocha": "^2.3.3",
-    "supertest": "^1.1.0"
+    "protractor": "^3.0.0",
+    "supertest": "^1.1.0",
+    "supertest-session": "^2.0.0"
   }
 }

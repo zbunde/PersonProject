@@ -13,23 +13,23 @@
     <nav class="navbar navbar-default" ng-controller="UsersController">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/#/"><i class="fa fa-users"></i> person | project</a>
+          <a class="navbar-brand" ng-href="/"><i class="fa fa-users"></i> person | project</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <form class="navbar-form navbar-right" ng-hide="loggedInUser.currentUser">
+          <form class="navbar-form navbar-right" ng-hide="rAuth.isAuthenticated()">
             <div class="form-group">
               <label class="sr-only" for="email">Username</label>
-              <input type="text" class="form-control" id="email" ng-model="session.username" placeholder="Username">
+              <input type="text" class="form-control" id="email" ng-model="view.loginInfo.username" placeholder="Username">
             </div>
             <div class="form-group">
              <label class="sr-only" for="password">Password</label>
-             <input type="password" class="form-control" id="password" ng-model="session.password" placeholder="Password">
+             <input type="password" class="form-control" id="password" ng-model="view.loginInfo.password" placeholder="Password">
            </div>
             <button type="submit" class="btn btn-primary" ng-click="signin()">Sign In</button>
           </form>
           <ul class="nav navbar-nav navbar-right">
-            <li ng-hide="loggedInUser.currentUser"><a href="#/signup"><i class="fa fa-user"></i> Signup</a></li>
-            <li ng-show="loggedInUser.currentUser" ng-click="logout()"><a href="#"><i class="fa fa-user"></i> Log Out</a></li>
+            <li ng-hide="rAuth.isAuthenticated()"><a id="signuplink" ng-href="/signup"><i class="fa fa-user"></i> Signup</a></li>
+            <li ng-show="rAuth.isAuthenticated()" ng-click="logout()"><a href="#"><i class="fa fa-user"></i> Log Out</a></li>
           </ul>
         </div>
       </div>
@@ -50,16 +50,7 @@
     </script>
     <script type="text/javascript" src="bower_components/angularUtils-pagination/dirPagination.js"></script>
     <script type="text/javascript" src="/js/app.js"></script>
-    <script type="text/javascript" src="/js/controllers/application_controller.js"></script>
-    <script type="text/javascript" src="/js/services/users_service.js"></script>
-    <script type="text/javascript" src="/js/services/surveys_service.js"></script>
-    <script type="text/javascript" src="/js/services/session_service.js"></script>
-    <script type="text/javascript" src="/js/services/survey_items_service.js"></script>
-    <script type="text/javascript" src="/js/controllers/users_controller.js"></script>
-    <script type="text/javascript" src="/js/controllers/admin_controller.js"></script>
-    <script type="text/javascript" src="/js/controllers/surveys_controller.js"></script>
-    <script type="text/javascript" src="/js/controllers/survey_controller.js"></script>
-    <script type="text/javascript" src="/js/controllers/survey_item_controller.js"></script>
-    <script type="text/javascript" src="/js/controllers/results_controller.js"></script>
+    <script type="text/javascript" src="/js/controllers.js"></script>
+    <script type="text/javascript" src="/js/services.js"></script>
   </body>
 </html>

@@ -308,7 +308,7 @@ var title_9 = "Joseph is a genetic engineer who works on designer pets, speciali
 
 var survey_items = [];
 
-new Survey({name: "Mindfulness Attention Awareness"}).fetch()
+new Survey({name: "Determining Causality"}).fetch()
   .then(function(model) {
   var id = model.get('id');
   survey_items = [
@@ -406,7 +406,3 @@ new Survey({name: "Mindfulness Attention Awareness"}).fetch()
 }).then(function () {
   saveSurveyItems(survey_items);
 });
-
-
-
-
