@@ -19,7 +19,7 @@ app.factory('LocalAuthService', function() {
   return {
     isAuthenticated: isAuthenticated,
     setUserInfo: function(userInfo) {
-      if (userInfo && userInfo.username && userInfo.admin) {
+      if (userInfo && userInfo.username && userInfo.admin !== undefined) {
         user = userInfo;
         if (userInfo.facebook_user_info && userInfo.facebook_user_info.displayName) {
           user.username = user.displayName;
