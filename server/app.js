@@ -40,7 +40,7 @@ app.use(cookieSession({ key: 'person.session', secret: 'secret'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/../public')));
 
 
 app.use('/api/v1/users', usersAPI);
