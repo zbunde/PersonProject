@@ -36,6 +36,7 @@
     "when": "^3.7.3"
   },
   "devDependencies": {
+    "bower": "^1.6.8",
     "chai": "^3.3.0",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
