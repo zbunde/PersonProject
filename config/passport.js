@@ -72,36 +72,44 @@ module.exports = function(passport) {
     }
   ));
 
-  passport.use(new FacebookStrategy({
-    clientID        : oauthConfig.facebook.clientID,
-    clientSecret    : oauthConfig.facebook.clientSecret,
-    callbackURL     : oauthConfig.facebook.callbackURL,
-    profileFields: ['id', 'displayName', 'name', 'gender', 'profileUrl', 'emails']
-  },
-    function(token, refreshToken, profile, done) {
-      if (token && profile.id) {
-        new User({facebook_id: profile.id}).fetch().then(function(model) {
-          if (model && model.get('facebook_id')) {
-            done(null, userToJSON(model));
-          } else {
-            profile.name.displayName = profile.displayName;
-            if (profile.emails && profile.emails.length > 0) {
-              profile.name.email = profile.emails[0].value;
-            }
-            createFBUser(profile.id, token, profile.name).then(function(model) {
+  if (!(oauthConfig.facebook.clientID && oauthConfig.facebook.clientSecret &&
+        oauthConfig.facebook.callbackURL) &&
+      !process.env.SKIP_FACEBOOK_STRATEGY) {
+    throw new Error("ERROR: FB_CLIENT_ID environment variable missing.  Add the environment variable or set the SKIP_FACEBOOK_STRATEGY environment variable to true");
+  } else if (oauthConfig.facebook.clientID &&
+             oauthConfig.facebook.clientSecret &&
+             oauthConfig.facebook.callbackURL) {
+    passport.use(new FacebookStrategy({
+      clientID        : oauthConfig.facebook.clientID,
+      clientSecret    : oauthConfig.facebook.clientSecret,
+      callbackURL     : oauthConfig.facebook.callbackURL,
+      profileFields: ['id', 'displayName', 'name', 'gender', 'profileUrl', 'emails']
+    },
+      function(token, refreshToken, profile, done) {
+        if (token && profile.id) {
+          new User({facebook_id: profile.id}).fetch().then(function(model) {
+            if (model && model.get('facebook_id')) {
               done(null, userToJSON(model));
-            }).catch(function(error) {
-              console.log("Error: could not signin using facebook strategy", error);
-              done(error);
-            });
-          }
-        }).catch(function(error) {
-          console.log("Error: could not signin using facebook strategy", error);
-          done(error);
-        });
-      } else {
-        done(null, false);
+            } else {
+              profile.name.displayName = profile.displayName;
+              if (profile.emails && profile.emails.length > 0) {
+                profile.name.email = profile.emails[0].value;
+              }
+              createFBUser(profile.id, token, profile.name).then(function(model) {
+                done(null, userToJSON(model));
+              }).catch(function(error) {
+                console.log("Error: could not signin using facebook strategy", error);
+                done(error);
+              });
+            }
+          }).catch(function(error) {
+            console.log("Error: could not signin using facebook strategy", error);
+            done(error);
+          });
+        } else {
+          done(null, false);
+        }
       }
-    }
-  ));
+    ));
+  }
 };

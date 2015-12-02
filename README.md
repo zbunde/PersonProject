@@ -11,6 +11,8 @@ npm install
 nodemon
 ```
 
+The application requires a facebook client id, client secret and callback url to work properly.  If you prefer to get the application up and running without the facebook credentials, you may add the `SKIP_FACEBOOK_STRATEGY` environment variable.  There is an example in the `.env.example` file.
+
 ## Databases
 
 The app requires two databases, so most Knex commands won't _just work_.  To that end, there are custom database migration scripts:
