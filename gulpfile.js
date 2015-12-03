@@ -1,6 +1,7 @@
 var run = require('run-sequence');
 var gulp = require('gulp');
 var copy = require('gulp-copy');
+var sass = require('gulp-sass');
 var util = require('gulp-util');
 var watch = require('gulp-watch');
 var bower = require('gulp-bower');
@@ -16,18 +17,26 @@ var paths = {
   htmlsrc: ['./client/**/*.html'],
   imgsrc: ['./client/images/**/*'],
   jssrc: ['./client/**/*.js'],
-  csssrc: ['./client/**/*.css'],
+  sasssrc: ['./client/**/*.scss'],
   destination: './public'
 };
 
 // --> TASKS ********************************** //
 
 gulp.task('default', ['clean:public'], function(cb){
-  run('bower', 'build', 'watch', cb);
+  run('bower', 'prod:build', 'prod:watch', cb);
 });
 
-gulp.task('build', function(cb){
-  run('copy:html', 'copy:images', 'js', 'css', cb);
+gulp.task('dev', ['clean:public'], function(cb){
+  run('bower', 'dev:build', 'dev:watch', cb);
+});
+
+gulp.task('prod:build', function(cb){
+  run('copy:html', 'copy:images', 'prod:js', 'prod:sass', cb);
+});
+
+gulp.task('dev:build', function(cb){
+  run('copy:html', 'copy:images', 'dev:js', 'dev:sass', cb);
 });
 
 // --> TASKS ********************************** //
@@ -40,7 +49,7 @@ gulp.task('bower', function(){
   return bower();
 });
 
-gulp.task('js', function(){
+gulp.task('prod:js', function(){
   return gulp.src(paths.jssrc)
     .pipe(concat('index.js'))
     .pipe(rename({suffix: '.min'}))
@@ -49,9 +58,26 @@ gulp.task('js', function(){
     .on('error', util.log);
 });
 
-gulp.task('css', function(){
-  return gulp.src(paths.csssrc)
+gulp.task('prod:sass', function(){
+  return gulp.src(paths.sasssrc)
+      .pipe(sass())
       .pipe(mincss())
+      .pipe(concat('style.min.css'))
+      .pipe(gulp.dest(paths.destination))
+      .on('error', util.log);
+});
+
+gulp.task('dev:js', function(){
+  return gulp.src(paths.jssrc)
+    .pipe(concat('index.js'))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(gulp.dest(paths.destination))
+    .on('error', util.log);
+});
+
+gulp.task('dev:sass', function(){
+  return gulp.src(paths.sasssrc)
+      .pipe(sass())
       .pipe(concat('style.min.css'))
       .pipe(gulp.dest(paths.destination))
       .on('error', util.log);
@@ -69,8 +95,14 @@ gulp.task('copy:images', function(){
     .on('error', util.log);
 });
 
-gulp.task('watch', function(){
+gulp.task('prod:watch', function(){
   return watch(paths.allsrc, function(){
-    gulp.start('build');
+    gulp.start('prod:build');
+  });
+});
+
+gulp.task('dev:watch', function(){
+  return watch(paths.allsrc, function(){
+    gulp.start('dev:build');
   });
 });
