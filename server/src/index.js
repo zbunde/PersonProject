@@ -1,5 +1,4 @@
 import express from 'express';
-import favicon from 'serve-favicon';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 require('dotenv').load()
