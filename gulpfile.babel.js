@@ -32,17 +32,25 @@ gulp.task('build', function(cb){
   run('copy:html', 'copy:images', 'js', 'sass', cb);
 });
 
+gulp.task('build:server', function(cb){
+  run('clean:server', 'babel:server', cb);
+});
+
 // --> TASKS ********************************** //
 
 gulp.task('clean:public', function(cb){
   rimraf(paths.destination, cb);
 });
 
+gulp.task('clean:server', function(cb){
+  rimraf('./server/dist', cb);
+});
+
 gulp.task('bower', function(){
   return bower();
 });
 
-gulp.task('babel', shell.task([
+gulp.task('babel:server', shell.task([
   'babel server/src --out-dir server/dist'
 ]));
 
@@ -79,5 +87,11 @@ gulp.task('copy:images', function(){
 gulp.task('watch', function(){
   return watch(paths.allsrc, function(){
     gulp.start('prod:build');
+  });
+});
+
+gulp.task('watch:code', () => {
+  return watch('./server/src/**/*.js', () => {
+    gulp.start('build:server');
   });
 });
