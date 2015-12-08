@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./server/bin/www",
+    "start": "node ./server/dist/bin/www",
     "debug": "DEBUG=princeton-survey-app:server nodemon",
     "test": "./node_modules/.bin/mocha",
     "postinstall": "./node_modules/bower/bin/bower install",
