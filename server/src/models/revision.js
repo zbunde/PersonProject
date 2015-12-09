@@ -9,7 +9,7 @@ var Revison = bookshelf.Model.extend({
     return this.belongsTo(Survey);
   },
   questions: function () {
-    return this.belongsToMany(Questions);
+    return this.belongsToMany(Questions, 'questions_revisions', 'question_id');
   }
 });
 

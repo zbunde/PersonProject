@@ -6,7 +6,7 @@ var Question = bookshelf.Model.extend({
   tableName: 'questions',
   hasTimestamps: true,
   revisions: function () {
-    return this.belongsToMany(Revisions);
+    return this.belongsToMany(Revisions, 'questions_revisions', 'revision_id');
   },
   options: function () {
     return this.belongsToMany(Options);
