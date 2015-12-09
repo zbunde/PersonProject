@@ -1,8 +1,8 @@
 
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('completions', function (t) {
-    t.increments('id').primary().index();
-    t.integer('revision_id').notNullable().references('id').inTable('revisions').index();
+    t.increments('id').primary();
+    t.integer('revision_id').references('revisions.id');
     t.integer('user_id');
     t.timestamps();
   });
