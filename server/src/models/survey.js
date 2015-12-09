@@ -1,11 +1,11 @@
 var bookshelf = require('../config/connection').surveys
-var SurveyItem = require('./survey_item');
+var Revisons = require('./revision');
 
 var Survey = bookshelf.Model.extend({
   tableName: 'surveys',
   hasTimestamps: true,
-  surveyItems: function() {
-    return this.hasMany(SurveyItem);
+  revisions: function() {
+    return this.hasMany(Revisons);
   }
 });
 
