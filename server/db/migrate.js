@@ -1,6 +1,6 @@
 'use strict'
 
-require('dotenv').config({path: '../../.env'});
+require('dotenv').config({path: '.env'});
 
 var Knex = require('knex')
 var format = require('util').format

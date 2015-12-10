@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./server/dist",
+    "start": "node ./server",
     "debug": "DEBUG=princeton-survey-app:server nodemon",
     "test": "./node_modules/.bin/mocha",
     "postinstall": "./node_modules/bower/bin/bower install",
@@ -37,9 +37,6 @@
     "when": "^3.7.3"
   },
   "devDependencies": {
-    "babel-cli": "^6.3.15",
-    "babel-preset-es2015-node5": "^1.1.1",
-    "babel-preset-stage-0": "^6.3.13",
     "bower": "^1.6.8",
     "chai": "^3.3.0",
     "gulp": "^3.9.0",

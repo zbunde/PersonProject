@@ -1,12 +1,10 @@
 var bookshelf = require('../config/connection').surveys
-var Revisons = require('./revision');
+require('./revision');
 
-var Survey = bookshelf.Model.extend({
+module.exports = bookshelf.model('Survey', {
   tableName: 'surveys',
   hasTimestamps: true,
   revisions: function() {
-    return this.hasMany(Revisons);
+    return this.hasMany('Revision');
   }
 });
-
-module.exports = Survey;

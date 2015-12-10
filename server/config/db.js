@@ -15,7 +15,7 @@ module.exports = {
       max: 10
     },
     migrations: {
-      directory: './migrations/users'
+      directory: './server/migrations/users'
     }
   },
   surveys : {
@@ -32,7 +32,7 @@ module.exports = {
       max: 10
     },
     migrations: {
-      directory: './migrations/surveys'
+      directory: './server/migrations/surveys'
     }
   }
 }
