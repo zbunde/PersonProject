@@ -1,7 +1,7 @@
 
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('options', function (t) {
-    t.increments('id').primary();
+    t.string('id').primary();
     t.integer('value').notNullable();
     t.text('text').notNullable();
     t.integer('order').notNullable();
