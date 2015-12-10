@@ -1,6 +1,6 @@
 
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('revisions', function (t) {
+  return knex.schema.createTable('versions', function (t) {
     t.increments('id').primary();
     t.integer('version').notNullable();
     t.string('status').notNullable();

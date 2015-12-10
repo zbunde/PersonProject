@@ -1,11 +1,11 @@
 
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('questions', function (t) {
+  return knex.schema.createTable('fields', function (t) {
     t.string('id').primary();
-    t.integer('group');
+    t.integer('value');
     t.integer('order');
     t.text('text');
-    t.integer('dependent_id').references('questions.id');
+    t.json('metadata');
     t.integer('survey_id').references('surveys.id');
     t.timestamps();
   });
