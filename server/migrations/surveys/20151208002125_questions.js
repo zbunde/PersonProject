@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
     t.integer('group');
     t.integer('order');
     t.text('text');
-    t.integer('dependent_id').references('questions.id');
+    t.string('dependent_id').references('questions.id');
     t.integer('survey_id').references('surveys.id');
     t.timestamps();
   });
