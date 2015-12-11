@@ -2,13 +2,13 @@ var bookshelf = require('../config/connection').surveys;
 require('./survey');
 require('./question');
 
-module.exports = bookshelf.model('Revision', {
-  tableName: 'revisions',
+module.exports = bookshelf.model('Version', {
+  tableName: 'versions',
   hasTimestamps: true,
-  survey: function () {
+  survey: function(){
     return this.belongsTo('Survey');
   },
-  questions: function () {
+  questions: function(){
     return this.belongsToMany('Question');
   }
 });
