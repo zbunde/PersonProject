@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
     t.integer('value');
     t.integer('order');
     t.text('text');
+    t.string('widget');
     t.json('metadata');
     t.integer('survey_id').references('surveys.id');
     t.timestamps();
