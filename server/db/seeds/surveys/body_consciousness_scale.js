@@ -6,10 +6,9 @@ var data = {
     description: "Please rate the following statements as they relate to your personal experience as accurately as possible on the provided scale.",
     est_completion_time_minutes: 10
   },
-  revision: {
+  version: {
     version: 1,
-    status: "In progress",
-    survey_id: null
+    status: "In progress"
   },
   questions: [
     {
@@ -38,63 +37,60 @@ var data = {
       text: "I'm very aware of changes in my body temperature."
     }
   ],
-  options: [
+  fields: [
     {
-      id: 'bc-o1',
+      id: 'bc-f1',
       value: 1,
-      text: "extremely uncharacteristic",
       order: 1,
-      metadata: { type: 'radio' }
+      text: "extremely uncharacteristic",
+      widget: 'radio'
     },
     {
-      id: 'bc-o2',
+      id: 'bc-f2',
       value: 2,
-      text: "",
       order: 2,
-      metadata: { type: 'radio' }
+      widget: 'radio'
     },
     {
-      id: 'bc-o3',
+      id: 'bc-f3',
       value: 3,
-      text: "",
       order: 3,
-      metadata: { type: 'radio' }
+      widget: 'radio'
     },
     {
-      id: 'bc-o4',
+      id: 'bc-f4',
       value: 4,
-      text: "",
       order: 4,
-      metadata: { type: 'radio' }
+      widget: 'radio'
     },
     {
-      id: 'bc-o5',
+      id: 'bc-f5',
       value: 5,
-      text: "extremely characteristic",
       order: 5,
-      metadata: { type: 'radio' }
+      text: "extremely characteristic",
+      widget: 'radio'
     }
   ],
   mappings: [
     {
-      q: 'bc-q1',
-      o: ['bc-o1','bc-o2','bc-o3','bc-o4','bc-o5']
+      qid: 'bc-q1',
+      fid: ['bc-f1','bc-f2','bc-f3','bc-f4','bc-f5']
     },
     {
-      q: 'bc-q2',
-      o: ['bc-o1','bc-o2','bc-o3','bc-o4','bc-o5']
+      qid: 'bc-q2',
+      fid: ['bc-f1','bc-f2','bc-f3','bc-f4','bc-f5']
     },
     {
-      q: 'bc-q3',
-      o: ['bc-o1','bc-o2','bc-o3','bc-o4','bc-o5']
+      qid: 'bc-q3',
+      fid: ['bc-f1','bc-f2','bc-f3','bc-f4','bc-f5']
     },
     {
-      q: 'bc-q4',
-      o: ['bc-o1','bc-o2','bc-o3','bc-o4','bc-o5']
+      qid: 'bc-q4',
+      fid: ['bc-f1','bc-f2','bc-f3','bc-f4','bc-f5']
     },
     {
-      q: 'bc-q5',
-      o: ['bc-o1','bc-o2','bc-o3','bc-o4','bc-o5']
+      qid: 'bc-q5',
+      fid: ['bc-f1','bc-f2','bc-f3','bc-f4','bc-f5']
     }
   ]
 };
