@@ -19,6 +19,7 @@ app.use(passport.session());
 
 app.use('/api/v1/users', require('./routes/api/v1/users')(passport));
 app.use('/api/v1/surveys', require('./routes/api/v1/surveys'));
+app.use('/api/v1/survey-items', require('./routes/api/v1/survey_items'));
 
 var server = app.listen(port, function(){
   debug('Listening on Port:', port)
