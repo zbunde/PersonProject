@@ -2,19 +2,18 @@
   <thead>
     <tr>
       <th>&nbsp;</th>
-      <th ng-repeat='option in surveyOptions'>{{option.text}}</th>
+      <th ng-repeat='field in fields'>{{field.text}}</th>
     </tr>
   </thead>
   <tbody>
-      <tr ng-repeat='question in subQuestions'>
-        <span ng-class='{empty:!answers[$index]}'>
-        <td ng-class='{empty:!answers[$index] && submitted}' class='questionText'>
-          {{question.text}}
+      <tr ng-repeat='question in questions'>
+        <td class='questionText'>
+          {{question.question.text}}
         </td>
         <span>
-        <td ng-repeat='option in surveyOptions'>
+        <td ng-repeat='field in fields'>
           <label>
-          <input type='radio' ng-model='answers[$parent.$index]' value="{{$index+1}}">
+            <input type='radio' ng-model="answers[question.question.question_id]" value="{{field.value}}">
           </label>
         </td>
       </tr>

@@ -2,7 +2,7 @@ var createSurvey = require('./create-survey');
 
 var data = {
   survey: {
-    name: "Body Consciousness Scale-3",
+    name: "Body Consciousness Scale",
     description: "Please rate the following statements as they relate to your personal experience as accurately as possible on the provided scale.",
     est_completion_time_minutes: 10
   },
@@ -13,27 +13,27 @@ var data = {
   questions: [
     {
       id: 'bc-q1',
-      position: 1,
+      position: 0,
       text: "I'm sensitive to internal bodily tensions."
     },
     {
       id: 'bc-q2',
-      position: 2,
+      position: 1,
       text: "I know immediately when my mouth or throat gets dry."
     },
     {
       id: 'bc-q3',
-      position: 3,
+      position: 2,
       text: "I can often feel my heart beating."
     },
     {
       id: 'bc-q4',
-      position: 4,
+      position: 3,
       text: "I am quick to sense the hunger contractions of my stomach."
     },
     {
       id: 'bc-q5',
-      position: 5,
+      position: 4,
       text: "I'm very aware of changes in my body temperature."
     }
   ],
@@ -41,32 +41,32 @@ var data = {
     {
       id: 'bc-f1',
       value: 1,
-      position: 1,
+      position: 0,
       text: "extremely uncharacteristic",
       widget: 'radio'
     },
     {
       id: 'bc-f2',
       value: 2,
-      position: 2,
+      position: 1,
       widget: 'radio'
     },
     {
       id: 'bc-f3',
       value: 3,
-      position: 3,
+      position: 2,
       widget: 'radio'
     },
     {
       id: 'bc-f4',
       value: 4,
-      position: 4,
+      position: 3,
       widget: 'radio'
     },
     {
       id: 'bc-f5',
       value: 5,
-      position: 5,
+      position: 4,
       text: "extremely characteristic",
       widget: 'radio'
     }
