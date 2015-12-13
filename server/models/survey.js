@@ -2,6 +2,7 @@ var bookshelf = require('../config/connection').surveys
 require('./version');
 require('./question');
 require('./field');
+require('./completion');
 
 module.exports = bookshelf.model('Survey', {
   tableName: 'surveys',
@@ -14,5 +15,8 @@ module.exports = bookshelf.model('Survey', {
   },
   fields: function(){
     return this.hasMany('Field');
+  },
+  completions: function(){
+    return this.hasMany('Completion');
   }
 });
