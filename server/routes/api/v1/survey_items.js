@@ -1,15 +1,29 @@
 var express = require('express');
 var router = express.Router();
+var Promise = require('bluebird');
+var _ = require('lodash');
 var Survey = require('../../../models/survey');
 var Version = require('../../../models/version');
 var Question = require('../../../models/question');
 var Field = require('../../../models/field');
+var Completion = require('../../../models/completion');
+var Answer = require('../../../models/answer');
 
 var bookshelf = require('../../../config/connection').surveys;
 
 router.post('/', function(req, res){
-  console.log('-----', req.body);
-  res.json({ok:1});
+  var key = Object.keys(req.body.questions)[0];
+  var survey_id =  req.body.questions[key].question.survey_id;
+  var version_id = req.body.questions[key].question.version_id;
+
+  new Completion({survey_id: survey_id, version_id, version_id}).save()
+  .then(function(model){
+    return Promise.all(_.map(req.body.answers, function(value, key){
+      return new Answer({completion_id: model.id, question_id: key, value: value}).save();
+    }));
+  }).then(function(model){
+    res.json({valid: true});
+  });
 });
 
 router.get('/:id', function (req, res){
