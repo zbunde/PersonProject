@@ -13,26 +13,36 @@ var data = {
   questions: [
     {
       id: 'bc-q1',
+      group_number: 0,
+      group_type: 'table',
       position: 0,
       text: "I'm sensitive to internal bodily tensions."
     },
     {
       id: 'bc-q2',
+      group_number: 0,
+      group_type: 'table',
       position: 1,
       text: "I know immediately when my mouth or throat gets dry."
     },
     {
       id: 'bc-q3',
+      group_number: 0,
+      group_type: 'table',
       position: 2,
       text: "I can often feel my heart beating."
     },
     {
       id: 'bc-q4',
+      group_number: 0,
+      group_type: 'table',
       position: 3,
       text: "I am quick to sense the hunger contractions of my stomach."
     },
     {
       id: 'bc-q5',
+      group_number: 0,
+      group_type: 'table',
       position: 4,
       text: "I'm very aware of changes in my body temperature."
     }
