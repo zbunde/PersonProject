@@ -12,11 +12,16 @@ var Answer = require('../../../models/answer');
 var bookshelf = require('../../../config/connection').surveys;
 
 router.post('/', function(req, res){
-  var key = Object.keys(req.body.questions)[0];
-  var survey_id =  req.body.questions[key].question.survey_id;
-  var version_id = req.body.questions[key].question.version_id;
+  try{
+    var key = Object.keys(req.body.questions)[0];
+    var survey_id =  req.body.questions[key].question.survey_id;
+    var version_id = req.body.questions[key].question.version_id;
+    var user_id = req.session.passport.user;
+  }catch(e){
+    return res.status(400).send('Invalid data sent to server');
+  }
 
-  new Completion({survey_id: survey_id, version_id, version_id}).save()
+  new Completion({survey_id: survey_id, version_id, version_id, user_id: user_id}).save()
   .then(function(model){
     return Promise.all(_.map(req.body.answers, function(value, key){
       return new Answer({completion_id: model.id, question_id: key, value: value}).save();

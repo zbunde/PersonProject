@@ -2,7 +2,7 @@ var config = require('./config')
 
 module.exports = {
   users : {
-    debug: true,
+    //debug: true,
     client: 'pg',
     connection: {
       host: config.db.users.host,
@@ -20,7 +20,7 @@ module.exports = {
     }
   },
   surveys : {
-    debug: true,
+    //debug: true,
     client: 'pg',
     connection: {
       host: config.db.surveys.host,

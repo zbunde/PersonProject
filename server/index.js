@@ -1,6 +1,8 @@
 var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
+var cookieSession = require('cookie-session');
+var cookieParser = require('cookie-parser');
 require('dotenv').load()
 
 var passport = require('passport')
@@ -14,6 +16,8 @@ app.use(express.static(__dirname + '/../public'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser('secret'));
+app.use(cookieSession({ key: 'person.session', secret: 'secret'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
