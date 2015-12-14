@@ -3,9 +3,9 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
 var cookieParser = require('cookie-parser');
-require('dotenv').load()
-
 var passport = require('passport')
+
+require('dotenv').load()
 require('./config/passport')(passport);
 
 var app = express();
