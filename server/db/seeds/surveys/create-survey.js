@@ -15,7 +15,7 @@ function createSurvey(data){
     return Promise.all(data.questions.map(function(q){
       q.survey_id = sid;
       return new Question(q).save(null, {method: 'insert'}).then(function(m){
-        return m.versions().attach(model.id);
+        return m.versions().attach(model.attributes.version);
       });
     }));
   }).then(function(model){
