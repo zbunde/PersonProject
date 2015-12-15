@@ -1,6 +1,15 @@
-<span ng-if='freeForm'>
-  <div ng-include="'/partials/survey_items/includes/free_form_template.html'"></div>
-</span>
-<span ng-if='table'>
-  <div ng-include="'/partials/survey_items/includes/single_table_template.html'"></div>
-</span>
+<form ng-submit='submitSurvey()'>
+  <div ng-repeat='group in survey.groups'>
+    <span>
+      <span ng-if="group.type === 'table'">
+        <div class='well' ng-init="fields = group.questions[keys(group.questions)[0]].fields" ng-include="'/partials/survey_items/includes/multi_table.html'"></div>
+      </span>
+    </span>
+  </div>
+  <div>
+    <p ng-show='submitted' class='empty'>You have unanswered questions
+  </p>
+    <input ng-show='submitted' class='btn btn-warning pull-right' type='submit' value='Submit Anyway'></input>
+    <input ng-hide='submitted' class='btn btn-primary pull-right' type='submit'></input>
+  </div>
+</form>

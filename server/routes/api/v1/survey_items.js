@@ -12,14 +12,9 @@ var Answer = require('../../../models/answer');
 var bookshelf = require('../../../config/connection').surveys;
 
 router.post('/', function(req, res){
-  try{
-    var key = Object.keys(req.body.questions)[0];
-    var survey_id =  req.body.questions[key].question.survey_id;
-    var version_id = req.body.questions[key].question.version_id;
-    var user_id = req.session.passport.user;
-  }catch(e){
-    return res.status(400).send('Invalid data sent to server');
-  }
+  var survey_id =  req.body.survey.survey_id;
+  var version_id = req.body.survey.version_id;
+  var user_id = req.session.passport.user;
 
   new Completion({survey_id: survey_id, version_id, version_id, user_id: user_id}).save()
   .then(function(model){
@@ -32,7 +27,7 @@ router.post('/', function(req, res){
 });
 
 router.get('/:id', function (req, res){
-  var query = multiline.stripIndent(function () {/*
+  var query = multiline.stripIndent(function(){/*
     select q.id as qid, q.group_number as qgroup_number, q.group_type as qgroup_type,
       q.group_title as qgroup_title, q.group_description as qgroup_description, q.position as qposition,
       q.text as qtext, q.dependent_id as qdependendid, f.id as fid, f.value as fvalue, f.position as fposition,
@@ -66,10 +61,10 @@ router.get('/:id', function (req, res){
         obj.groups[r.qgroup_number] = {};
         group = obj.groups[r.qgroup_number];
 
-        group.group_number = r.qgroup_number;
-        group.group_type = r.qgroup_type;
-        group.group_title = r.qgroup_title;
-        group.group_description = r.qgroup_description;
+        group.number = r.qgroup_number;
+        group.type = r.qgroup_type;
+        group.title = r.qgroup_title;
+        group.description = r.qgroup_description;
         group.questions = {};
       }
 

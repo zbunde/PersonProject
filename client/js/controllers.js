@@ -154,14 +154,15 @@ app.controller('SurveyItemController', ["$scope",  "$state", "$location", "Surve
   function ($scope, $state, $location, SurveyItemsService, $stateParams) {
 
   $scope.answers = {};
-  SurveyItemsService.find($stateParams.survey_id).then(function (response) {
-    $scope.fields = response[Object.keys(response)[0]].fields;
-    $scope.questions = response;
-    $scope.table = true;
+  SurveyItemsService.find($stateParams.survey_id).then(function(response){
+    $scope.keys = Object.keys;
+    $scope.answers = {};
+    $scope.survey = response;
+    console.log(response);
   });
 
   $scope.submitSurvey = function () {
-    SurveyItemsService.submitSurvey({questions: $scope.questions, answers: $scope.answers});
+    SurveyItemsService.submitSurvey({survey: $scope.survey, answers: $scope.answers});
   };
 }]);
 

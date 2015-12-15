@@ -1,19 +1,19 @@
-<h5 ng-if='item.title !== "n/a"' class='well'>{{item.title}}</h5>
 <table class='table-responsive table table-striped'>
   <thead>
     <tr>
       <th>&nbsp;</th>
-      <th ng-repeat='option in item.options'>{{option.text}}</th>
+      <th ng-repeat='field in fields'>{{field.text}}</th>
     </tr>
   </thead>
-  <tbody ng-init ='subQuestions = shuffle(item.sub_questions)'>
-      <tr ng-repeat='question in subQuestions'>
-        <td ng-class='{empty:!answers[$parent.$index][$index] && submitted}' class='questionText'>
-          {{question.text}}
+  <tbody>
+      <tr ng-repeat='question in group.questions'>
+        <td class='questionText'>
+          {{question.question.text}}
         </td>
-        <td ng-repeat='option in item.options'>
+        <span>
+        <td ng-repeat='field in fields'>
           <label>
-            <input type='radio' ng-model='answers[$parent.$parent.$index][$parent.$index]' value="{{$index+1}}">
+            <input type='radio' ng-model="answers[question.question.question_id]" value="{{field.value}}">
           </label>
         </td>
       </tr>
