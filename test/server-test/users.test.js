@@ -1,9 +1,9 @@
-var dbConfig = require('../../config/connection')
+var dbConfig = require('../../server/config/connection')
 var knex = require('knex')
-var app = require('../../app')
+var app = require('../../server')
 var request = require('supertest')(app)
-var User = require('../../models/user')
-var createUser = require('../../lib/create_user');
+var User = require('../../server/models/user')
+var createUser = require('../../server/lib/create_user');
 
 function truncateAll(knex) {
   var sql = "SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname='public';"

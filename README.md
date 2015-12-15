@@ -22,19 +22,19 @@ The app requires two databases, so most Knex commands won't _just work_.  To tha
 To migrate to the latest version, run:
 
 ```
-node db/migrate.js
+node server/db/migrate.js
 ```
 
 To migrate just one database run:
 
 ```
-node db/migrate.js users
+node server/db/migrate.js users
 ```
 
 To rollback just one database run:
 
 ```
-node db/migrate.js users rollback
+node server/db/migrate.js users rollback
 ```
 
 ### Creating Migrations
@@ -42,21 +42,21 @@ node db/migrate.js users rollback
 To create new migrations for the **users** database, run:
 
 ```
-node db/make-migration.js users migration-name
+node server/db/make-migration.js users migration-name
 ```
 
 To create new migrations for the **surveys** database, run:
 
 ```
-node db/make-migration.js surveys migration-name
+node server/db/make-migration.js surveys migration-name
 ```
 
 To seed the database, run:
 
 ```
-node db/seed_surveys.js
-node db/survey_items_seeds/depression_closure.js
-node db/survey_items_seeds/determining_causality.js
+node server/db/seed_surveys.js
+node server/db/survey_items_seeds/depression_closure.js
+node server/db/survey_items_seeds/determining_causality.js
 ```
 
 ## Running tests
@@ -66,7 +66,7 @@ The test suite uses Mocha, Chai and Supertest.
 To prepare the test database, run:
 
 ```
-node db/prepare.js
+node server/db/prepare.js
 ```
 
 To run server tests, run:
