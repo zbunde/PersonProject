@@ -4,6 +4,12 @@
       <span ng-if="group.type === 'table'">
         <div class='well' ng-init="fields = group.questions[keys(group.questions)[0]].fields" ng-include="'/partials/survey_items/includes/multi_table.html'"></div>
       </span>
+      <span ng-if="group.type === 'text'">
+        <div class='well' ng-include="'/partials/survey_items/includes/text_input.html'"></div>
+      </span>
+      <span ng-if="group.type === 'radio'">
+        <div class='well' ng-include="'/partials/survey_items/includes/radio_input.html'"></div>
+      </span>
     </span>
   </div>
   <div>

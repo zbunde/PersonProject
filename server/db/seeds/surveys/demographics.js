@@ -42,7 +42,7 @@ var data = {
     {
       id: 'demo-q5',
       group_number: 4,
-      group_type: 'combo',
+      group_type: 'radio',
       position: 0,
       text: "What is your race/ethnicity?"
     },
