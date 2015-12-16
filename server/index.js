@@ -3,7 +3,8 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
 var cookieParser = require('cookie-parser');
-var passport = require('passport')
+var passport = require('passport');
+var path = require('path');
 
 require('dotenv').load()
 require('./config/passport')(passport);
@@ -24,6 +25,11 @@ app.use(passport.session());
 app.use('/api/v1/users', require('./routes/api/v1/users')(passport));
 app.use('/api/v1/surveys', require('./routes/api/v1/surveys'));
 app.use('/api/v1/survey-items', require('./routes/api/v1/survey_items'));
+
+// send all routes to index.html and let angular handle the routing
+app.use('*', function (req, res, next) {
+  res.sendFile(path.resolve(__dirname + '/../public/index.html'));
+});
 
 var server = app.listen(port, function(){
   debug('Listening on Port:', port)

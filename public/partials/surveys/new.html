@@ -1,9 +1,0 @@
-<div class="survey-generator">
-  <h3 class='form-title'>New Survey</h3>
-
-  <form novalidate ng-submit="createSurvey()">
-    <formly-form model="vm.survey" fields="vm.surveyFields" form="vm.surveyForm">
-        <button type="submit" class="btn btn-primary" ng-disabled="vm.surveyForm.$invalid">Submit</button>
-    </formly-form>
-  </form>
-</div>
