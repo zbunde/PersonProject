@@ -36,6 +36,75 @@ var data = {
       text: "Do you have a Facebook account?"
     },
     {
+      id: 'rw-share-fb-1',
+      group_number: 31,
+      group_type: 'table',
+      position: 0,
+      dependent_id: 'rw-share-q4',
+      dependent_value: '2',
+      text: "How often do you update your Facebook status?"
+    },
+    {
+      id: 'rw-share-fb-2',
+      group_number: 31,
+      group_type: 'table',
+      position: 1,
+      dependent_id: 'rw-share-q4',
+      dependent_value: '2',
+      text: "How often do you post pictures on Facebook?"
+    },
+    {
+      id: 'rw-share-fb-3',
+      group_number: 31,
+      group_type: 'table',
+      position: 2,
+      dependent_id: 'rw-share-q4',
+      dependent_value: '2',
+      text: "How often do you share articles on Facebook?"
+    },
+    {
+      id: 'rw-share-fb-4',
+      group_number: 31,
+      group_type: 'table',
+      position: 3,
+      dependent_id: 'rw-share-q4',
+      dependent_value: '2',
+      text: "How often do you 'like' others' posts on Facebook?"
+    },
+    {
+      id: 'rw-share-fb-5',
+      group_number: 31,
+      group_type: 'table',
+      position: 4,
+      dependent_id: 'rw-share-q4',
+      dependent_value: '2',
+      text: "How often do you comment on others' Facebook posts?"
+    },
+    {
+      id: 'rw-share-fb-6',
+      group_number: 32,
+      position: 0,
+      dependent_id: 'rw-share-q4',
+      dependent_value: '2',
+      text: "Approximately how many facebook friends do you have?"
+    },
+    {
+      id: 'rw-share-fb-7',
+      group_number: 33,
+      position: 0,
+      dependent_id: 'rw-share-q4',
+      dependent_value: '2',
+      text: "Approximately how many times do you check your Facebook per day?"
+    },
+    {
+      id: 'rw-share-fb-8',
+      group_number: 34,
+      position: 0,
+      dependent_id: 'rw-share-q4',
+      dependent_value: '2',
+      text: "How much time (in minutes) do you spend on Facebook in a typical day?"
+    },
+    {
       id: 'rw-share-q5',
       group_number: 4,
       position: 0,
@@ -315,6 +384,62 @@ var data = {
       position: 4,
       text: "Always",
       widget: 'radio'
+    },
+    {
+      id: 'rw-share-f33',
+      value: 1,
+      position: 0,
+      text: "Never",
+      widget: 'radio'
+    },
+    {
+      id: 'rw-share-f34',
+      value: 2,
+      position: 1,
+      text: "Less than Once a Month",
+      widget: 'radio'
+    },
+    {
+      id: 'rw-share-f35',
+      value: 3,
+      position: 2,
+      text: "Once a Month",
+      widget: 'radio'
+    },
+    {
+      id: 'rw-share-f36',
+      value: 4,
+      position: 3,
+      text: "2‐3 Times a Month",
+      widget: 'radio'
+    },
+    {
+      id: 'rw-share-f37',
+      value: 5,
+      position: 4,
+      text: "Once a Week",
+      widget: 'radio'
+    },
+    {
+      id: 'rw-share-f38',
+      value: 6,
+      position: 5,
+      text: "2‐3 Times a Week",
+      widget: 'radio'
+    },
+    {
+      id: 'rw-share-f39',
+      value: 7,
+      position: 6,
+      text: "Every other Day",
+      widget: 'radio'
+    },
+    {
+      id: 'rw-share-f40',
+      value: 8,
+      position: 7,
+      text: "Daily",
+      widget: 'radio'
     }
   ],
   mappings: [
@@ -368,6 +493,38 @@ var data = {
     },
     {
       qid: 'rw-share-q13',
+      fid: ['rw-share-f1']
+    },
+    {
+      qid: 'rw-share-fb-1',
+      fid: ['rw-share-f33', 'rw-share-f34', 'rw-share-f35', 'rw-share-f36', 'rw-share-f37', 'rw-share-f38', 'rw-share-f39', 'rw-share-f40']
+    },
+    {
+      qid: 'rw-share-fb-2',
+      fid: ['rw-share-f33', 'rw-share-f34', 'rw-share-f35', 'rw-share-f36', 'rw-share-f37', 'rw-share-f38', 'rw-share-f39', 'rw-share-f40']
+    },
+    {
+      qid: 'rw-share-fb-3',
+      fid: ['rw-share-f33', 'rw-share-f34', 'rw-share-f35', 'rw-share-f36', 'rw-share-f37', 'rw-share-f38', 'rw-share-f39', 'rw-share-f40']
+    },
+    {
+      qid: 'rw-share-fb-4',
+      fid: ['rw-share-f33', 'rw-share-f34', 'rw-share-f35', 'rw-share-f36', 'rw-share-f37', 'rw-share-f38', 'rw-share-f39', 'rw-share-f40']
+    },
+    {
+      qid: 'rw-share-fb-5',
+      fid: ['rw-share-f33', 'rw-share-f34', 'rw-share-f35', 'rw-share-f36', 'rw-share-f37', 'rw-share-f38', 'rw-share-f39', 'rw-share-f40']
+    },
+    {
+      qid: 'rw-share-fb-6',
+      fid: ['rw-share-f1']
+    },
+    {
+      qid: 'rw-share-fb-7',
+      fid: ['rw-share-f1']
+    },
+    {
+      qid: 'rw-share-fb-8',
       fid: ['rw-share-f1']
     }
   ]
