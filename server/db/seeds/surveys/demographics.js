@@ -14,42 +14,36 @@ var data = {
     {
       id: 'demo-q1',
       group_number: 0,
-      group_type: 'radio',
       position: 0,
       text: "Which of the following best describes your family's socioeconomic status?"
     },
     {
       id: 'demo-q2',
       group_number: 1,
-      group_type: 'radio',
       position: 0,
       text: "What is your gender?"
     },
     {
       id: 'demo-q3',
       group_number: 2,
-      group_type: 'text',
       position: 0,
       text: "What is your age?"
     },
     {
       id: 'demo-q4',
       group_number: 3,
-      group_type: 'text',
       position: 0,
       text: "What is the zipcode for your hometown?"
     },
     {
       id: 'demo-q5',
       group_number: 4,
-      group_type: 'radio',
       position: 0,
       text: "What is your race/ethnicity?"
     },
     {
       id: 'demo-q6',
       group_number: 5,
-      group_type: 'text',
       position: 0,
       text: "What is your primary language (language spoken at home)?"
     }
@@ -155,7 +149,7 @@ var data = {
       value: 6,
       position: 5,
       text: "Other/Unknown",
-      widget: 'radio,text'
+      widget: 'radio'
     }
   ],
   mappings: [

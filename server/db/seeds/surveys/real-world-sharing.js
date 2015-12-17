@@ -14,35 +14,30 @@ var data = {
     {
       id: 'rw-share-q1',
       group_number: 0,
-      group_type: 'radio',
       position: 0,
       text: "How often do you write reviews for the things you buy (Yelp, Amazon, etc)?"
     },
     {
       id: 'rw-share-q2',
       group_number: 1,
-      group_type: 'text',
       position: 0,
       text: "On average, how many emails do you SEND per day?"
     },
     {
       id: 'rw-share-q3',
       group_number: 2,
-      group_type: 'radio',
       position: 0,
       text: "Do you have a Twitter account?"
     },
     {
       id: 'rw-share-q4',
       group_number: 3,
-      group_type: 'radio',
       position: 0,
       text: "Do you have a Facebook account?"
     },
     {
       id: 'rw-share-q5',
       group_number: 4,
-      group_type: 'radio',
       position: 0,
       text: "How much do you trust your friend?"
     },
@@ -63,21 +58,18 @@ var data = {
     {
       id: 'rw-share-q8',
       group_number: 6,
-      group_type: 'radio',
       position: 0,
       text: "Do you use Instagram?"
     },
     {
       id: 'rw-share-q9',
       group_number: 7,
-      group_type: 'radio',
       position: 0,
       text: "How much does your friend trust you?"
     },
     {
       id: 'rw-share-q10',
       group_number: 8,
-      group_type: 'text',
       position: 0,
       text: "On average, how many emails do you RECEIVE per day?"
     },
@@ -98,7 +90,6 @@ var data = {
     {
       id: 'rw-share-q13',
       group_number: 10,
-      group_type: 'text',
       position: 0,
       text: "How much time (in minutes) do you spend on email in a typical day?"
     },

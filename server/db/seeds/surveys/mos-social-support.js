@@ -147,14 +147,12 @@ var data = {
     {
       id: 'mosss-q20',
       group_number: 1,
-      group_type: 'text',
       position: 0,
       text: "About how many CLOSE friends and relatives do you have (people you feel at ease with and can talk to about what is on your mind)? Write in the number of close friends and close relatives:"
     },
     {
       id: 'mosss-q21',
       group_number: 2,
-      group_type: 'text',
       position: 0,
       text: "About how many people in your life would you consider a friend?"
     }

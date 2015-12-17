@@ -158,7 +158,6 @@ app.controller('SurveyItemController', ["$scope",  "$state", "$location", "Surve
     $scope.keys = Object.keys;
     $scope.answers = {};
     $scope.survey = response;
-    console.log(response);
   });
 
   $scope.submitSurvey = function () {

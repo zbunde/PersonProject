@@ -1,0 +1,6 @@
+<div ng-repeat='question in group.questions'>
+  {{question.question.text}}
+  <div ng-repeat='field in question.fields'>
+    <div ng-include="'/partials/survey_items/includes/' + field.widget + '.html'"></div>
+  </div>
+</div>

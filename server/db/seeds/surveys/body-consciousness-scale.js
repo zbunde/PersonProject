@@ -4,7 +4,8 @@ var data = {
   survey: {
     name: "Body Consciousness Scale",
     description: "Please rate the following statements as they relate to your personal experience as accurately as possible on the provided scale.",
-    est_completion_time_minutes: 10
+    est_completion_time_minutes: 10,
+    is_featured: true
   },
   version: {
     version: 1,
