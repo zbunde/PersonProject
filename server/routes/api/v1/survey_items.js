@@ -10,13 +10,14 @@ var Field = require('../../../models/field');
 var Completion = require('../../../models/completion');
 var Answer = require('../../../models/answer');
 var bookshelf = require('../../../config/connection').surveys;
+var json2csv = require('json2csv');
 
 router.post('/', function(req, res){
   var survey_id =  req.body.survey.survey_id;
   var version_id = req.body.survey.version_id;
   var user_id = req.session.passport.user;
 
-  new Completion({survey_id: survey_id, version_id, version_id, user_id: user_id}).save()
+  new Completion({survey_id: survey_id, version_id: version_id, user_id: user_id}).save()
   .then(function(model){
     return Promise.all(_.map(req.body.answers, function(value, key){
       return new Answer({completion_id: model.id, question_id: key, value: value}).save();
@@ -49,11 +50,9 @@ router.get('/:id', function (req, res){
     var obj = {};
     var group;
 
-    if(!obj.survey_id){
-      obj.survey_id = req.params.id;
-      obj.version_id = data.rows[0].version_id;
-      obj.groups = {};
-    }
+    obj.survey_id = req.params.id;
+    obj.version_id = data.rows[0].version_id;
+    obj.groups = {};
 
     data.rows.forEach(function(r){
       if(!obj.groups[r.qgroup_number]){
@@ -83,6 +82,39 @@ router.get('/:id', function (req, res){
     });
 
     res.json(obj);
+  });
+});
+
+router.get('/:id/csv', function (req, res){
+  var query = multiline.stripIndent(function(){/*
+    select c.id, c.user_id, a.value, q.text
+    from completions c
+    inner join answers a on c.id = a.completion_id
+    inner join questions q on q.id = a.question_id
+    where c.survey_id = 4 and c.version_id = 1;
+  */});
+
+  bookshelf.knex.raw(query).then(function(data){
+    var obj = {};
+
+    data.rows.forEach(function(r){
+      obj[r.id] = obj[r.id] || {};
+      obj[r.id].completion = r.id;
+      obj[r.id].user_id = r.user_id;
+      obj[r.id][r.text] = r.value;
+    });
+
+    var objs = _.map(obj, function(value, key){
+      return value;
+    });
+
+    var fs = require('fs');
+    var fields = ['user', 'question', 'answer'];
+    json2csv({data: objs, del: '\t', quotes: ''}, function(err, csv){
+      fs.writeFile('file.csv', csv, function(err) {
+        res.download('file.csv');
+      });
+    });
   });
 });
 
