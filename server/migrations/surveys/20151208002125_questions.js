@@ -9,6 +9,7 @@ exports.up = function(knex, Promise) {
     t.text('text');
     t.integer('position');
     t.string('dependent_id').references('questions.id');
+    t.string('dependent_value');
     t.integer('survey_id').references('surveys.id');
     t.timestamps();
   });
