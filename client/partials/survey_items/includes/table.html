@@ -13,7 +13,7 @@
         <span>
         <td ng-repeat='field in fields | orderBy: "+position"'>
           <label>
-            <input type='radio' ng-model="answers[question.question.question_id]" value="{{field.value}}">
+            <input type='radio' ng-model="answers[question.data.question_id]" value="{{field.value}}">
           </label>
         </td>
       </tr>

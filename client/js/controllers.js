@@ -161,7 +161,7 @@ app.controller('SurveyItemController', ["$scope",  "$state", "$location", "Surve
   });
 
   $scope.submitSurvey = function(){
-    SurveyItemsService.submitSurvey({survey: $scope.original, answers: $scope.answers}).then(function() {
+    SurveyItemsService.submitSurvey({survey: $scope.survey, answers: $scope.answers}).then(function() {
       $location.path('/');
     });
   };
