@@ -16,35 +16,35 @@ var data = {
       id: 'bc-q1',
       group_number: 0,
       group_type: 'table',
-      order: 0,
+      position: 0,
       text: "I'm sensitive to internal bodily tensions."
     },
     {
       id: 'bc-q2',
       group_number: 0,
       group_type: 'table',
-      order: 1,
+      position: 1,
       text: "I know immediately when my mouth or throat gets dry."
     },
     {
       id: 'bc-q3',
       group_number: 0,
       group_type: 'table',
-      order: 2,
+      position: 2,
       text: "I can often feel my heart beating."
     },
     {
       id: 'bc-q4',
       group_number: 0,
       group_type: 'table',
-      order: 3,
+      position: 3,
       text: "I am quick to sense the hunger contractions of my stomach."
     },
     {
       id: 'bc-q5',
       group_number: 0,
       group_type: 'table',
-      order: 4,
+      position: 4,
       text: "I'm very aware of changes in my body temperature."
     }
   ],
@@ -52,32 +52,32 @@ var data = {
     {
       id: 'bc-f1',
       value: 1,
-      order: 0,
+      position: 0,
       text: "extremely uncharacteristic",
       widget: 'radio'
     },
     {
       id: 'bc-f2',
       value: 2,
-      order: 1,
+      position: 1,
       widget: 'radio'
     },
     {
       id: 'bc-f3',
       value: 3,
-      order: 2,
+      position: 2,
       widget: 'radio'
     },
     {
       id: 'bc-f4',
       value: 4,
-      order: 3,
+      position: 3,
       widget: 'radio'
     },
     {
       id: 'bc-f5',
       value: 5,
-      order: 4,
+      position: 4,
       text: "extremely characteristic",
       widget: 'radio'
     }
