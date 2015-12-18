@@ -6,7 +6,7 @@ var data = {
     description: "Please rate the following statements as they relate to your personal experience as accurately as possible on the provided scale.",
     est_completion_time_minutes: 10,
     is_featured: true,
-    order: 0
+    position: 0
   },
   version: {
     version: 1,
@@ -48,32 +48,32 @@ var data = {
     {
       id: "bc-f1",
       value: 1,
-      order: 0,
+      position: 0,
       text: "extremely uncharacteristic",
       widget: "radio"
     },
     {
       id: "bc-f2",
       value: 2,
-      order: 1,
+      position: 1,
       widget: "radio"
     },
     {
       id: "bc-f3",
       value: 3,
-      order: 2,
+      position: 2,
       widget: "radio"
     },
     {
       id: "bc-f4",
       value: 4,
-      order: 3,
+      position: 3,
       widget: "radio"
     },
     {
       id: "bc-f5",
       value: 5,
-      order: 4,
+      position: 4,
       text: "extremely characteristic",
       widget: "radio"
     }

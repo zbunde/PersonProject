@@ -30,9 +30,9 @@ router.post('/', function(req, res){
 router.get('/:id', function (req, res){
   var query = multiline.stripIndent(function(){/*
     select q.id as q_id, q.group_number as q_group_number, q.group_type as q_group_type,
-      q.group_title as q_group_title, q.text as q_text, q.order as q_order,
+      q.group_title as q_group_title, q.text as q_text, q.position as q_position,
       q.dependent_id as q_dependend_id, q.dependent_value as q_dependend_value,
-      f.id as f_id, f.value as f_value, f.order as f_order,
+      f.id as f_id, f.value as f_value, f.position as f_position,
       f.text as f_text, f.widget as f_widget, qv.version_id
     from fields f
     inner join fields_questions fq on f.id = fq.field_id
@@ -74,12 +74,12 @@ router.get('/:id', function (req, res){
 
         group.questions[r.q_id].question.question_id = r.q_id;
         group.questions[r.q_id].question.text = r.q_text;
-        group.questions[r.q_id].question.order = r.q_order;
+        group.questions[r.q_id].question.position = r.q_position;
         group.questions[r.q_id].question.dependent_id = r.q_dependend_id;
         group.questions[r.q_id].question.dependent_value = r.q_dependend_value;
       }
 
-      group.questions[r.q_id].fields.push({field_id: r.f_id, value: r.f_value, order: r.f_order, text: r.f_text, widget: r.f_widget});
+      group.questions[r.q_id].fields.push({field_id: r.f_id, value: r.f_value, position: r.f_position, text: r.f_text, widget: r.f_widget});
     });
 
     res.json(obj);
