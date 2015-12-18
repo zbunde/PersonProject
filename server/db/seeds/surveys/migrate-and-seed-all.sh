@@ -18,3 +18,6 @@ node server/db/seeds/surveys/real-world-sharing.js
 
 echo "extraversion"
 node server/db/seeds/surveys/extraversion.js
+
+echo "loneliness"
+node server/db/seeds/surveys/loneliness.js
