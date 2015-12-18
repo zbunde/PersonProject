@@ -156,7 +156,7 @@ var data = {
     {
       id: 'lone-f4',
       value: 4,
-      position: 4,
+      position: 3,
       text: "4 - Always",
       widget: 'radio'
     }
