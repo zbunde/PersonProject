@@ -4,6 +4,7 @@
 npm install knex -g
 npm install nodemon -g
 npm install bower -g
+npm install gulp -g
 createdb princeton-users-development
 createdb princeton-surveys-development
 cp .env{.example,}
@@ -12,6 +13,20 @@ nodemon
 ```
 
 The application requires a facebook client id, client secret and callback url to work properly.  If you prefer to get the application up and running without the facebook credentials, you may add the `SKIP_FACEBOOK_STRATEGY` environment variable.  There is an example in the `.env.example` file.
+
+### Dev build
+
+To build the code for development, open a terminal window and type:
+
+```
+gulp dev
+```
+Allow the gulp script to continue to run.  In a separate tab, run:
+
+```
+nodemon
+```
+
 
 ## Databases
 
@@ -78,7 +93,8 @@ npm test
 To run integration tests, first run the server:
 
 ```
-npm start
+gulp dev
+nodemon
 ```
 
 Then run protractor:
