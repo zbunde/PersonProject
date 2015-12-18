@@ -15,3 +15,6 @@ node server/db/seeds/surveys/mos-social-support.js
 
 echo "real-world-sharing"
 node server/db/seeds/surveys/real-world-sharing.js
+
+echo "extraversion"
+node server/db/seeds/surveys/extraversion.js
