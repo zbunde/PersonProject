@@ -13,4 +13,5 @@ node server/db/seeds/surveys/feedback.js
 echo "mos-social-support"
 node server/db/seeds/surveys/mos-social-support.js
 
-#node server/db/seeds/surveys/real-world-sharing.js
+echo "real-world-sharing"
+node server/db/seeds/surveys/real-world-sharing.js
