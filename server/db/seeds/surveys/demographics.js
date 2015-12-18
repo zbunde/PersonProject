@@ -3,7 +3,7 @@ var createSurvey = require('./create-survey');
 var data = {
   survey: {
     name: "Demographics",
-    description: ".",
+    description: "",
     est_completion_time_minutes: 20
   },
   version: {
@@ -14,37 +14,31 @@ var data = {
     {
       id: 'demo-q1',
       group_number: 0,
-      position: 0,
       text: "Which of the following best describes your family's socioeconomic status?"
     },
     {
       id: 'demo-q2',
       group_number: 1,
-      position: 0,
       text: "What is your gender?"
     },
     {
       id: 'demo-q3',
       group_number: 2,
-      position: 0,
       text: "What is your age?"
     },
     {
       id: 'demo-q4',
       group_number: 3,
-      position: 0,
       text: "What is the zipcode for your hometown?"
     },
     {
       id: 'demo-q5',
       group_number: 4,
-      position: 0,
       text: "What is your race/ethnicity?"
     },
     {
       id: 'demo-q6',
       group_number: 5,
-      position: 0,
       text: "What is your primary language (language spoken at home)?"
     }
   ],
@@ -149,7 +143,7 @@ var data = {
       value: 6,
       position: 5,
       text: "Other/Unknown",
-      widget: 'radio'
+      widget: 'radio_text'
     }
   ],
   mappings: [
