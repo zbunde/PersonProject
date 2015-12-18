@@ -14,25 +14,21 @@ var data = {
     {
       id: 'feedback-q1',
       group_number: 0,
-      position: 0,
       text: "Have you participated in this survey or experiment, or a very similar one, in the past?"
     },
     {
       id: 'feedback-q2',
       group_number: 1,
-      position: 0,
       text: "Did you have any technical problems in this experiment that may have influenced your results?"
     },
     {
       id: 'feedback-q3',
       group_number: 2,
-      position: 0,
       text: "Did you use any strategies that might be considered cheating?"
     },
     {
       id: 'feedback-q4',
       group_number: 3,
-      position: 0,
       text: "Any comments or things you would like to share with us? If not leave, this field blank"
     }
   ],

@@ -1,8 +1,13 @@
 #!/bin/bash
 node server/db/migrate.js surveys
 
+echo "body-consciousness-scale"
 node server/db/seeds/surveys/body-consciousness-scale.js
+
+echo "demographics"
 node server/db/seeds/surveys/demographics.js
-#node server/db/seeds/surveys/feedback.js
+
+echo  "feedback"
+node server/db/seeds/surveys/feedback.js
 #node server/db/seeds/surveys/mos-social-support.js
 #node server/db/seeds/surveys/real-world-sharing.js
