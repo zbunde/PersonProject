@@ -29,11 +29,11 @@ router.post('/', function(req, res){
 
 router.get('/:id', function (req, res){
   var query = multiline.stripIndent(function(){/*
-    select q.id as qid, q.group_number as qgroup_number, q.group_type as qgroup_type,
-      q.group_title as qgroup_title, q.group_description as qgroup_description, q.position as qposition,
-      q.text as qtext, q.dependent_id as qdependend_id, q.dependent_value as qdependend_value,
-      f.id as fid, f.value as fvalue, f.position as fposition,
-      f.text as ftext, f.widget as fwidget, f.metadata as fmetadata, fq.*, qv.version_id
+    select q.id as q_id, q.group_number as q_group_number, q.group_type as q_group_type,
+      q.group_title as q_group_title, q.text as q_text, q.order as q_order,
+      q.dependent_id as q_dependend_id, q.dependent_value as q_dependend_value,
+      f.id as f_id, f.value as f_value, f.order as f_order,
+      f.text as f_text, f.widget as f_widget, qv.version_id
     from fields f
     inner join fields_questions fq on f.id = fq.field_id
     inner join questions q on q.id = fq.question_id
@@ -56,31 +56,30 @@ router.get('/:id', function (req, res){
     obj.groups = {};
 
     data.rows.forEach(function(r){
-      if(!obj.groups[r.qgroup_number]){
+      if(!obj.groups[r.q_group_number]){
 
-        obj.groups[r.qgroup_number] = {};
-        group = obj.groups[r.qgroup_number];
+        obj.groups[r.q_group_number] = {};
+        group = obj.groups[r.q_group_number];
 
-        group.number = r.qgroup_number;
-        group.type = r.qgroup_type;
-        group.title = r.qgroup_title;
-        group.description = r.qgroup_description;
+        group.number = r.q_group_number;
+        group.type = r.q_group_type;
+        group.title = r.q_group_title;
         group.questions = {};
       }
 
-      if(!group.questions[r.qid]){
-        group.questions[r.qid] = {};
-        group.questions[r.qid].question = {};
-        group.questions[r.qid].fields = [];
+      if(!group.questions[r.q_id]){
+        group.questions[r.q_id] = {};
+        group.questions[r.q_id].question = {};
+        group.questions[r.q_id].fields = [];
 
-        group.questions[r.qid].question.question_id = r.qid;
-        group.questions[r.qid].question.text = r.qtext;
-        group.questions[r.qid].question.position = r.qposition;
-        group.questions[r.qid].question.dependent_id = r.qdependend_id;
-        group.questions[r.qid].question.dependent_value = r.qdependend_value;
+        group.questions[r.q_id].question.question_id = r.q_id;
+        group.questions[r.q_id].question.text = r.q_text;
+        group.questions[r.q_id].question.order = r.q_order;
+        group.questions[r.q_id].question.dependent_id = r.q_dependend_id;
+        group.questions[r.q_id].question.dependent_value = r.q_dependend_value;
       }
 
-      group.questions[r.qid].fields.push({field_id: r.fid, value: r.fvalue, position: r.fposition, text: r.ftext, widget: r.fwidget, metadata: r.fmetadata});
+      group.questions[r.q_id].fields.push({field_id: r.f_id, value: r.f_value, order: r.f_order, text: r.f_text, widget: r.f_widget});
     });
 
     res.json(obj);

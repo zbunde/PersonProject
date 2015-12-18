@@ -4,7 +4,9 @@ var data = {
   survey: {
     name: "MOS Social Support",
     description: "Next are some questions about the support that is available to you.",
-    est_completion_time_minutes: 20
+    est_completion_time_minutes: 20,
+    is_featured: true,
+    order: 1
   },
   version: {
     version: 1,
