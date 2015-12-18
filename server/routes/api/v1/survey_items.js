@@ -53,33 +53,39 @@ router.get('/:id', function (req, res){
 
     obj.survey_id = req.params.id;
     obj.version_id = data.rows[0].version_id;
-    obj.groups = {};
+    obj.groups = [];
 
-    data.rows.forEach(function(r){
-      if(!obj.groups[r.q_group_number]){
+    _.shuffle(data.rows).forEach(function(r){
+      var group = _.find(obj.groups, function(g){
+        return g.number === r.q_group_number;
+      });
 
-        obj.groups[r.q_group_number] = {};
-        group = obj.groups[r.q_group_number];
-
+      if(!group){
+        group = {};
         group.number = r.q_group_number;
         group.type = r.q_group_type;
         group.title = r.q_group_title;
-        group.questions = {};
+        group.questions = [];
+        obj.groups.push(group);
       }
 
-      if(!group.questions[r.q_id]){
-        group.questions[r.q_id] = {};
-        group.questions[r.q_id].question = {};
-        group.questions[r.q_id].fields = [];
+      var question = _.find(group.questions, function(q){
+        return q.data.question_id === r.q_id;
+      });
 
-        group.questions[r.q_id].question.question_id = r.q_id;
-        group.questions[r.q_id].question.text = r.q_text;
-        group.questions[r.q_id].question.position = r.q_position;
-        group.questions[r.q_id].question.dependent_id = r.q_dependend_id;
-        group.questions[r.q_id].question.dependent_value = r.q_dependend_value;
+      if(!question){
+        question = {};
+        question.fields = [];
+        question.data = {};
+        question.data.question_id = r.q_id;
+        question.data.text = r.q_text;
+        question.data.position = r.q_position;
+        question.data.dependent_id = r.q_dependend_id;
+        question.data.dependent_value = r.q_dependend_value;
+        group.questions.push(question);
       }
 
-      group.questions[r.q_id].fields.push({field_id: r.f_id, value: r.f_value, position: r.f_position, text: r.f_text, widget: r.f_widget});
+      question.fields.push({field_id: r.f_id, value: r.f_value, position: r.f_position, text: r.f_text, widget: r.f_widget});
     });
 
     res.json(obj);

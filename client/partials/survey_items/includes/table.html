@@ -2,16 +2,16 @@
   <thead>
     <tr>
       <th>&nbsp;</th>
-      <th ng-repeat='field in fields'>{{field.text}}</th>
+      <th ng-repeat='field in fields | orderBy: "+position"'>{{field.text}}</th>
     </tr>
   </thead>
   <tbody>
       <tr ng-repeat='question in group.questions'>
         <td class='questionText'>
-          {{question.question.text}}
+          {{question.data.text}}
         </td>
         <span>
-        <td ng-repeat='field in fields'>
+        <td ng-repeat='field in fields | orderBy: "+position"'>
           <label>
             <input type='radio' ng-model="answers[question.question.question_id]" value="{{field.value}}">
           </label>
