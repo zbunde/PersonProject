@@ -9,5 +9,8 @@ node server/db/seeds/surveys/demographics.js
 
 echo  "feedback"
 node server/db/seeds/surveys/feedback.js
-#node server/db/seeds/surveys/mos-social-support.js
+
+echo "mos-social-support"
+node server/db/seeds/surveys/mos-social-support.js
+
 #node server/db/seeds/surveys/real-world-sharing.js
