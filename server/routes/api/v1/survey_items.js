@@ -83,6 +83,8 @@ router.get('/:id', function (req, res){
     });
 
     res.json(obj);
+  }).catch(function(err) {
+    res.status(500).json({error: err});
   });
 });
 

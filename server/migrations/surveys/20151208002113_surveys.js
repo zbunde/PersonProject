@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
     t.text('description').notNullable();
     t.integer('est_completion_time_minutes').notNullable();
     t.boolean('is_featured').notNullable().defaultTo(false);
-    t.integer('order');
+    t.integer('position');
     t.timestamps();
   });
 };
