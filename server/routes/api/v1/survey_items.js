@@ -33,25 +33,26 @@ router.get('/:id', function (req, res){
       q.group_title as q_group_title, q.text as q_text, q.position as q_position,
       q.dependent_id as q_dependend_id, q.dependent_value as q_dependend_value,
       f.id as f_id, f.value as f_value, f.position as f_position,
-      f.text as f_text, f.widget as f_widget, qv.version_id
+      f.text as f_text, f.widget as f_widget, qv.version_id, s.id as s_id, s.name as s_name
     from fields f
     inner join fields_questions fq on f.id = fq.field_id
     inner join questions q on q.id = fq.question_id
     inner join questions_versions qv on qv.question_id = q.id
+    inner join surveys s on s.id = q.survey_id
     where fq.question_id in
       (select q.id
       from questions q
       inner join questions_versions qv on q.id = qv.question_id
       where q.survey_id = ? and qv.version_id =
         (select version from versions where survey_id = ? order by version desc limit 1))
-    order by q.group_number asc
   */});
 
   bookshelf.knex.raw(query, [req.params.id, req.params.id]).then(function(data){
     var obj = {};
     var group;
 
-    obj.survey_id = req.params.id;
+    obj.name = data.rows[0].s_name;
+    obj.survey_id = data.rows[0].s_id
     obj.version_id = data.rows[0].version_id;
     obj.groups = [];
 

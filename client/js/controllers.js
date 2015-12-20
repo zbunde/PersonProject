@@ -36,12 +36,12 @@ app.controller('ResultsController', ["$scope", "$stateParams", "SurveysService",
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('SurveyController', ["$scope", "$stateParams", "$location", "$state", "ModalService", "SurveysService", "SurveyItemsService", "LocalAuthService",
-  function ($scope, $stateParams, $location, $state, ModalService, SurveysService, SurveyItemsService, LocalAuthService) {
+app.controller('SurveyController', ["$rootScope", "$scope", "$stateParams", "$location", "$state", "ModalService", "SurveysService", "SurveyItemsService", "LocalAuthService",
+  function ($rootScope, $scope, $stateParams, $location, $state, ModalService, SurveysService, SurveyItemsService, LocalAuthService) {
 
   if ($stateParams.survey_id) {
     SurveysService.find($stateParams.survey_id).then(function (response) {
-      $scope.survey = response;
+      $rootScope.survey = $scope.survey = response;
     })
   }
 
@@ -150,19 +150,28 @@ app.controller('SurveyController', ["$scope", "$stateParams", "$location", "$sta
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('SurveyItemController', ["$scope",  "$state", "$location", "SurveyItemsService", "$stateParams",
-  function ($scope, $state, $location, SurveyItemsService, $stateParams) {
+app.controller('SurveyItemController', ["$rootScope", "$scope",  "$state", "$location", "SurveyItemsService", "$stateParams",
+  function ($rootScope, $scope, $state, $location, SurveyItemsService, $stateParams) {
 
-  $scope.answers = {};
-  SurveyItemsService.find($stateParams.survey_id).then(function(response){
-    $scope.keys = Object.keys;
-    $scope.answers = {};
-    $scope.survey = response;
+  $rootScope.$watch('survey', function(){
+    if(!$rootScope.survey) return;
+
+    SurveyItemsService.find($rootScope.survey.id).then(function(response){
+      $scope.keys = Object.keys;
+      $scope.answers = {};
+      $scope.survey = response;
+    });
   });
 
   $scope.submitSurvey = function(){
-    SurveyItemsService.submitSurvey({survey: $scope.survey, answers: $scope.answers}).then(function() {
-      $location.path('/');
+    SurveyItemsService.submitSurvey({survey: $scope.survey, answers: $scope.answers}).then(function(){
+      if($scope.survey.name !== "Demographics" && $scope.survey.name !== "Feedback"){
+        $state.go('user.survey', {survey_id: 'Demographics'});
+      }else if($scope.survey.name === "Demographics"){
+        $state.go('user.survey', {survey_id: 'Feedback'});
+      }else{
+        $location.path('/');
+      }
     });
   };
 }]);
@@ -191,8 +200,8 @@ app.controller('SurveysController', ["$scope", "$state", "SurveysService", "Surv
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('UsersController', ["$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
-  function ($scope, UsersService, $location, LocalAuthService, $stateParams) {
+app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
+  function ($rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
 
   $scope.view = {loginInfo: {}};
 
@@ -219,6 +228,7 @@ app.controller('UsersController', ["$scope", "UsersService", "$location", "Local
   $scope.signin = function () {
     UsersService.signin($scope.view.loginInfo).then(function (response) {
       if(LocalAuthService.isAuthenticated()){
+        $rootScope.user = response;
         $scope.view.loginInfo = {};
         if(LocalAuthService.isAdmin()){
           $location.path('/admin/' + response.id + '/surveys');

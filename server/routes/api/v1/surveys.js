@@ -15,7 +15,12 @@ router.post('/', function (req, res, next) {
 })
 
 router.get('/:id', function (req, res, next) {
-  return new Survey({ id: req.params.id }).fetch().then(function (response) {
+  var key = isNaN(req.params.id) ? 'name' : 'id';
+  var query = {};
+  query[key] = req.params.id;
+
+  return new Survey(query)
+  .fetch().then(function (response){
     res.json(response.attributes);
   })
 })
