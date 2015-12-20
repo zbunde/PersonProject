@@ -165,9 +165,9 @@ app.controller('SurveyItemController', ["$rootScope", "$scope",  "$state", "$loc
 
   $scope.submitSurvey = function(){
     SurveyItemsService.submitSurvey({survey: $scope.survey, answers: $scope.answers}).then(function(){
-      if($scope.survey.name !== "Demographics" && $scope.survey.name !== "Feedback"){
+      if((($rootScope.user && !$rootScope.user.completed_demographics) || !$rootScope.user) && $scope.survey.name !== "Demographics" && $scope.survey.name !== "Feedback"){
         $state.go('user.survey', {survey_id: 'Demographics'});
-      }else if($scope.survey.name === "Demographics"){
+      }else if($scope.survey.name !== "Feedback"){
         $state.go('user.survey', {survey_id: 'Feedback'});
       }else{
         $location.path('/');

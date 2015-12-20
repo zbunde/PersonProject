@@ -9,6 +9,7 @@ var Question = require('../../../models/question');
 var Field = require('../../../models/field');
 var Completion = require('../../../models/completion');
 var Answer = require('../../../models/answer');
+var User = require('../../../models/user');
 var bookshelf = require('../../../config/connection').surveys;
 var json2csv = require('json2csv');
 
@@ -17,14 +18,22 @@ router.post('/', function(req, res){
   var version_id = req.body.survey.version_id;
   var user_id = req.session.passport.user;
 
-  new Completion({survey_id: survey_id, version_id: version_id, user_id: user_id}).save()
-  .then(function(model){
-    return Promise.all(_.map(req.body.answers, function(value, key){
-      return new Answer({completion_id: model.id, question_id: key, value: value}).save();
-    }));
-  }).then(function(model){
-    res.json({valid: true});
-  });
+  if(req.body.survey.name === 'Demographics' && user_id){
+    new User({id: user_id, completed_demographics: true}).save().then(saveCompletion);
+  }else{
+    saveCompletion();
+  }
+
+  function saveCompletion(){
+    new Completion({survey_id: survey_id, version_id: version_id, user_id: user_id}).save()
+    .then(function(model){
+      return Promise.all(_.map(req.body.answers, function(value, key){
+        return new Answer({completion_id: model.id, question_id: key, value: value}).save();
+      }));
+    }).then(function(model){
+      res.json({valid: true});
+    });
+  }
 });
 
 router.get('/:id', function (req, res){

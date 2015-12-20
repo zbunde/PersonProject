@@ -14,7 +14,8 @@ module.exports = function(passport) {
       id: user.attributes.id,
       username: user.attributes.username,
       admin: user.attributes.admin,
-      facebook_user_info: user.attributes.facebook_user_info
+      facebook_user_info: user.attributes.facebook_user_info,
+      completed_demographics: user.attributes.completed_demographics
     }
   }
   // used to serialize the user for the session
@@ -62,7 +63,7 @@ module.exports = function(passport) {
     function(req, username, password, done) {
       validate.userExists(username).then(function(user) {
         if (user && validate.checkPassword(password, user.attributes)) {
-          return done(null, user.attributes, {success: "Logged in"});           
+          return done(null, user.attributes, {success: "Logged in"});
         } else {
           return done(null, false, {error: 'Incorrect username or password'});
         }
