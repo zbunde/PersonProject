@@ -15,7 +15,7 @@ var usersApi = function(passport) {
         if (err) return next(err);
         return res.json({id: user.id,
                          admin: user.admin === true ? true : false,
-                         username: user.username}
+                         username: user.username, completed_demographics: user.completed_demographics}
           );
       });
     })(req, res, next);
