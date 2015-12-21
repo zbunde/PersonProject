@@ -28,7 +28,7 @@ router.get('/items', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
     if (_.isFinite(Number(req.query.id))) { ids.push(Number(req.query.id)); }
   }
 
-  bookshelf.knex.select("surveys.id", "surveys.name", "questions.text")
+  bookshelf.knex.select("surveys.id", "surveys.name", "questions.text", "questions.id as question_id")
                 .from("surveys")
                 .innerJoin("questions", "surveys.id", "questions.survey_id")
                 .whereIn("surveys.id", ids)
@@ -38,7 +38,7 @@ router.get('/items', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
       dataStorage[r.id] = dataStorage[r.id] || {};
       dataStorage[r.id].name = r.name;
       dataStorage[r.id].questions = dataStorage[r.id].questions || [];
-      dataStorage[r.id].questions.push(r.text);
+      dataStorage[r.id].questions.push({text: r.text, id: r.question_id});
     })
 
     obj.surveys = Object.keys(dataStorage).map(function(key) {

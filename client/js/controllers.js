@@ -228,6 +228,37 @@ app.controller('AdminSelectSurveysController', ["$scope", "$state", "AdminServic
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
+
+app.controller('AdminSelectSurveyItemsController', ["$scope", "$state", "AdminService",  "$location", "LocalAuthService",
+  function ($scope, $state, AdminService, $location, LocalAuthService) {
+
+  $scope.view = {selected: {}};
+
+  AdminService.surveys.items($location.search().id).then(function(data) {
+    $scope.view.surveys = data.surveys;
+  });
+
+  $scope.selectSurveyQuestion = function(surveyId, questionId) {
+    if ($scope.view.selected[surveyId] !== undefined) {
+      var index = $scope.view.selected[surveyId].indexOf(questionId);
+      if (index >= 0) {
+        $scope.view.selected[surveyId].splice(index, 1);
+        if ($scope.view.selected[surveyId].length === 0) {
+          delete $scope.view.selected[surveyId];
+        }
+      } else {
+        $scope.view.selected[surveyId].push(questionId);
+      }
+    } else {
+      $scope.view.selected[surveyId] = [questionId];
+    }
+  };
+}]);
+
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+
 app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
   function ($rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
 

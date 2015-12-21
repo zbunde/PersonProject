@@ -68,6 +68,14 @@ app.factory('AdminService', ["$http",
         return $http.get(url + '/surveys').then(function(data) {
           return data.data;
         });
+      },
+      items: function(ids) {
+        var query;
+        if (Array.isArray(ids)) { query = '?id=' + ids.join('&id='); }
+        else { query = "?id=" + ids; }
+        return $http.get(url + '/surveys/items' + query).then(function(data) {
+          return data.data;
+        });
       }
     }
   };

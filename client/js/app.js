@@ -66,10 +66,15 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
       templateUrl: '/partials/admin/new.html',
       controller: 'UsersController'
     })
-    .state('admin.surveys', {
+    .state('admin.select_surveys', {
       url: '/surveys',
       templateUrl: 'partials/admin/select_surveys.html',
       controller: 'AdminSelectSurveysController'
+    })
+    .state('admin.select_survey_items', {
+      url: '/surveys/download',
+      templateUrl: 'partials/admin/select_survey_items.html',
+      controller: 'AdminSelectSurveyItemsController'
     })
     .state('admin.new_survey', {
       url: '/surveys/new',

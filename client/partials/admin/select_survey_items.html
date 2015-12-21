@@ -1,0 +1,15 @@
+<form>
+<div ng-repeat="survey in view.surveys">
+  <div>{{survey.name}}</div>
+  <table>
+    <tr>
+      <th>Include</th>
+      <th>Question</th>
+    </tr>
+    <tr ng-repeat="question in survey.questions">
+      <td><input type="checkbox" ng-click="selectSurveyQuestion(survey.id, question.id)"></td>
+      <td>{{question.text}}</td>
+    </tr>
+  </table>
+</div>
+</form>
