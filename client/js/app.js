@@ -29,7 +29,7 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
       controller: 'UsersController'
     })
     .state('user', {
-      url: '/users/:id',
+      url: '/users',
       templateUrl: '/partials/users/dashboard.html',
       controller: 'UsersController'
     })
@@ -57,7 +57,7 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
       controller: 'ResultsController',
     })
     .state('admin', {
-      url: '/admin/:id',
+      url: '/admin',
       templateUrl: '/partials/admin/dashboard.html',
       controller: 'AdminController'
     })
@@ -66,10 +66,15 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
       templateUrl: '/partials/admin/new.html',
       controller: 'UsersController'
     })
-    .state('admin.surveys', {
+    .state('admin.select_surveys', {
       url: '/surveys',
-      templateUrl: 'partials/surveys/index.html',
-      controller: 'SurveysController'
+      templateUrl: 'partials/admin/select_surveys.html',
+      controller: 'AdminSelectSurveysController'
+    })
+    .state('admin.select_survey_items', {
+      url: '/surveys/download',
+      templateUrl: 'partials/admin/select_survey_items.html',
+      controller: 'AdminSelectSurveyItemsController'
     })
     .state('admin.new_survey', {
       url: '/surveys/new',
