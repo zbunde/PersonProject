@@ -11,7 +11,7 @@ var Completion = require('../../../models/completion');
 var Answer = require('../../../models/answer');
 var User = require('../../../models/user');
 var bookshelf = require('../../../config/connection').surveys;
-var json2csv = require('json2csv');
+var auth = require('../../../middleware/auth/index');
 
 router.post('/', function(req, res){
   var survey_id =  req.body.survey.survey_id;
@@ -101,39 +101,6 @@ router.get('/:id', function (req, res){
     res.json(obj);
   }).catch(function(err) {
     res.status(500).json({error: err});
-  });
-});
-
-router.get('/:id/csv', function (req, res){
-  var query = multiline.stripIndent(function(){/*
-    select c.id, c.user_id, a.value, q.text
-    from completions c
-    inner join answers a on c.id = a.completion_id
-    inner join questions q on q.id = a.question_id
-    where c.survey_id = 4 and c.version_id = 1;
-  */});
-
-  bookshelf.knex.raw(query).then(function(data){
-    var obj = {};
-
-    data.rows.forEach(function(r){
-      obj[r.id] = obj[r.id] || {};
-      obj[r.id].completion = r.id;
-      obj[r.id].user_id = r.user_id;
-      obj[r.id][r.text] = r.value;
-    });
-
-    var objs = _.map(obj, function(value, key){
-      return value;
-    });
-
-    var fs = require('fs');
-    var fields = ['user', 'question', 'answer'];
-    json2csv({data: objs, del: '\t', quotes: ''}, function(err, csv){
-      fs.writeFile('file.csv', csv, function(err) {
-        res.download('file.csv');
-      });
-    });
   });
 });
 

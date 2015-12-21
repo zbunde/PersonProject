@@ -204,6 +204,69 @@ app.controller('SurveysController', ["$scope", "$state", "SurveysService", "Surv
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
+app.controller('AdminSelectSurveysController', ["$scope", "$state", "AdminService",  "$location", "LocalAuthService",
+  function ($scope, $state, AdminService, $location, LocalAuthService) {
+
+  $scope.view = {selected: []};
+
+  AdminService.surveys.all().then(function (response) {
+    $scope.view.surveys = response.surveys;
+  });
+
+  $scope.toggleSurvey = function(id) {
+    var index = $scope.view.selected.indexOf(id);
+    if (index >= 0) {
+      $scope.view.selected.splice(index, 1);
+    } else {
+      $scope.view.selected.push(id);
+    }
+  };
+
+  $scope.selectSurveys = function() {
+    var url = '/admin/surveys/download';
+    $location.path(url).search("id", $scope.view.selected);
+  };
+}]);
+
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+
+
+app.controller('AdminSelectSurveyItemsController', ["$scope", "$state", "AdminService",  "$location", "LocalAuthService",
+  function ($scope, $state, AdminService, $location, LocalAuthService) {
+
+  $scope.view = {selected: {}};
+
+  AdminService.surveys.items($location.search().id).then(function(data) {
+    $scope.view.surveys = data.surveys;
+  });
+
+  $scope.selectSurveyQuestion = function(surveyId, questionId) {
+    if ($scope.view.selected[surveyId] !== undefined) {
+      var index = $scope.view.selected[surveyId].indexOf(questionId);
+      if (index >= 0) {
+        $scope.view.selected[surveyId].splice(index, 1);
+        if ($scope.view.selected[surveyId].length === 0) {
+          delete $scope.view.selected[surveyId];
+        }
+      } else {
+        $scope.view.selected[surveyId].push(questionId);
+      }
+    } else {
+      $scope.view.selected[surveyId] = [questionId];
+    }
+  };
+
+  $scope.createCSV = function() {
+    AdminService.surveys.csv($scope.view.selected);
+  };
+}]);
+
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+
 app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
   function ($rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
 
@@ -234,9 +297,9 @@ app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$loc
       if(LocalAuthService.isAuthenticated()){
         $scope.view.loginInfo = {};
         if(LocalAuthService.isAdmin()){
-          $location.path('/admin/' + response.id + '/surveys');
+          $location.path('/admin/surveys');
         } else {
-          $location.path('/users/' + response.id + '/surveys');
+          $location.path('/users/surveys');
         }
       } else {
         throw new Error("Login Failed");
@@ -258,23 +321,23 @@ app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$loc
         $location.path('/')
       }
     })
-  },
+  };
 
   $scope.show = function(user) {
     var admin_id = $stateParams.id;
     UsersService.find(user).then(function(response) {
-      $location.path('admin/' + admin_id + '/users/' + response.data.id)
+      $location.path('admin/users/' + response.data.id)
     })
-  },
+  };
 
   $scope.delete = function (user) {
     var admin_id = $stateParams.id
-    var success_url = 'admin/' + admin_id + '/users'
-    var fail_url = 'admin/' + admin_id + '/users/' + $stateParams.user_id
+    var success_url = 'admin/users'
+    var fail_url = 'admin/users/' + $stateParams.user_id
     UsersService.destroy(user).then(function (response) {
       return response ? $location.path(success_url) : $location.path(fail_url)
     })
-  }
+  };
 }]);
 
 /* *********************************************************************************** */
