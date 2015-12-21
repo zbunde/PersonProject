@@ -12,6 +12,7 @@ var Answer = require('../../../models/answer');
 var User = require('../../../models/user');
 var bookshelf = require('../../../config/connection').surveys;
 var json2csv = require('json2csv');
+var auth = require('../../../middleware/auth/index');
 
 router.post('/', function(req, res){
   var survey_id =  req.body.survey.survey_id;
@@ -104,7 +105,28 @@ router.get('/:id', function (req, res){
   });
 });
 
-router.get('/:id/csv', function (req, res){
+router.get('/', function(req, res) {
+  var query = multiline.stripIndent(function() {/*
+    select id, name, description
+    from surveys;
+  */});
+
+  bookshelf.knex.raw(query).then(function(data) {
+    var obj = {};
+
+    data.rows.forEach(function(r) {
+      obj[r.id] = {};
+      obj[r.id].name = r.name;
+      obj[r.id].description = r.description;
+    });
+
+    res.json(obj);
+  }).catch(function(err) {
+    res.status(500).json({error: err});
+  });
+});
+
+router.get('/:id/csv', auth.ensureLoggedIn, function (req, res){
   var query = multiline.stripIndent(function(){/*
     select c.id, c.user_id, a.value, q.text
     from completions c

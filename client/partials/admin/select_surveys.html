@@ -1,0 +1,14 @@
+<form ng-submit="select_survey()">
+  <table>
+    <tr>
+      <th></th>
+      <th>Survey</th>
+      <th>Total</th>
+    </tr>
+    <tr ng-repeat="survey in view.surveys | orderBy: survey.name">
+      <td><input type="checkbox" ng-click="toggleSurvey(survey.id)"></td>
+      <td>{{survey.name}}</td>
+      <td>{{survey.completionCount}}</td>
+    </tr>
+  </table>
+</form>
