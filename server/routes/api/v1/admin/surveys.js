@@ -6,7 +6,6 @@ var bookshelf = require('../../../../config/connection').surveys;
 var json2csv = require('json2csv');
 var _ = require('lodash');
 
-
 function getQueryParamAsArray(req, param, options) {
   var vals = [];
   if (options && options.number && _.isArray(req.query[param])) {
@@ -32,7 +31,20 @@ router.get('/', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
                 .innerJoin("completions", "surveys.id", "completions.survey_id")
                 .groupBy("surveys.id")
                 .then(function(data){
-    return res.json({surveys: data});
+    return data;
+  }).then(function(data) {
+    bookshelf.knex.select("surveys.id", "surveys.name")
+                  .from("surveys")
+                  .leftOuterJoin("completions", "surveys.id", "completions.survey_id")
+                  .where("completions.id", null)
+                  .then(function(dataNoCompletions) {
+      dataNoCompletions = dataNoCompletions.map(function(r) {
+        r.count = 0;
+        return r;
+      });
+
+      return res.json({surveys: data.concat(dataNoCompletions)});
+    });
   });
 });
 
