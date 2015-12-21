@@ -21,3 +21,6 @@ node server/db/seeds/surveys/extraversion.js
 
 echo "loneliness"
 node server/db/seeds/surveys/loneliness.js
+
+echo "depression"
+node server/db/seeds/surveys/depression.js
