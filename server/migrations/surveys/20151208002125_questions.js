@@ -7,6 +7,7 @@ exports.up = function(knex, Promise) {
     t.string('group_title');
     t.text('text');
     t.integer('position');
+    t.string('master_id');
     t.string('dependent_id');
     t.string('dependent_value');
     t.integer('survey_id').references('surveys.id');

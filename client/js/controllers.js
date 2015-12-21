@@ -154,7 +154,16 @@ app.controller('SurveyItemController', ["$rootScope", "$scope",  "$state", "$loc
   function ($rootScope, $scope, $state, $location, SurveyItemsService, $stateParams, LocalAuthService) {
 
   $scope.$watch('answers', function(obj){
-    console.log('obj-->', obj);
+    if(!obj) return;
+
+    Object.keys(obj).forEach(function(key){
+      $scope.survey.groups.forEach(function(group){
+        if(group.dependent_id === key){
+          group.show = group.dependent_value === obj[key];
+        }
+      });
+    });
+
   }, true);
 
   $rootScope.$watch('survey', function(){

@@ -13,6 +13,7 @@ var data = {
   questions: [
     {
       id: "rw-share-q1",
+      master_id: 'rw-share-q1',
       group_number: 0,
       text: "Do you have a Facebook?"
     },
@@ -79,6 +80,7 @@ var data = {
     },
     {
       id: "rw-share-q2",
+      master_id: 'rw-share-q2',
       group_number: 5,
       text: "Do you have a Twitter account?"
     },
@@ -112,6 +114,7 @@ var data = {
     },
     {
       id: "rw-share-q3",
+      master_id: 'rw-share-q3',
       group_number: 10,
       text: "Do you use Instagram?"
     },
