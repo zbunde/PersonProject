@@ -200,7 +200,7 @@ app.controller('SurveysController', ["$scope", "$state", "SurveysService", "Surv
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('AdminSurveysController', ["$scope", "$state", "AdminService",  "$location", "LocalAuthService",
+app.controller('AdminSelectSurveysController', ["$scope", "$state", "AdminService",  "$location", "LocalAuthService",
   function ($scope, $state, AdminService, $location, LocalAuthService) {
 
   $scope.view = {selected: []};
@@ -216,6 +216,11 @@ app.controller('AdminSurveysController', ["$scope", "$state", "AdminService",  "
     } else {
       $scope.view.selected.push(id);
     }
+  };
+
+  $scope.selectSurveys = function() {
+    var url = '/admin/surveys/download';
+    $location.path(url).search("id", $scope.view.selected);
   };
 }]);
 

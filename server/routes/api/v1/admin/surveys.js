@@ -3,32 +3,49 @@ var router = express.Router();
 var multiline = require('multiline');
 var auth = require('../../../../middleware/auth/index');
 var bookshelf = require('../../../../config/connection').surveys;
-/*var Promise = require('bluebird');
 var _ = require('lodash');
-var Survey = require('../../../../models/survey');
-var Field = require('../../../../models/field');
-var Completion = require('../../../../models/completion');
-var Answer = require('../../../models/answer');
-var User = require('../../../models/user');
-var json2csv = require('json2csv');
-*/
 
 router.get('/', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
-  var query = multiline.stripIndent(function(){/*
-    select surveys.id, surveys.name, count(*) as completion_count 
-    from surveys
-    join completions on surveys.id = completions.survey_id
-    group by surveys.id;
-  */});
+  bookshelf.knex.select("surveys.id", "surveys.name")
+                .count("*")
+                .from("surveys")
+                .innerJoin("completions", "surveys.id", "completions.survey_id")
+                .groupBy("surveys.id")
+                .then(function(data){
+    return res.json({surveys: data});
+  });
+});
 
-  bookshelf.knex.raw(query).then(function(data){
-    var obj = {surveys: []};
+router.get('/items', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
+  var ids = [], obj = {surveys: []}, dataStorage = {}, query;
+  if (_.isArray(req.query.id)) {
+    req.query.id.forEach(function(id) {
+      if (_.isFinite(Number(id))) {
+        ids.push(Number(id));
+      }
+    })
+  } else {
+    if (_.isFinite(Number(req.query.id))) { ids.push(Number(req.query.id)); }
+  }
 
-    data.rows.forEach(function(r) {
-      obj.surveys.push({id: r.id,
-                        name: r.name,
-                        completionCount: r.completion_count
-                      });
+  bookshelf.knex.select("surveys.id", "surveys.name", "questions.text")
+                .from("surveys")
+                .innerJoin("questions", "surveys.id", "questions.survey_id")
+                .whereIn("surveys.id", ids)
+                .then(function(data){
+    data.forEach(function(r) {
+
+      dataStorage[r.id] = dataStorage[r.id] || {};
+      dataStorage[r.id].name = r.name;
+      dataStorage[r.id].questions = dataStorage[r.id].questions || [];
+      dataStorage[r.id].questions.push(r.text);
+    })
+
+    obj.surveys = Object.keys(dataStorage).map(function(key) {
+      return {id: key,
+              name: dataStorage[key].name,
+              questions: dataStorage[key].questions
+             };
     });
 
     return res.json(obj);
