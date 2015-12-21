@@ -153,6 +153,10 @@ app.controller('SurveyController', ["$rootScope", "$scope", "$stateParams", "$lo
 app.controller('SurveyItemController', ["$rootScope", "$scope",  "$state", "$location", "SurveyItemsService", "$stateParams",
   function ($rootScope, $scope, $state, $location, SurveyItemsService, $stateParams) {
 
+  $scope.$watch('answers', function(obj){
+    console.log('obj-->', obj);
+  }, true);
+
   $rootScope.$watch('survey', function(){
     if(!$rootScope.survey) return;
 
