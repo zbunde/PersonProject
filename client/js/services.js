@@ -42,6 +42,11 @@ app.factory('LocalAuthService', function() {
     isAdmin: function() {
       return (isAuthenticated() && user.admin);
     },
+    completedDemographics: function(){
+      if (isAuthenticated()) {
+        return user.completed_demographics;
+      }
+    },
     userId: function() {
       if (isAuthenticated()) {
         return user.id;

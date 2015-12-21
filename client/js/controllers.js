@@ -150,8 +150,8 @@ app.controller('SurveyController', ["$rootScope", "$scope", "$stateParams", "$lo
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('SurveyItemController', ["$rootScope", "$scope",  "$state", "$location", "SurveyItemsService", "$stateParams",
-  function ($rootScope, $scope, $state, $location, SurveyItemsService, $stateParams) {
+app.controller('SurveyItemController', ["$rootScope", "$scope",  "$state", "$location", "SurveyItemsService", "$stateParams", "LocalAuthService",
+  function ($rootScope, $scope, $state, $location, SurveyItemsService, $stateParams, LocalAuthService) {
 
   $scope.$watch('answers', function(obj){
     console.log('obj-->', obj);
@@ -169,7 +169,7 @@ app.controller('SurveyItemController', ["$rootScope", "$scope",  "$state", "$loc
 
   $scope.submitSurvey = function(){
     SurveyItemsService.submitSurvey({survey: $scope.survey, answers: $scope.answers}).then(function(){
-      if((($rootScope.user && !$rootScope.user.completed_demographics) || !$rootScope.user) && $scope.survey.name !== "Demographics" && $scope.survey.name !== "Feedback"){
+      if(!LocalAuthService.completedDemographics() && $scope.survey.name !== "Demographics" && $scope.survey.name !== "Feedback"){
         $state.go('user.survey', {survey_id: 'Demographics'});
       }else if($scope.survey.name !== "Feedback"){
         $state.go('user.survey', {survey_id: 'Feedback'});
@@ -232,7 +232,6 @@ app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$loc
   $scope.signin = function () {
     UsersService.signin($scope.view.loginInfo).then(function (response) {
       if(LocalAuthService.isAuthenticated()){
-        $rootScope.user = response;
         $scope.view.loginInfo = {};
         if(LocalAuthService.isAdmin()){
           $location.path('/admin/' + response.id + '/surveys');
