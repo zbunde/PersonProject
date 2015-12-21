@@ -57,8 +57,8 @@ app.factory('LocalAuthService', function() {
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.factory('AdminService', ["$http",
-  function($http) {
+app.factory('AdminService', ["$http", "$window",
+  function($http, $window) {
 
   var url = '/api/v1/admin';
 
@@ -76,6 +76,14 @@ app.factory('AdminService', ["$http",
         return $http.get(url + '/surveys/items' + query).then(function(data) {
           return data.data;
         });
+      },
+      csv: function(surveyQuestions) {
+        var query = '?sid=' + Object.keys(surveyQuestions).join('&sid=');
+        for (id in surveyQuestions) {
+          var param = 'q' + id;
+          query += '&' + param + '=' + surveyQuestions[id].join('&' + param + "=");
+        }
+        $window.open('/api/v1/admin/surveys/csv' + query);
       }
     }
   };

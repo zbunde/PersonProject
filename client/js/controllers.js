@@ -253,6 +253,10 @@ app.controller('AdminSelectSurveyItemsController', ["$scope", "$state", "AdminSe
       $scope.view.selected[surveyId] = [questionId];
     }
   };
+
+  $scope.createCSV = function() {
+    AdminService.surveys.csv($scope.view.selected);
+  };
 }]);
 
 /* *********************************************************************************** */
