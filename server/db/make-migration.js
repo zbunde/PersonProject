@@ -1,6 +1,8 @@
 'use strict'
 
-require('dotenv').config({path: '../../.env'});
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({path: '../../.env'});
+}
 
 var Knex = require('knex')
 var format = require('util').format

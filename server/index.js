@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var path = require('path');
 
-require('dotenv').load()
+if (process.env.NODE_ENV !== 'production') { require('dotenv').load(); }
 require('./config/passport')(passport);
 
 var app = express();
