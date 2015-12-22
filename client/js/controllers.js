@@ -10,32 +10,6 @@ app.controller('AdminController', ["$scope", function ($scope) {
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('ResultsController', ["$scope", "$stateParams", "SurveysService", "SurveyItemsService",
-  function ($scope, $stateParams, SurveysService, SurveyItemsService) {
-  $scope.score = $stateParams.score;
-  $scope.answers = [];
-
-  if($stateParams.id !== "00"){
-    $scope.demographicsComplete = true;
-  }
-
-  SurveysService.find(45).then(function (response) {
-    $scope.survey = response;
-  })
-
-  SurveyItemsService.find(45).then(function (response) {
-    $scope.surveyItems = response;
-  })
-
-  $scope.submitSurvey = function () {
-    $scope.demographicsComplete = true;
-  }
-}]);
-
-/* *********************************************************************************** */
-/* *********************************************************************************** */
-/* *********************************************************************************** */
-
 app.controller('SurveyController', ["$rootScope", "$scope", "$stateParams", "$location", "$state", "ModalService", "SurveysService", "SurveyItemsService", "LocalAuthService",
   function ($rootScope, $scope, $stateParams, $location, $state, ModalService, SurveysService, SurveyItemsService, LocalAuthService) {
 
@@ -60,9 +34,9 @@ app.controller('SurveyController', ["$rootScope", "$scope", "$stateParams", "$lo
   $scope.submitConsentForm = function () {
     var survey = SurveysService.survey;
     if($scope.consent && LocalAuthService.isAuthenticated()){
-      $location.path('/users/' + LocalAuthService.userId() + '/surveys/' + survey.id);
+      $location.path('/users/surveys/' + survey.id);
     } else if($scope.consent) {
-      $location.path('/users/00/surveys/' + survey.id );
+      $location.path('/users/surveys/' + survey.id );
     }
   }
 

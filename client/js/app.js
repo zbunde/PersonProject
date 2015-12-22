@@ -51,11 +51,6 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
           controller: 'SurveyItemController as vm'}
       }
     })
-    .state('user.results', {
-      url: '/results/:score',
-      templateUrl: 'partials/users/results.html',
-      controller: 'ResultsController',
-    })
     .state('admin', {
       url: '/admin',
       templateUrl: '/partials/admin/dashboard.html',
