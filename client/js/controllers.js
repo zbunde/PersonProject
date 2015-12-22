@@ -33,10 +33,8 @@ app.controller('SurveyController', ["$rootScope", "$scope", "$stateParams", "$lo
 
   $scope.submitConsentForm = function () {
     var survey = SurveysService.survey;
-    if($scope.consent && LocalAuthService.isAuthenticated()){
+    if($scope.consent){
       $location.path('/users/surveys/' + survey.id);
-    } else if($scope.consent) {
-      $location.path('/users/surveys/' + survey.id );
     }
   }
 
@@ -118,6 +116,13 @@ app.controller('SurveyController', ["$rootScope", "$scope", "$stateParams", "$lo
       }
     }
   ];
+}]);
+
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+
+app.controller('ResultsController', ["$scope",  "$state", "LocalAuthService", function($scope, $state, LocalAuthService){
 }]);
 
 /* *********************************************************************************** */
