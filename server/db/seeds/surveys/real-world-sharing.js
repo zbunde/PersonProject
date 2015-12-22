@@ -4,7 +4,9 @@ var data = {
   survey: {
     name: "Real World Sharing",
     description: "",
-    est_completion_time_minutes: 20
+    est_completion_time_minutes: 20,
+    is_featured: true,
+    position: 6
   },
   version: {
     version: 1,

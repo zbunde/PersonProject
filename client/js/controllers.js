@@ -225,7 +225,13 @@ app.controller('AdminSelectSurveyItemsController', ["$scope", "$state", "AdminSe
   function ($scope, $state, AdminService, $location, LocalAuthService) {
 
   $scope.view = {selected: {}};
-
+  $scope.view.options = [{value: "first", display: "Include first result for users"},
+                         {value: "last", display: "Include last result for user"},
+                        ];
+  if ($location.search().id && $location.search().id.length === 1) {
+    $scope.view.options.unshift({value: "all", display: "Include all user results"});
+  }
+  $scope.view.include = "";
   AdminService.surveys.items($location.search().id).then(function(data) {
     $scope.view.surveys = data.surveys;
   });
@@ -247,7 +253,7 @@ app.controller('AdminSelectSurveyItemsController', ["$scope", "$state", "AdminSe
   };
 
   $scope.createCSV = function() {
-    AdminService.surveys.csv($scope.view.selected);
+    AdminService.surveys.csv($scope.view.selected, $scope.view.include);
   };
 }]);
 
@@ -255,12 +261,15 @@ app.controller('AdminSelectSurveyItemsController', ["$scope", "$state", "AdminSe
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
-  function ($rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
+app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams", "$anchorScroll",
+  function ($rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams, $anchorScroll) {
 
   $scope.view = {loginInfo: {}};
 
-  $scope.user = $stateParams.user_id
+  $scope.goToElement = function(element) {
+    $location.hash(element);
+    $anchorScroll();
+  };
 
   $scope.signup = function() {
     UsersService.create($scope.newUser).then(function(response) {
@@ -269,7 +278,7 @@ app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$loc
         $scope.newUser = {};
         $location.path('/signup');
       } else {
-        $location.path('/users/' + response.id + '/surveys');
+        $location.path('/users/surveys');
       }
     });
   };
@@ -312,16 +321,14 @@ app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$loc
   };
 
   $scope.show = function(user) {
-    var admin_id = $stateParams.id;
     UsersService.find(user).then(function(response) {
-      $location.path('admin/users/' + response.data.id)
+      $location.path('admin/users')
     })
   };
 
   $scope.delete = function (user) {
-    var admin_id = $stateParams.id
     var success_url = 'admin/users'
-    var fail_url = 'admin/users/' + $stateParams.user_id
+    var fail_url = 'admin/users';
     UsersService.destroy(user).then(function (response) {
       return response ? $location.path(success_url) : $location.path(fail_url)
     })

@@ -9,33 +9,25 @@
     <base href="/"></base>
   </head>
   <body>
-    <nav class="navbar navbar-default" ng-controller="UsersController">
+    <nav class="navbar navbar-inverse" ng-controller="UsersController">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" ng-href="/"><i class="fa fa-users"></i> person | project</a>
+          <a id ="logo" class="navbar-brand" ng-href="/"><i class="fa fa-users"></i> person | project</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <form class="navbar-form navbar-right" ng-hide="rAuth.isAuthenticated()">
-            <div class="form-group">
-              <label class="sr-only" for="email">Username</label>
-              <input type="text" class="form-control" id="email" ng-model="view.loginInfo.username" placeholder="Username">
-            </div>
-            <div class="form-group">
-             <label class="sr-only" for="password">Password</label>
-             <input type="password" class="form-control" id="password" ng-model="view.loginInfo.password" placeholder="Password">
-           </div>
-            <button type="submit" class="btn btn-primary" ng-click="signin()">Sign In</button>
-          </form>
           <ul class="nav navbar-nav navbar-right">
-            <li ng-hide="rAuth.isAuthenticated()"><a id="signuplink" ng-href="/signup"><i class="fa fa-user"></i> Signup</a></li>
-            <li ng-show="rAuth.isAuthenticated()" ng-click="logout()"><a href="#"><i class="fa fa-user"></i> Log Out</a></li>
+            <li ng-class="{active: isActive()}"><a id="feat-experiments" ng-click="goToElement('feat-experiments-section')">Experiments</a></li>
+            <!-- <li ng-click="allSurveys()"><a id="all-experiments" ng-href="/surveys">All Experiments</a></li> -->
+            <li><a id="about" ng-click="goToElement('about-section')">About</a></li>
+            <li><a id="contact" ng-click="goToElement('contact-section')">Contact</a></li>
+            <li ng-hide="rAuth.isAuthenticated()" ng-click="signin()"><a id="signin-link" ng-href="/signin" class="btn btn-default">Sign In</a></li>
+            <li ng-show="rAuth.isAuthenticated()" ng-click="logout()"><a href="#">Log Out</a></li>
           </ul>
         </div>
       </div>
     </nav>
-    <div class="container">
-      <div ui-view></div>
-    </div>
+
+    <div ui-view></div>
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

@@ -18,10 +18,10 @@ function getQueryParamAsArray(req, param, options) {
     vals = req.query[param];
   } else if (options && options.number && _.isFinite(Number(req.query[param]))) {
     vals.push(Number(req.query[param]));
-  } else {
+  } else if (req.query[param]) {
     vals = [req.query[param]];
   }
-
+  
   return vals;
 }
 router.get('/', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
@@ -79,39 +79,108 @@ router.get('/items', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
 // Example query string:
 // sid=7&q2=demo-q5&q7=lone-q19&q7=lone-q17&q7=lone-q16&q7=lone-q13&q7=lone-q12
 router.get('/csv', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
-  var ids = getQueryParamAsArray(req, 'sid', {number: true}), obj = {}, qids;
+  var ids = getQueryParamAsArray(req, 'sid', {number: true}),
+      obj = {},
+      include = req.query.include,
+      qids;
+
+  if (include !== 'first' && include !== 'last' && include !== 'all') {
+    include = 'last';
+  }
+  if (include === 'all' && ids.length > 1 || ids.length === 0) {
+    return res.status(400).json({error: "bad request"});
+  }
 
   qids = _.flatten(ids.map(function(id) {
     return getQueryParamAsArray(req, 'q' + id);
   }));
-
-  console.log(ids, qids, req.query);
-  bookshelf.knex.select("completions.id as cid", "completions.user_id", "answers.value", "questions.text", "questions.id as qid", "completions.survey_id")
+  if (include === 'all' && ids.length === 1) {
+    var builder = bookshelf.knex.select("completions.id as cid", "completions.user_id", "answers.value", "questions.text", "questions.id as qid", "completions.survey_id")
                 .from("completions")
                 .innerJoin("answers","completions.id","answers.completion_id")
                 .innerJoin("questions", "questions.id", "answers.question_id")
-                .whereIn("completions.survey_id", ids)
-                .whereIn("questions.id", qids)
-                .where("completions.version_id", 1)
-                .then(function(data) {
+                .where("completions.survey_id", ids[0])
+                .where("completions.version_id", 1);
+    if (qids.length > 0) {
+      builder.whereIn("questions.id", qids);
+    }
+    console.log(builder.toString());
+    builder.then(function(data) {
+      data.forEach(function(r) {
+        obj[r.user_id] = obj[r.user_id] || {};
+        obj[r.user_id][r.cid] = obj[r.user_id][r.cid] || {};
+        obj[r.user_id][r.cid].user_id = r.user_id;
+        obj[r.user_id][r.cid][r.text] = r.value;
+      });
+      obj = _.map(obj, function(value, key){
+        return value;
+      });
+      var objs = [];
+      obj.forEach(function(item) {
+        for(cid in item) {
+          objs.push(item[cid]);
+        }
+      });
 
-    data.forEach(function(r) {
-      obj[r.user_id] = obj[r.user_id] || {};
-      obj[r.user_id].user_id = r.user_id;
-      obj[r.user_id][r.text] = r.value;
-    });
-
-    var objs = _.map(obj, function(value, key){
-      return value;
-    });
-
-    var fs = require('fs');
-    json2csv({data: objs, del: '\t', quotes: ''}, function(err, csv){
-      fs.writeFile('file.csv', csv, function(err) {
-        res.download('file.csv');
+      var fs = require('fs');
+      json2csv({data: objs, del: '\t', quotes: ''}, function(err, csv){
+        fs.writeFile('file.csv', csv, function(err) {
+          res.download('file.csv');
+        });
       });
     });
-  });
+  } else if (include === 'last' || include === 'first') {
+
+    var query = multiline.stripIndent(function(){/*
+      select comps.survey_id, comps.user_id, q.text, a.value
+      from 
+          (select distinct on (c.user_id, c.survey_id) c.id, c.survey_id,
+                  c.version_id, c.user_id, c.created_at, c.updated_at
+           from completions c order by c.user_id, c.survey_id, created_at
+    */});
+
+    if (include === 'last') query +=  " DESC";
+    if (include === 'first') query += " ASC";
+    query += multiline.stripIndent(function() {/*
+      ) comps
+      join answers a on comps.id=a.completion_id
+      join questions q on q.id=a.question_id
+      where
+    */});
+
+    query += " ("
+    for (var i = 0; i < ids.length; i++) {
+      query += " comps.survey_id=?"
+      if (i+1 < ids.length) { query += " or";}
+      else { query += ")"}
+    }
+
+    if (qids.length > 0) { query += " and ("; }
+    for (i = 0; i < qids.length; i++) {
+      query += "q.id=?";
+      if (i+1 < qids.length)  { query += " or "; }
+      if (i+1 === qids.length) { query += ")";}
+    }
+
+    bookshelf.knex.raw(query, ids.concat(qids)).then(function(data) {
+      data.rows.forEach(function(r) {
+        obj[r.user_id] = obj[r.user_id] || {};
+        obj[r.user_id].user_id = r.user_id;
+        obj[r.user_id][r.text] = r.value;
+      });
+
+      var objs = _.map(obj, function(value, key){
+        return value;
+      });
+
+      var fs = require('fs');
+      json2csv({data: objs, del: '\t', quotes: ''}, function(err, csv){
+        fs.writeFile('file.csv', csv, function(err) {
+          res.download('file.csv');
+        });
+      });
+    });
+  }
 });
 
 module.exports = router;

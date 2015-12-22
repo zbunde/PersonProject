@@ -11,21 +11,17 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
   $stateProvider
     .state('home', {
       url: '/',
-      controller: 'UsersController',
-      views: {
-        '' : {
-          templateUrl: '/partials/welcome/home.html',
-          controller: 'UsersController'
-        },
-        'surveys@home' : {
-          templateUrl: '/partials/surveys/index.html',
-          controller: 'SurveysController'
-        }
-      }
+      templateUrl: '/partials/welcome/main.html',
+      controller: 'SurveysController'
     })
     .state('signup', {
       url: '/signup',
       templateUrl: '/partials/registrations/new.html',
+      controller: 'UsersController'
+    })
+    .state('signin', {
+      url: '/signin',
+      templateUrl: '/partials/users/signin.html',
       controller: 'UsersController'
     })
     .state('user', {
