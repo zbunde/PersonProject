@@ -256,12 +256,15 @@ app.controller('AdminSelectSurveyItemsController', ["$scope", "$state", "AdminSe
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
-  function ($rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
+app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams", "$anchorScroll",
+  function ($rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams, $anchorScroll) {
 
   $scope.view = {loginInfo: {}};
 
-  $scope.user = $stateParams.user_id
+  $scope.goToElement = function(element) {
+    $location.hash(element);
+    $anchorScroll();
+  };
 
   $scope.signup = function() {
     UsersService.create($scope.newUser).then(function(response) {
@@ -270,7 +273,7 @@ app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$loc
         $scope.newUser = {};
         $location.path('/signup');
       } else {
-        $location.path('/users/' + response.id + '/surveys');
+        $location.path('/users/surveys');
       }
     });
   };
@@ -313,16 +316,14 @@ app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$loc
   };
 
   $scope.show = function(user) {
-    var admin_id = $stateParams.id;
     UsersService.find(user).then(function(response) {
-      $location.path('admin/users/' + response.data.id)
+      $location.path('admin/users')
     })
   };
 
   $scope.delete = function (user) {
-    var admin_id = $stateParams.id
     var success_url = 'admin/users'
-    var fail_url = 'admin/users/' + $stateParams.user_id
+    var fail_url = 'admin/users';
     UsersService.destroy(user).then(function (response) {
       return response ? $location.path(success_url) : $location.path(fail_url)
     })
