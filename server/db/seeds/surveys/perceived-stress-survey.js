@@ -6,7 +6,7 @@ var data = {
     description: "The questions in this scale ask you about your feelings and thoughts during THE LAST MONTH. In each case, please indicate your response representing HOW OFTEN you felt or thought a certain way.",
     est_completion_time_minutes: 30,
     is_featured: true,
-    position: 6
+    position: 7
   },
   version: {
     version: 1,

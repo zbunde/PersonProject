@@ -24,3 +24,6 @@ node server/db/seeds/surveys/loneliness.js
 
 echo "depression"
 node server/db/seeds/surveys/depression.js
+
+echo "perceived-stress-survey"
+node server/db/seeds/surveys/perceived-stress-survey.js
