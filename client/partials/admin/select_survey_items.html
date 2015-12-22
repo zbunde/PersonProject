@@ -12,6 +12,8 @@
     </tr>
   </table>
 </div>
-
+<select name="include" ng-model="view.include">
+  <option ng-repeat="opt in view.options track by $index" value="{{opt.value}}">{{opt.display}}</option>
+</select>
 <input type="submit" value="Submit">
 </form>

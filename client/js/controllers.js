@@ -220,7 +220,13 @@ app.controller('AdminSelectSurveyItemsController', ["$scope", "$state", "AdminSe
   function ($scope, $state, AdminService, $location, LocalAuthService) {
 
   $scope.view = {selected: {}};
-
+  $scope.view.options = [{value: "first", display: "Include first result for users"},
+                         {value: "last", display: "Include last result for user"},
+                        ];
+  if ($location.search().id && $location.search().id.length === 1) {
+    $scope.view.options.unshift({value: "all", display: "Include all user results"});
+  }
+  $scope.view.include = "";
   AdminService.surveys.items($location.search().id).then(function(data) {
     $scope.view.surveys = data.surveys;
   });
@@ -242,7 +248,7 @@ app.controller('AdminSelectSurveyItemsController', ["$scope", "$state", "AdminSe
   };
 
   $scope.createCSV = function() {
-    AdminService.surveys.csv($scope.view.selected);
+    AdminService.surveys.csv($scope.view.selected, $scope.view.include);
   };
 }]);
 

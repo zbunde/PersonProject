@@ -82,12 +82,16 @@ app.factory('AdminService', ["$http", "$window",
           return data.data;
         });
       },
-      csv: function(surveyQuestions) {
+      csv: function(surveyQuestions, include) {
         var query = '?sid=' + Object.keys(surveyQuestions).join('&sid=');
         for (id in surveyQuestions) {
           var param = 'q' + id;
           query += '&' + param + '=' + surveyQuestions[id].join('&' + param + "=");
         }
+        if (include && (include === "first" || include === "last" || include === "all")) {
+          query += "&include=" + include;
+        }
+
         $window.open('/api/v1/admin/surveys/csv' + query);
       }
     }
