@@ -99,13 +99,18 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
     })
 }]);
 
-app.run(["UsersService", "$rootScope", "LocalAuthService",
-  function(UsersService, $rootScope, LocalAuthService) {
+app.run(["UsersService", "$rootScope", "LocalAuthService", "$location",
+  function(UsersService, $rootScope, LocalAuthService, $location) {
   UsersService.verifyLogin();
 
   $rootScope.rAuth = {};
   $rootScope.rAuth.isAuthenticated = function() {
     return LocalAuthService.isAuthenticated();
+  };
+
+  $rootScope.goToElement = function(element) {
+    $location.hash(element);
+    $anchorScroll();
   };
 
   $rootScope.rAuth.isAdmin = function() {

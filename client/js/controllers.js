@@ -266,11 +266,6 @@ app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$loc
 
   $scope.view = {loginInfo: {}};
 
-  $scope.goToElement = function(element) {
-    $location.hash(element);
-    $anchorScroll();
-  };
-
   $scope.signup = function() {
     UsersService.create($scope.newUser).then(function(response) {
       if (response.error) {
