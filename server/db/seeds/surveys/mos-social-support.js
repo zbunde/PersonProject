@@ -6,7 +6,7 @@ var data = {
     description: "Next are some questions about the support that is available to you.",
     est_completion_time_minutes: 20,
     is_featured: true,
-    position: 1
+    position: 4
   },
   version: {
     version: 1,

@@ -16,7 +16,7 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><a id="feat-experiments" ng-click="goToElement('feat-experiments-section')">Experiments</a></li>
+            <li ng-class="{active: isActive()}"><a id="feat-experiments" ng-click="goToElement('feat-experiments-section')">Experiments</a></li>
             <!-- <li ng-click="allSurveys()"><a id="all-experiments" ng-href="/surveys">All Experiments</a></li> -->
             <li><a id="about" ng-click="goToElement('about-section')">About</a></li>
             <li><a id="contact" ng-click="goToElement('contact-section')">Contact</a></li>

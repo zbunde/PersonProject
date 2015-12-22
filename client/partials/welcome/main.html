@@ -33,21 +33,22 @@
     </div>
     <div class="row">
       <div class="surveys col-sm-8 col-sm-offset-2">
-        <div dir-paginate="survey in surveys | itemsPerPage: 8">
+        <div data-ng-repeat="survey in surveys | orderBy: position">
           <div class="survey-info" ng-controller="SurveyController">
-            <div class="experiment-box col-sm-3">
+            <div ng-if="survey.is_featured === true" class="experiment-box col-sm-3" ng-mouseenter="options=true" ng-mouseleave="options=false">
               <span ng-if='!rAuth.isAuthenticated()'>
               <h4><a class="survey-title" href='#' ng-click="showConsentModal(survey)">{{survey.name}}</a></h4>
               </span>
               <span ng-if='rAuth.isAuthenticated()'>
                 <h4><a class="survey-title" ui-sref="user.survey({survey_id: survey.id, user_id: userId()})">{{survey.name}}</a></h4>
               </span>
-              <!-- <p>
-                {{survey.description}}
-              </p> -->
               <p class="survey-mins">
                 {{survey.est_completion_time_minutes}} minutes
               </p>
+              <!-- <p class="survey-description" ng-show="options">
+                TODO: add description
+                survey.description
+              </p> -->
             </div>
           </div>
         </div>
@@ -58,7 +59,7 @@
 <div id="about-section">
   <div class="container text-center">
     <h2 class="section-title">About Person Project</h2>
-    <div class="row">
+    <div class="row team">
       <div class="col-sm-10 col-sm-offset-1">
         <p class="contents">Vis in diam mucius, aliquid principes evertitur sed eu. Mea ut dicta ponderum mnesarchum, per ut sale partiendo. Ne eum prima nihil aliquip. Commodo virtute vel ex, ea tale legimus nam. Dicta senserit no eos. Te falli solet numquam vel, mel ad vidit facete. Ubique quodsi utamur ne has, per agam admodum complectitur ex, no sea harum omnium praesent. Eum id simul everti, dolorem efficiantur in vix. Sea ei mandamus postulant, ei vix erant placerat convenire.
         </p>
@@ -66,7 +67,7 @@
     </div>
     <div class="row">
       <div class="col-sm-10 col-sm-offset-1">
-        <h4>Meet Our Team</h4>
+        <h4 class="our-team">Meet Our Team</h4>
         <p class="contents">Mea ut dicta ponderum mnesarchum, per ut sale partiendo. Ne eum prima nihil aliquip. Commodo virtute vel ex, ea tale legimus nam. Dicta senserit no eos. Te falli solet numquam vel, mel ad vidit facete. Ubique quodsi utamur ne has, per agam admodum complectitur ex, no sea harum omnium praesent. Eum id simul everti, dolorem efficiantur in vix. Sea ei mandamus postulant, ei vix erant placerat convenire.
         </p>
         <div class="row team-info">
@@ -105,7 +106,7 @@
     <div class="row">
       <div class="address col-sm-4 col-sm-offset-2">
         <p>Princeton, NJ, 08554</p>
-        <p>+1 609 258 3000</p>
+        <p>1 609 258 3000</p>
       </div>
       <div class="col-sm-4">
         <p>experiments@personproject.com</p>
@@ -114,6 +115,12 @@
     </div>
   </div>
   <footer>
-    <p class="copyright">Copyright &copy; 2016 PersonProject.</p>
+    <div class="row">
+      <p class="copyright col-sm-8 col-sm-offset-1">Copyright &copy; 2016 PersonProject.</p>
+      <ul class="list-unstyled social-medias col-sm-2">
+        <li><i class="fa fa-twitter-square"></i></li>
+        <li><i class="fa fa-facebook-square"></i></li>
+      </ul>
+    </div>
   </footer>
 </div>
