@@ -5,6 +5,8 @@ var data = {
     name: "Extraversion",
     description: "",
     est_completion_time_minutes: 15,
+    is_featured: true,
+    position: 2
   },
   version: {
     version: 1,

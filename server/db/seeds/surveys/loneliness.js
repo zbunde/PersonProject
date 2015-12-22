@@ -6,7 +6,7 @@ var data = {
     description: "The following statements describe how people sometimes feel. For each statement, please indicate how often you feel the way described.",
     est_completion_time_minutes: 20,
     is_featured: true,
-    position: 1
+    position: 3
   },
   version: {
     version: 1,

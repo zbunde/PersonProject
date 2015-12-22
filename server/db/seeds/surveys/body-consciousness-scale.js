@@ -6,7 +6,7 @@ var data = {
     description: "Please rate the following statements as they relate to your personal experience as accurately as possible on the provided scale.",
     est_completion_time_minutes: 10,
     is_featured: true,
-    position: 0
+    position: 5
   },
   version: {
     version: 1,
