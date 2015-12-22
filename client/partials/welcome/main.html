@@ -33,9 +33,9 @@
     </div>
     <div class="row">
       <div class="surveys col-sm-8 col-sm-offset-2">
-        <div data-ng-repeat="survey in surveys | orderBy: position">
-          <div class="survey-info" ng-controller="SurveyController">
-            <div ng-if="survey.is_featured === true" class="experiment-box col-sm-3" ng-mouseenter="options=true" ng-mouseleave="options=false">
+        <div data-ng-repeat="survey in surveys | orderBy: '+position'">
+          <div class="survey-info">
+            <div class="experiment-box col-sm-3" ng-mouseenter="options=true" ng-mouseleave="options=false">
               <span ng-if='!rAuth.isAuthenticated()'>
               <h4><a class="survey-title" href='#' ng-click="showConsentModal(survey)">{{survey.name}}</a></h4>
               </span>

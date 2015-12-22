@@ -175,7 +175,7 @@ app.controller('SurveyItemController', ["$rootScope", "$scope",  "$state", "$loc
 app.controller('SurveysController', ["$scope", "$state", "SurveysService", "SurveyItemsService", "ModalService", "$location", "LocalAuthService",
   function ($scope, $state, SurveysService, SurveyItemsService, ModalService, $location, LocalAuthService) {
 
-  SurveysService.all().then(function (response) {
+  SurveysService.featured().then(function (response) {
     $scope.surveys = SurveyItemsService.shuffle(response);
   });
 
