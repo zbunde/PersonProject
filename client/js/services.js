@@ -209,6 +209,11 @@ app.factory('SurveysService', ["$http",
     },
     requestSurvey: function (survey) {
       this.survey = survey;
+    },
+    featured: function() {
+      return $http.get(url + '/surveys?is-featured=true').then(function(response){
+        return response.data;
+      })
     }
   };
 }]);
