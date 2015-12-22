@@ -1,164 +1,164 @@
-body {
-  background-image: url('/images/background.jpeg');
-}
+// body {
+//   background-image: url('/images/background.jpeg');
+// }
 
-li {
-  list-style-type: none;
-}
-
-li a:hover {
-  color: #223333;
-  text-decoration: none;
-}
-
-h3 {
-  color: #337ab7;
-  margin-bottom: 20px;
-}
-tr {
-  border: 1px solid lightgray;
-}
-th {
-  text-align: center;
-  border: 1px solid lightgray;
-  background-color: lightgray;
-}
-
-td {
-  padding: 0px;
-  border: 1px solid lightgray;
-}
-
-label {
-  font-weight: normal;
-  padding: 10px;
-  display: block;
-}
-
-.well {
-  overflow: hidden;
-}
-
-.form-control.surveys {
-  margin-top: 10px;
-  width: 30%;
-}
-
-.empty {
-  color: #9F6000;
-  background-color: #FEEFB3;
-  opacity: 0.6;
-}
-
-p.empty {
-  padding: 10px;
-  overflow: hidden;
-}
-
-.table>thead>tr>th  {
-  width: 100px;
-}
-
-.table>tbody>tr>td.questionText {
-  text-align: left;
-  padding: 10px;
-}
-
-.table>tbody>tr>td  {
-  padding: 0px;
-  text-align: center;
-  vertical-align:middle;
-}
-
-.jumbotron p {
-  font-size: 16px;
-}
-.radio {
-  margin-left: 5%;
-}
-
-.radio p {
-  font-size: 5px;
-}
-
-.survey-info.list-group-item p {
-  font-size: 16px;
-}
-
-.form-title {
-  color: #223333;
-}
-
-.navbar-collapse {
-  padding-left: 0px;
-}
-
-.errors {
-  margin-bottom: 5px;
-  display: inline-block;
-  color: white;
-}
-
-.terms {
-  text-align: justify;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.terms p {
-  font-size: 16px;
-}
-
-.jumbotron {
-  margin-top: 60px;
-  background-color: #FFFFFF;
-}
-
-.jumbotron h1 {
-  color: #337ab7;
-}
-.surveys.jumbotron, .users.jumbotron, .show-user.jumbotron  {
-  padding-left: 30px;
-  padding-right: 30px;
-  margin-top: 0px;
-  padding-top: 15px;
-  background-color: lightgray;
-}
-
-.user.jumbotron {
-  background-color: white;
-  opacity: 1;
-}
-
-
-.signup {
-  opacity: 1;
-  width: 50%;
-  margin-right: auto;
-  margin-left: auto;
-  margin-top: 90px;
-  -webkit-box-shadow: 4px 3px 15px -1px rgba(0,0,0,0.75);
-  -moz-box-shadow: 4px 3px 15px -1px rgba(0,0,0,0.75);
-  box-shadow: 4px 3px 15px -1px rgba(0,0,0,0.75);
-  background-color: #FF6600;
-}
-
-
-.navbar-default {
-  opacity: .95;
-  background-color: #FF6600;
-}
-
-.navbar {
-  border: none;
-  border-radius: 0px;
-}
-
-.navbar-default .navbar-brand {
-  color: #FFFFFF;
-}
-
-.navbar-default .navbar-nav>li>a {
-  color: black;
-}
+// li {
+//   list-style-type: none;
+// }
+//
+// li a:hover {
+//   color: #223333;
+//   text-decoration: none;
+// }
+//
+// h3 {
+//   color: #337ab7;
+//   margin-bottom: 20px;
+// }
+// tr {
+//   border: 1px solid lightgray;
+// }
+// th {
+//   text-align: center;
+//   border: 1px solid lightgray;
+//   background-color: lightgray;
+// }
+//
+// td {
+//   padding: 0px;
+//   border: 1px solid lightgray;
+// }
+//
+// label {
+//   font-weight: normal;
+//   padding: 10px;
+//   display: block;
+// }
+//
+// .well {
+//   overflow: hidden;
+// }
+//
+// .form-control.surveys {
+//   margin-top: 10px;
+//   width: 30%;
+// }
+//
+// .empty {
+//   color: #9F6000;
+//   background-color: #FEEFB3;
+//   opacity: 0.6;
+// }
+//
+// p.empty {
+//   padding: 10px;
+//   overflow: hidden;
+// }
+//
+// .table>thead>tr>th  {
+//   width: 100px;
+// }
+//
+// .table>tbody>tr>td.questionText {
+//   text-align: left;
+//   padding: 10px;
+// }
+//
+// .table>tbody>tr>td  {
+//   padding: 0px;
+//   text-align: center;
+//   vertical-align:middle;
+// }
+//
+// .jumbotron p {
+//   font-size: 16px;
+// }
+// .radio {
+//   margin-left: 5%;
+// }
+//
+// .radio p {
+//   font-size: 5px;
+// }
+//
+// .survey-info.list-group-item p {
+//   font-size: 16px;
+// }
+//
+// .form-title {
+//   color: #223333;
+// }
+//
+// .navbar-collapse {
+//   padding-left: 0px;
+// }
+//
+// .errors {
+//   margin-bottom: 5px;
+//   display: inline-block;
+//   color: white;
+// }
+//
+// .terms {
+//   text-align: justify;
+//   width: 80%;
+//   margin-left: auto;
+//   margin-right: auto;
+// }
+//
+// .terms p {
+//   font-size: 16px;
+// }
+//
+// .jumbotron {
+//   margin-top: 60px;
+//   background-color: #FFFFFF;
+// }
+//
+// .jumbotron h1 {
+//   color: #337ab7;
+// }
+// .surveys.jumbotron, .users.jumbotron, .show-user.jumbotron  {
+//   padding-left: 30px;
+//   padding-right: 30px;
+//   margin-top: 0px;
+//   padding-top: 15px;
+//   background-color: lightgray;
+// }
+//
+// .user.jumbotron {
+//   background-color: white;
+//   opacity: 1;
+// }
+//
+//
+// .signup {
+//   opacity: 1;
+//   width: 50%;
+//   margin-right: auto;
+//   margin-left: auto;
+//   margin-top: 90px;
+//   -webkit-box-shadow: 4px 3px 15px -1px rgba(0,0,0,0.75);
+//   -moz-box-shadow: 4px 3px 15px -1px rgba(0,0,0,0.75);
+//   box-shadow: 4px 3px 15px -1px rgba(0,0,0,0.75);
+//   background-color: #FF6600;
+// }
+//
+//
+// .navbar-default {
+//   opacity: .95;
+//   background-color: #FF6600;
+// }
+//
+// .navbar {
+//   border: none;
+//   border-radius: 0px;
+// }
+//
+// .navbar-default .navbar-brand {
+//   color: #FFFFFF;
+// }
+//
+// .navbar-default .navbar-nav>li>a {
+//   color: black;
+// }

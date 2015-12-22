@@ -1,0 +1,231 @@
+// Main Color Scheme
+$black: #000;
+$white: #FFFFFF;
+$gray: #767676;
+$lightGray: #E2E2E2;
+$bone: #F6F6F6;
+
+/* Key Colors */
+$brightRed: #E74D25;
+$orange: #f7921F;
+$darkRed: #B82025;
+
+/* Font */
+@mixin mainFont {
+	font-family: "Open-Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Setting Background Image */
+@mixin bgimg {
+	background-size: cover;
+	-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+
+/* Setting Transition Background Color and Color */
+@mixin bgTransition {
+	-webkit-transition: background-color 0.3s, color 0.3s;
+	-moz-transition: background-color 0.3s, color 0.3s;
+	-o-transition: background-color 0.3s, color 0.3s;
+	-ms-transition: background-color 0.3s, color 0.3s;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+/* Sign In Button */
+@mixin signinButton {
+  padding: 15px 30px;
+	background:none;
+	border: 1px solid $brightRed;
+	border-radius: 4;
+	text-shadow: none;
+	box-shadow: none;
+  color: $brightRed;
+	@include bgTransition;
+
+  &:hover {
+    background-color: $brightRed;
+    color: $white;
+  }
+}
+
+body {
+  @include mainFont;
+  background-color: $black;
+}
+
+
+/* NAV-BAR*/
+/* ----------------------------------------------- */
+#logo {
+  color: $brightRed;
+}
+
+.navbar {
+	position: fixed;
+	top:0;
+	left:0;
+  z-index: 5;
+	padding: 1% 0;
+	border: none;
+	width: 100%;
+}
+
+.navbar-inverse .navbar-nav	> li > a {
+	color: $bone;
+}
+
+.navbar-nav a:hover {
+  cursor: pointer;
+}
+.navbar.navbar-inverse {
+  background-color: rgba($black, 0.3);
+}
+
+#signin-link {
+  @include signinButton;
+}
+
+/* Main Splash Image Section */
+/* ----------------------------------------------- */
+#main-section {
+  background: url(/images/bg.jpg) center top no-repeat;
+  @include bgimg;
+  height: 700px;
+}
+
+#title {
+	font-size: 4em;
+}
+
+.cta {
+	margin-top: 15%;
+	color: $bone;
+
+	.cta-message {
+		font-size: 16px;
+		line-height: 2;
+	}
+}
+
+#learn-more {
+	@include signinButton;
+	font-size: 16px;
+	border: 1px solid $black;
+	color: $black;
+	border-radius: 8;
+	&:hover {
+		background-color: rgba($black, 0.9);
+	}
+}
+
+/* Facts Section */
+/* ----------------------------------------------- */
+#facts-section {
+	padding: 3%;
+}
+
+.facts {
+	font-size: 16px;
+	color: $gray;
+	line-height: 1.5;
+}
+
+#register {
+	@include signinButton;
+	font-size: 15px;
+	border: 1px solid $bone;
+	color: $bone;
+	border-radius: 8;
+	&:hover {
+		background-color: $bone;
+		color: $black;
+	}
+}
+
+/* Experiments Section */
+/* ----------------------------------------------- */
+#feat-experiments-section,
+#contact-section {
+	background-color: $bone;
+}
+
+.section-title {
+	margin-top: 2%;
+}
+
+.row {
+	line-height: 1.5;
+	margin: 2% 0;
+}
+
+#signup-link {
+	@include signinButton;
+	font-size: 15px;
+	border: 1px solid $black;
+	color: $black;
+	border-radius: 8;
+	&:hover {
+		background-color: $black;
+		color: $bone;
+	}
+}
+
+.experiment-box {
+	height: 182.5px;
+	background-color: $brightRed;
+	border: solid 4px $bone;
+	border-radius: 10px;
+
+	.survey-title,
+	.survey-mins {
+		color: $white;
+		position: relative;
+		top: 2em;
+	}
+}
+
+/* About Section */
+/* ----------------------------------------------- */
+#about-section {
+	color: $bone;
+}
+
+.name {
+	font-size: 16px;
+	color: $orange;
+}
+
+.org-title {
+	font-style: italic;
+}
+.team-info {
+	text-align: left;
+}
+
+/* Contact Section */
+/* ----------------------------------------------- */
+#contact-section {
+	color: #333;
+
+	.row {
+		padding-bottom: 6%;
+	}
+}
+
+.address {
+	text-align: right;
+	font-size: 16px;
+	border-right: 1px solid $brightRed;
+}
+
+/* Contact Section */
+/* ----------------------------------------------- */
+footer {
+	height: 50px;
+}
+
+.copyright {
+	padding: 10px;
+}

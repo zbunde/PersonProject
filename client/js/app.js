@@ -14,7 +14,7 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
       controller: 'UsersController',
       views: {
         '' : {
-          templateUrl: '/partials/welcome/home.html',
+          templateUrl: '/partials/welcome/main.html',
           controller: 'UsersController'
         },
         'surveys@home' : {
