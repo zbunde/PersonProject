@@ -1,25 +1,17 @@
-<div class="jumbotron surveys" ng-controller='SurveysController'>
-  <h3 class='form-title'>Surveys
-    <span ng-if='rAuth.isAdmin()'>
-      <button class="btn btn-default pull-right" ng-click="newSurvey()" type="button">New Survey</button></h3>
-    </span>
-  </h3>
-  <div class="list-group" dir-paginate="survey in surveys | itemsPerPage: 8">
-    <div class="list-group-item survey-info" ng-controller="SurveyController">
-      <span ng-if='!rAuth.isAuthenticated()'>
-      <h4><a href='#' ng-click="showConsentModal(survey)">{{survey.name}}</a></h4>
+<div class="jumbotron surveys">
+  <h3 class="form-title">Surveys</h3>
+  <div class="list-group" >
+    <ul ng-controller="SurveyController">
+      <span ng-if="!rAuth.isAuthenticated()">
+      <li ng-repeat="survey in surveys">
+        <a href="#" ng-click="showConsentModal(survey)">{{survey.name}}</a>
+      </li>
       </span>
-      <span ng-if='rAuth.isAuthenticated()'>
-        <h4><a ui-sref='user.survey({survey_id: survey.id, user_id: userId()})'  >{{survey.name}}</a></h4>
+      <span ng-if="rAuth.isAuthenticated()">
+        <li ng-repeat="survey in surveys">
+          <a ui-sref="user.survey({survey_id: survey.id, user_id: userId()})">{{survey.name}}</a>
+        </li>
       </span>
-      <p>
-        {{survey.description}}
-      </p>
-      <p>
-        Estimated time to complete: {{survey.est_completion_time_minutes}} minutes
-      </p>
     </div>
   </div>
-</div>
-<dir-pagination-controls></dir-pagination-controls>
 </div>

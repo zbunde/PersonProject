@@ -24,15 +24,15 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
       templateUrl: '/partials/users/signin.html',
       controller: 'UsersController'
     })
+    .state('surveys', {
+      url: '/surveys',
+      templateUrl: '/partials/surveys/index.html',
+      controller: 'SurveysController'
+    })
     .state('user', {
       url: '/users',
       templateUrl: '/partials/users/dashboard.html',
       controller: 'UsersController'
-    })
-    .state('user.surveys', {
-      url: '/surveys',
-      templateUrl: '/partials/surveys/index.html',
-      controller: 'SurveysController'
     })
     .state('user.survey', {
       url: '/surveys/:survey_id',
