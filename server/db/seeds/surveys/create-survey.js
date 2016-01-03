@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({path: '.env'});
+}
+
 var Promise = require('bluebird');
 var Survey = require('../../../models/survey');
 var Version = require('../../../models/version');

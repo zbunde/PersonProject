@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({path: '.env'});
+}
+
 var User = require('../../../models/user');
 var createUser = require('../../../lib/create_user');
 var createAdmin = require('../../../lib/create_admin');
