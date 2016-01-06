@@ -3,7 +3,6 @@
 /* *********************************************************************************** */
 
 app.controller('AdminController', ["$scope", function ($scope) {
-
 }]);
 
 /* *********************************************************************************** */
@@ -122,7 +121,10 @@ app.controller('SurveyController', ["$rootScope", "$scope", "$stateParams", "$lo
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('ResultsController', ["$scope",  "$state", "LocalAuthService", function($scope, $state, LocalAuthService){
+app.controller('ResultsController', ["$scope",  "$state", "LocalAuthService", "UsersService", function($scope, $state, LocalAuthService, UsersService){
+  UsersService.result().then(function(response){
+    console.log('***********', response);
+  });
 }]);
 
 /* *********************************************************************************** */

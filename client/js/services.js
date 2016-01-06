@@ -227,6 +227,11 @@ app.factory('UsersService', ["$http", "LocalAuthService",
 
   var users;
   return {
+    result: function() {
+      return $http.post('/api/v1/users/result').then(function (response) {
+        return response;
+      });
+    },
     create: function(attrs) {
       return $http.post('/api/v1/users', attrs).then(function (response) {
         LocalAuthService.setUserInfo(response.data);
