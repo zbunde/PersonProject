@@ -62,7 +62,12 @@ var usersApi = function(passport) {
     */});
 
     bookshelf.knex.raw(query, [req.session.passport.user]).then(function(data){
-      res.json(data);
+      var sum = data.rows.reduce(function(acc, row){
+        return acc + (row.value * 1);
+      }, 0);
+
+      var avg = sum / data.rows.length;
+      res.json({avg: avg});
     });
   });
 
