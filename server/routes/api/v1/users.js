@@ -67,12 +67,19 @@ var usersApi = function(passport) {
 
     bookshelf.knex.raw(query, [req.session.passport.user]).then(function(data1){
       var query = multiline.stripIndent(function(){/*
-        select * from scores where completion_id in
-          (select c.id from completions c);
+        select s.*
+        from scores s
+        inner join completions c on c.id = s.completion_id
+        where c.survey_id =
+          (select s.id from surveys s inner join completions c on s.id = c.survey_id where c.id = ?)
       */});
 
       bookshelf.knex.raw(query, [11 /*data1.rows[0].id*/]).then(function(data2){
-        res.json({user: data1.rows[0], all: data2});
+        var sum = _.reduce(data2.rows, function(acc, row){
+          return acc + row.value;
+        }, 0);
+        var avg = sum / data2.rows.length;
+        res.json({user: data1.rows[0].value, avg: avg});
       });
     });
   });
