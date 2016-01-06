@@ -9,6 +9,7 @@ var Question = require('../../../models/question');
 var Field = require('../../../models/field');
 var Completion = require('../../../models/completion');
 var Answer = require('../../../models/answer');
+var Score = require('../../../models/score');
 var User = require('../../../models/user');
 var bookshelf = require('../../../config/connection').surveys;
 var auth = require('../../../middleware/auth/index');
@@ -25,38 +26,34 @@ router.post('/', function(req, res){
   }
 
   function saveCompletion(){
+    var completion_id;
+
     // Completion
     new Completion({survey_id: survey_id, version_id: version_id, user_id: user_id}).save()
     .then(function(model){
+      completion_id = model.id;
       // Answers
       return Promise.all(_.map(req.body.answers, function(value, key){
         return new Answer({completion_id: model.id, question_id: key, value: value}).save();
       }));
     }).then(function(model){
       // Scores
-      if(req.body.survey.name !== "Demographics" && req.body.survey.name !== "Feedback"){
+      if(req.body.survey.name === "Demographics" || req.body.survey.name === "Feedback"){
         return res.json({valid: true});
       }
 
-      switch(req.body.survey.name){
-        case "Body Consciousness Scale":
-          break;
+      if(req.body.survey.name === "Body Consciousness Scale"){
+        var sum = _.reduce(req.body.answers, function(acc, val, key){
+          return acc + (val * 1);
+        }, 0);
+        var avg = sum / Object.keys(req.body.answers).length;
+
+        new Score({completion_id: completion_id, value: avg})
+        .save()
+        .then(function(){
+          return res.json({valid: true});
+        });
       }
-
-      // var query = multiline.stripIndent(function(){/*
-      //   select * from answers where completion_id =
-      //     (select id from completions where user_id=? order by id desc limit 1);
-      // */});
-      //
-      // bookshelf.knex.raw(query, [req.session.passport.user]).then(function(data){
-      //   var sum = data.rows.reduce(function(acc, row){
-      //     return acc + (row.value * 1);
-      //   }, 0);
-      //
-      //   var avg = sum / data.rows.length;
-      //   res.json({avg: avg});
-
-      return res.json({valid: true});
     });
   }
 });

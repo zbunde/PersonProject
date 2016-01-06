@@ -61,8 +61,7 @@ var usersApi = function(passport) {
         (select id from completions where user_id=? order by id desc limit 1);
     */});
 
-      res.json({});
-    });
+    res.json({});
   });
 
   return router;
