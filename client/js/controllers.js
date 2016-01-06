@@ -162,7 +162,7 @@ app.controller('SurveyItemController', ["$rootScope", "$scope",  "$state", "$loc
       }else if($scope.survey.name !== "Feedback"){
         $state.go('user.survey', {survey_id: 'Feedback'});
       }else{
-        $location.path('/');
+        $state.go('user.results');
       }
     });
   };
