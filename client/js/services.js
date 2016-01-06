@@ -229,7 +229,7 @@ app.factory('UsersService', ["$http", "LocalAuthService",
   return {
     result: function() {
       return $http.post('/api/v1/users/result').then(function (response) {
-        return response;
+        return response.data;
       });
     },
     create: function(attrs) {

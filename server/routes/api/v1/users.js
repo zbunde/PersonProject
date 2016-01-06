@@ -57,7 +57,11 @@ var usersApi = function(passport) {
 
   router.post('/result', auth.ensureLoggedIn, function (req, res, next) {
     var query = multiline.stripIndent(function(){/*
-      select * from scores where completion_id =
+      select su.name, s.*
+      from scores s
+      inner join completions c on c.id = s.completion_id
+      inner join surveys su on su.id = c.survey_id
+      where s.completion_id =
         (select c.id
         from completions c
         inner join surveys s on s.id = c.survey_id
@@ -74,12 +78,12 @@ var usersApi = function(passport) {
           (select s.id from surveys s inner join completions c on s.id = c.survey_id where c.id = ?)
       */});
 
-      bookshelf.knex.raw(query, [11 /*data1.rows[0].id*/]).then(function(data2){
+      bookshelf.knex.raw(query, [data1.rows[0].id]).then(function(data2){
         var sum = _.reduce(data2.rows, function(acc, row){
           return acc + row.value;
         }, 0);
         var avg = sum / data2.rows.length;
-        res.json({user: data1.rows[0].value, avg: avg});
+        res.json({survey: data1.rows[0].name, score: data1.rows[0].value, average: avg});
       });
     });
   });

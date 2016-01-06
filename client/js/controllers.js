@@ -122,8 +122,8 @@ app.controller('SurveyController', ["$rootScope", "$scope", "$stateParams", "$lo
 /* *********************************************************************************** */
 
 app.controller('ResultsController', ["$scope",  "$state", "LocalAuthService", "UsersService", function($scope, $state, LocalAuthService, UsersService){
-  UsersService.result().then(function(response){
-    console.log('***********', response);
+  UsersService.result().then(function(result){
+    $scope.result = result;
   });
 }]);
 
