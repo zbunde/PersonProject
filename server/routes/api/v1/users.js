@@ -50,7 +50,11 @@ var usersApi = function(passport) {
     db.remove(req.params.id).then(function (response) {
       res.json(response)
     })
-  })
+  });
+
+  router.post('/result', auth.ensureLoggedIn, function (req, res, next) {
+    res.json({ok:true});
+  });
 
   return router;
 };
