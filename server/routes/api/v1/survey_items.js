@@ -25,13 +25,38 @@ router.post('/', function(req, res){
   }
 
   function saveCompletion(){
+    // Completion
     new Completion({survey_id: survey_id, version_id: version_id, user_id: user_id}).save()
     .then(function(model){
+      // Answers
       return Promise.all(_.map(req.body.answers, function(value, key){
         return new Answer({completion_id: model.id, question_id: key, value: value}).save();
       }));
     }).then(function(model){
-      res.json({valid: true});
+      // Scores
+      if(req.body.survey.name !== "Demographics" && req.body.survey.name !== "Feedback"){
+        return res.json({valid: true});
+      }
+
+      switch(req.body.survey.name){
+        case "Body Consciousness Scale":
+          break;
+      }
+
+      // var query = multiline.stripIndent(function(){/*
+      //   select * from answers where completion_id =
+      //     (select id from completions where user_id=? order by id desc limit 1);
+      // */});
+      //
+      // bookshelf.knex.raw(query, [req.session.passport.user]).then(function(data){
+      //   var sum = data.rows.reduce(function(acc, row){
+      //     return acc + (row.value * 1);
+      //   }, 0);
+      //
+      //   var avg = sum / data.rows.length;
+      //   res.json({avg: avg});
+
+      return res.json({valid: true});
     });
   }
 });

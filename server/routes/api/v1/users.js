@@ -61,13 +61,7 @@ var usersApi = function(passport) {
         (select id from completions where user_id=? order by id desc limit 1);
     */});
 
-    bookshelf.knex.raw(query, [req.session.passport.user]).then(function(data){
-      var sum = data.rows.reduce(function(acc, row){
-        return acc + (row.value * 1);
-      }, 0);
-
-      var avg = sum / data.rows.length;
-      res.json({avg: avg});
+      res.json({});
     });
   });
 
