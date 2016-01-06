@@ -75,10 +75,10 @@ var usersApi = function(passport) {
         from scores s
         inner join completions c on c.id = s.completion_id
         where c.survey_id =
-          (select s.id from surveys s inner join completions c on s.id = c.survey_id where c.id = ?)
+          (select su.id from surveys su inner join completions c on su.id = c.survey_id where c.id = ?)
       */});
 
-      bookshelf.knex.raw(query, [data1.rows[0].id]).then(function(data2){
+      bookshelf.knex.raw(query, [data1.rows[0].completion_id]).then(function(data2){
         var sum = _.reduce(data2.rows, function(acc, row){
           return acc + row.value;
         }, 0);
