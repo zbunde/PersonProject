@@ -2,6 +2,7 @@ var bookshelf = require('../config/connection').surveys
 require('./survey');
 require('./version');
 require('./answer');
+require('./score');
 
 module.exports = bookshelf.model('Completion', {
   tableName: 'completions',
@@ -14,5 +15,8 @@ module.exports = bookshelf.model('Completion', {
   },
   answers: function(){
     return this.hasMany('Answer');
+  },
+  scores: function(){
+    return this.hasMany('Score');
   }
 });
