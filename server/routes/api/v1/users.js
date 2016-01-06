@@ -5,6 +5,9 @@ var validate = require('../../../lib/user_validation');
 var createUser = require('../../../lib/create_user');
 var createAdmin = require('../../../lib/create_admin');
 var auth = require('../../../middleware/auth/index');
+var multiline = require('multiline');
+var _ = require('lodash');
+var bookshelf = require('../../../config/connection').surveys;
 
 var usersApi = function(passport) {
 
@@ -53,7 +56,14 @@ var usersApi = function(passport) {
   });
 
   router.post('/result', auth.ensureLoggedIn, function (req, res, next) {
-    res.json({ok:true});
+    var query = multiline.stripIndent(function(){/*
+      select * from answers where completion_id =
+        (select id from completions where user_id=? order by id desc limit 1);
+    */});
+
+    bookshelf.knex.raw(query, [req.session.passport.user]).then(function(data){
+      res.json(data);
+    });
   });
 
   return router;
