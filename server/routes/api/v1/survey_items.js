@@ -75,7 +75,7 @@ router.get('/:id', function (req, res){
       from questions q
       inner join questions_versions qv on q.id = qv.question_id
       where q.survey_id = ? and qv.version_id =
-        (select version from versions where survey_id = ? order by version desc limit 1))
+        (select version from versions where survey_id = ? order by version desc limit 1));
   */});
 
   bookshelf.knex.raw(query, [req.params.id, req.params.id]).then(function(data){
