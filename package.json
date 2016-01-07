@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./server",
     "debug": "DEBUG=princeton-survey-app:server nodemon",
+    "vagrant": "DEBUG=princeton-survey-app:server nodemon -L",
     "test": "./node_modules/.bin/mocha",
     "postinstall": "./node_modules/bower/bin/bower install && ./node_modules/gulp/bin/gulp.js prod:build",
     "update-webdriver": "webdriver-manager update",

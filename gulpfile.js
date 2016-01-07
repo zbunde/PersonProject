@@ -31,6 +31,10 @@ gulp.task('dev', ['clean:public'], function(cb){
   run('bower', 'dev:build', 'dev:watch', cb);
 });
 
+gulp.task('vagrant', ['clean:public'], function(cb){
+  run('bower', 'dev:build', 'vagrant:watch', cb);
+});
+
 gulp.task('prod:build', function(cb){
   run('copy:html', 'copy:images', 'prod:js', 'prod:sass', cb);
 });
@@ -103,6 +107,12 @@ gulp.task('prod:watch', function(){
 
 gulp.task('dev:watch', function(){
   return watch(paths.allsrc, function(){
+    gulp.start('dev:build');
+  });
+});
+
+gulp.task('vagrant:watch', function(){
+  return watch(paths.allsrc, {usePolling: true, interval: 1000}, function(){
     gulp.start('dev:build');
   });
 });
