@@ -55,7 +55,7 @@ var usersApi = function(passport) {
     })
   });
 
-  router.post('/result', auth.ensureLoggedIn, function (req, res, next) {
+  router.post('/result', function (req, res, next) {
     var query = multiline.stripIndent(function(){/*
       select su.name, s.*
       from scores s
@@ -69,7 +69,7 @@ var usersApi = function(passport) {
         order by id desc limit 1);
     */});
 
-    bookshelf.knex.raw(query, [req.session.passport.user]).then(function(data1){
+    bookshelf.knex.raw(query, [req.session.passport.user || req.body.userToken]).then(function(data1){
       var query = multiline.stripIndent(function(){/*
         select s.*
         from scores s

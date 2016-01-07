@@ -29,6 +29,7 @@
     "angular-formly": "~7.3.2",
     "angular-formly-templates-bootstrap": "~6.1.5",
     "angularUtils-pagination": "angular-utils-pagination#~0.9.2",
-    "lodash": "~3.10.1"
+    "lodash": "~3.10.1",
+    "node-uuid": "~1.4.7"
   }
 }

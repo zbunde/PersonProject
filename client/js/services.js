@@ -54,6 +54,14 @@ app.factory('LocalAuthService', function() {
 
       // If the user is not authneticated, there is no id
       return undefined;
+    },
+    setToken: function () {
+      if(!localStorage.getItem('userToken')){
+        localStorage.setItem("userToken", uuid.v4());
+      }
+    },
+    getToken: function () {
+      return localStorage.getItem('userToken');
     }
   };
 });
@@ -228,7 +236,7 @@ app.factory('UsersService', ["$http", "LocalAuthService",
   var users;
   return {
     result: function() {
-      return $http.post('/api/v1/users/result').then(function (response) {
+      return $http.post('/api/v1/users/result', {userToken: LocalAuthService.getToken()}).then(function (response) {
         return response.data;
       });
     },

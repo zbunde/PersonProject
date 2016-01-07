@@ -102,6 +102,7 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
 app.run(["UsersService", "$rootScope", "LocalAuthService", "$location",
   function(UsersService, $rootScope, LocalAuthService, $location) {
   UsersService.verifyLogin();
+  LocalAuthService.setToken();
 
   $rootScope.rAuth = {};
   $rootScope.rAuth.isAuthenticated = function() {

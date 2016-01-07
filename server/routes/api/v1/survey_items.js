@@ -17,9 +17,9 @@ var auth = require('../../../middleware/auth/index');
 router.post('/', function(req, res){
   var survey_id =  req.body.survey.survey_id;
   var version_id = req.body.survey.version_id;
-  var user_id = req.session.passport.user;
+  var user_id = req.session.passport.user || req.body.userToken;
 
-  if(req.body.survey.name === 'Demographics' && user_id){
+  if(req.body.survey.name === 'Demographics' && !isNaN(user_id)){
     new User({id: user_id, completed_demographics: true}).save().then(saveCompletion);
   }else{
     saveCompletion();
