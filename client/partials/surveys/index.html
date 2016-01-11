@@ -3,12 +3,12 @@
   <div class="list-group" >
     <ul ng-controller="SurveyController">
       <span ng-if="!rAuth.isAuthenticated()">
-      <li ng-repeat="survey in surveys">
+      <li ng-repeat="survey in surveys | orderBy: '+name'">
         <a href="#" ng-click="showConsentModal(survey)">{{survey.name}}</a>
       </li>
       </span>
       <span ng-if="rAuth.isAuthenticated()">
-        <li ng-repeat="survey in surveys">
+        <li ng-repeat="survey in surveys | orderBy: '+name'">
           <a ui-sref="user.survey({survey_id: survey.id, user_id: userId()})">{{survey.name}}</a>
         </li>
       </span>
