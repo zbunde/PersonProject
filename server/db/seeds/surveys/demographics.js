@@ -144,7 +144,11 @@ var data = {
       position: 5,
       text: "Other/Unknown",
       widget: 'radio_text'
-    }
+    },
+    {
+      id: 'demo-f16',
+      widget: 'number'
+    },
   ],
   mappings: [
     {
@@ -157,11 +161,11 @@ var data = {
     },
     {
       qid: 'demo-q3',
-      fid: ['demo-f6']
+      fid: ['demo-f16']
     },
     {
       qid: 'demo-q4',
-      fid: ['demo-f6']
+      fid: ['demo-f16']
     },
     {
       qid: 'demo-q5',
