@@ -160,10 +160,10 @@ app.controller('SurveyItemController', ["$rootScope", "$scope",  "$state", "$loc
 
   $scope.submitSurvey = function(){
     SurveyItemsService.submitSurvey({survey: $scope.survey, answers: $scope.answers, userToken: LocalAuthService.getToken()}).then(function(){
-      if(!LocalAuthService.completedDemographics() && $scope.survey.name !== "Demographics" && $scope.survey.name !== "Feedback"){
-        $state.go('user.survey', {survey_id: 'Demographics'});
-      }else if($scope.survey.name !== "Feedback"){
+      if($scope.survey.name !== "Demographics" && $scope.survey.name !== "Feedback"){
         $state.go('user.survey', {survey_id: 'Feedback'});
+      }else if($scope.survey.name === "Feedback" && !LocalAuthService.completedDemographics()){
+        $state.go('user.survey', {survey_id: 'Demographics'});
       }else{
         $state.go('user.results');
       }
