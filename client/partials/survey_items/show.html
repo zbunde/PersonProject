@@ -1,4 +1,4 @@
-<form id="survey-items" ng-submit="submitSurvey()">
+<form novalidate name="formSurvey" id="survey-items" ng-submit="submitSurvey()">
   <div ng-if="group.show" ng-repeat="group in survey.groups">
     <span>
       <span ng-if="group.type === 'table'">

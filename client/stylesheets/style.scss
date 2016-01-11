@@ -165,6 +165,10 @@ p.empty {
   padding: 10px;
 }
 
+input.ng-invalid{
+  border: 3px solid red;
+}
+
 .signup {
   opacity: 1;
   width: 50%;
