@@ -47,6 +47,9 @@ app.factory('LocalAuthService', function() {
         return user.completed_demographics;
       }
     },
+    setCompletedDemographics: function(){
+      user.completed_demographics = true;
+    },
     userId: function() {
       if (isAuthenticated()) {
         return user.id;
