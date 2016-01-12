@@ -143,7 +143,7 @@ var data = {
       value: 6,
       position: 5,
       text: "Other/Unknown",
-      widget: 'radio_text'
+      widget: 'radio'
     },
     {
       id: 'demo-f16',
