@@ -76,21 +76,21 @@ var data = {
     },
     {
       id: "extra-f1r",
-      value: 1,
+      value: 7,
       position: 0,
       text: "disagree strongly",
       widget: "radio"
     },
     {
       id: "extra-f2r",
-      value: 2,
+      value: 6,
       position: 1,
       text: "disagree moderately",
       widget: "radio"
     },
     {
       id: "extra-f3r",
-      value: 3,
+      value: 5,
       position: 2,
       text: "disagree a little",
       widget: "radio"
@@ -104,21 +104,21 @@ var data = {
     },
     {
       id: "extra-f5r",
-      value: 5,
+      value: 3,
       position: 4,
       text: "agree a little",
       widget: "radio"
     },
     {
       id: "extra-f6r",
-      value: 6,
+      value: 2,
       position: 5,
       text: "agree moderately",
       widget: "radio"
     },
     {
       id: "extra-f7r",
-      value: 7,
+      value: 1,
       position: 6,
       text: "agree strongly",
       widget: "radio"

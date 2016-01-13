@@ -39,11 +39,17 @@ router.post('/', function(req, res){
     }).then(function(model){
 
       // Scores
-      if(req.body.survey.name !== "Body Consciousness Scale" && req.body.survey.name !== "Perceived Stress Survey"){
+      if(req.body.survey.name !== "Body Consciousness Scale" &&
+         req.body.survey.name !== "Perceived Stress Survey" &&
+         req.body.survey.name !== "Extraversion"
+      ){
         return res.json({valid: true});
       }
 
-      if(req.body.survey.name === "Body Consciousness Scale" || req.body.survey.name === "Perceived Stress Survey"){
+      if(req.body.survey.name === "Body Consciousness Scale" ||
+         req.body.survey.name === "Perceived Stress Survey" ||
+         req.body.survey.name === "Extraversion"
+        ){
         var sum = _.reduce(req.body.answers, function(acc, val, key){
           return acc + (val * 1);
         }, 0);
