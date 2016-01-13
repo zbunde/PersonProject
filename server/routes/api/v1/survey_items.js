@@ -55,8 +55,8 @@ router.post('/', function(req, res){
           return res.json({valid: true});
         });
       }
-    }).catch(function(error) {
-      return res.json({error: error});
+    }).catch(function(err) {
+      return res.status(500).json({error: err});
     });
   }
 });
