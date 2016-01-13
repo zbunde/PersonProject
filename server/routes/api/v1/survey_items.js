@@ -37,8 +37,9 @@ router.post('/', function(req, res){
         return new Answer({completion_id: model.id, question_id: key, value: value}).save();
       }));
     }).then(function(model){
+
       // Scores
-      if(req.body.survey.name === "Demographics" || req.body.survey.name === "Feedback"){
+      if(req.body.survey.name !== "Body Consciousness Scale"){
         return res.json({valid: true});
       }
 
@@ -54,6 +55,8 @@ router.post('/', function(req, res){
           return res.json({valid: true});
         });
       }
+    }).catch(function(error) {
+      return res.json({error: error});
     });
   }
 });
