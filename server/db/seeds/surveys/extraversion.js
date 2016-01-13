@@ -73,6 +73,55 @@ var data = {
       position: 6,
       text: "agree strongly",
       widget: "radio"
+    },
+    {
+      id: "extra-f1r",
+      value: 1,
+      position: 0,
+      text: "disagree strongly",
+      widget: "radio"
+    },
+    {
+      id: "extra-f2r",
+      value: 2,
+      position: 1,
+      text: "disagree moderately",
+      widget: "radio"
+    },
+    {
+      id: "extra-f3r",
+      value: 3,
+      position: 2,
+      text: "disagree a little",
+      widget: "radio"
+    },
+    {
+      id: "extra-f4r",
+      value: 4,
+      position: 3,
+      text: "neither agree or disagree",
+      widget: "radio"
+    },
+    {
+      id: "extra-f5r",
+      value: 5,
+      position: 4,
+      text: "agree a little",
+      widget: "radio"
+    },
+    {
+      id: "extra-f6r",
+      value: 6,
+      position: 5,
+      text: "agree moderately",
+      widget: "radio"
+    },
+    {
+      id: "extra-f7r",
+      value: 7,
+      position: 6,
+      text: "agree strongly",
+      widget: "radio"
     }
   ],
   mappings: [
@@ -82,7 +131,7 @@ var data = {
     },
     {
       qid: "extra-q2",
-      fid: ["extra-f1", "extra-f2", "extra-f3", "extra-f4", "extra-f5", "extra-f6", "extra-f7"]
+      fid: ["extra-f1r", "extra-f2r", "extra-f3r", "extra-f4r", "extra-f5r", "extra-f6r", "extra-f7r"]
     }
   ]
 };
