@@ -66,12 +66,10 @@ To create new migrations for the **surveys** database, run:
 node server/db/make-migration.js surveys migration-name
 ```
 
-To seed the database, run:
+### Creating and Seeding the Database:
 
 ```
-node server/db/seed_surveys.js
-node server/db/survey_items_seeds/depression_closure.js
-node server/db/survey_items_seeds/determining_causality.js
+./server/db/reset-database.sh
 ```
 
 ## Running tests
