@@ -39,7 +39,7 @@ router.post('/', function(req, res){
     }).then(function(model){
 
       // Scores
-      if(req.body.survey.name !== "Body Consciousness Scale"){
+      if(req.body.survey.name !== "Body Consciousness Scale" && req.body.survey.name !== "Perceived Stress Survey"){
         return res.json({valid: true});
       }
 
