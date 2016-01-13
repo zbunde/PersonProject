@@ -77,35 +77,35 @@ var data = {
   fields: [
     {
       id: 'pss-f1',
-      value: 0,
+      value: 1,
       position: 0,
       text: "1 - Never",
       widget: 'radio'
     },
     {
       id: 'pss-f2',
-      value: 1,
+      value: 2,
       position: 1,
       text: "2 - Almost never",
       widget: 'radio'
     },
     {
       id: 'pss-f3',
-      value: 2,
+      value: 3,
       position: 2,
       text: "3 - Sometimes",
       widget: 'radio'
     },
     {
       id: 'pss-f4',
-      value: 3,
+      value: 4,
       position: 3,
       text: "4 - Fairly often",
       widget: 'radio'
     },
     {
       id: 'pss-f5',
-      value: 4,
+      value: 5,
       position: 4,
       text: "5 - Very often",
       widget: 'radio'
