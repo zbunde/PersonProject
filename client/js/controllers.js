@@ -275,8 +275,8 @@ app.controller('AdminSelectSurveyItemsController', ["$scope", "$state", "AdminSe
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams", "$anchorScroll",
-  function ($rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams, $anchorScroll) {
+app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
+  function ($rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
 
   $scope.view = {loginInfo: {}};
 

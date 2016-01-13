@@ -27,8 +27,8 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
   .state('admin.user', {url: '/users/:user_id', templateUrl: '/partials/admin/show_user.html', controller: 'UsersController'})
 }]);
 
-app.run(["UsersService", "$rootScope", "LocalAuthService", "$location",
-  function(UsersService, $rootScope, LocalAuthService, $location) {
+app.run(["UsersService", "$rootScope", "LocalAuthService", "$location", "$anchorScroll",
+  function(UsersService, $rootScope, LocalAuthService, $location, $anchorScroll) {
   UsersService.verifyLogin();
   LocalAuthService.setToken();
 
