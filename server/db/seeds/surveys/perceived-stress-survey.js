@@ -109,6 +109,41 @@ var data = {
       position: 4,
       text: "5 - Very often",
       widget: 'radio'
+    },
+    {
+      id: 'pss-f1r',
+      value: 5,
+      position: 0,
+      text: "1 - Never",
+      widget: 'radio'
+    },
+    {
+      id: 'pss-f2r',
+      value: 4,
+      position: 1,
+      text: "2 - Almost never",
+      widget: 'radio'
+    },
+    {
+      id: 'pss-f3r',
+      value: 3,
+      position: 2,
+      text: "3 - Sometimes",
+      widget: 'radio'
+    },
+    {
+      id: 'pss-f4r',
+      value: 2,
+      position: 3,
+      text: "4 - Fairly often",
+      widget: 'radio'
+    },
+    {
+      id: 'pss-f5r',
+      value: 1,
+      position: 4,
+      text: "5 - Very often",
+      widget: 'radio'
     }
   ],
   mappings: [
@@ -126,11 +161,11 @@ var data = {
     },
     {
       qid: 'pss-q4',
-      fid: ['pss-f1','pss-f2','pss-f3','pss-f4', 'pss-f5']
+      fid: ['pss-f1r','pss-f2r','pss-f3r','pss-f4r', 'pss-f5r']
     },
     {
       qid: 'pss-q5',
-      fid: ['pss-f1','pss-f2','pss-f3','pss-f4', 'pss-f5']
+      fid: ['pss-f1r','pss-f2r','pss-f3r','pss-f4r', 'pss-f5r']
     },
     {
       qid: 'pss-q6',
@@ -138,11 +173,11 @@ var data = {
     },
     {
       qid: 'pss-q7',
-      fid: ['pss-f1','pss-f2','pss-f3','pss-f4', 'pss-f5']
+      fid: ['pss-f1r','pss-f2r','pss-f3r','pss-f4r', 'pss-f5r']
     },
     {
       qid: 'pss-q8',
-      fid: ['pss-f1','pss-f2','pss-f3','pss-f4', 'pss-f5']
+      fid: ['pss-f1r','pss-f2r','pss-f3r','pss-f4r', 'pss-f5r']
     },
     {
       qid: 'pss-q9',
