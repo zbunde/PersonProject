@@ -43,7 +43,7 @@ router.post('/', function(req, res){
         return res.json({valid: true});
       }
 
-      if(req.body.survey.name === "Body Consciousness Scale"){
+      if(req.body.survey.name === "Body Consciousness Scale" || req.body.survey.name === "Perceived Stress Survey"){
         var sum = _.reduce(req.body.answers, function(acc, val, key){
           return acc + (val * 1);
         }, 0);

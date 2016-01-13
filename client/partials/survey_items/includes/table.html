@@ -11,7 +11,7 @@
           {{question.data.text}}
         </td>
         <span>
-        <td ng-repeat='field in fields | orderBy: "+position"'>
+        <td ng-repeat='field in question.fields | orderBy: "+position"'>
           <label>
             <input type='radio' ng-model="answers[question.data.question_id]" value="{{field.value}}">
           </label>
