@@ -27,8 +27,8 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
   .state('admin.user', {url: '/users/:user_id', templateUrl: '/partials/admin/show_user.html', controller: 'UsersController'})
 }]);
 
-app.run(["UsersService", "$rootScope", "LocalAuthService", "$location", "$anchorScroll",
-  function(UsersService, $rootScope, LocalAuthService, $location, $anchorScroll) {
+app.run(["UsersService", "$rootScope", "LocalAuthService", "$location", "$anchorScroll", "$state",
+  function(UsersService, $rootScope, LocalAuthService, $location, $anchorScroll, $state) {
   UsersService.verifyLogin();
   LocalAuthService.setToken();
 
@@ -38,6 +38,10 @@ app.run(["UsersService", "$rootScope", "LocalAuthService", "$location", "$anchor
   };
 
   $rootScope.goToElement = function(element) {
+    if (!$state.is('home')) {
+      // TODO: Get anchor scrolling to work as well.
+      $state.go('home');
+    }
     $location.hash(element);
     $anchorScroll();
   };
