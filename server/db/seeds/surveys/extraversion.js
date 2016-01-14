@@ -8,7 +8,8 @@ var data = {
   },
   version: {
     version: 1,
-    status: "In progress"
+    status: "In progress",
+    algorithm: "average"
   },
   questions: [
     {
