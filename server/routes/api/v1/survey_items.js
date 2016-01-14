@@ -41,6 +41,7 @@ router.post('/', function(req, res){
         return new Answer({completion_id: model.id, question_id: key, value: value}).save();
       }));
     }).then(function(model){
+      // Scores
       if(req.body.survey.algorithm){
         var score = require('../../../lib/algorithms/' + req.body.survey.algorithm)(req.body.answers);
         new Score({completion_id: completion_id, value: score}).save().then(function(){return res.json({valid: true});});

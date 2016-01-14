@@ -78,6 +78,10 @@ var usersApi = function(passport) {
           (select su.id from surveys su inner join completions c on su.id = c.survey_id where c.id = ?)
       */});
 
+      if(!data1.rows.length){
+        return res.json({survey: "Not Implemented", score: 0, average: 0});
+      }
+
       bookshelf.knex.raw(query, [data1.rows[0].completion_id]).then(function(data2){
         var sum = _.reduce(data2.rows, function(acc, row){
           return acc + row.value;
