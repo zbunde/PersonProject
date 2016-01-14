@@ -81,6 +81,7 @@ router.get('/items', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
 router.get('/csv', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
   var ids = getQueryParamAsArray(req, 'sid', {number: true}),
       obj = {},
+      questionToIdMap = {user_id: ""},
       include = req.query.include,
       qids;
 
@@ -104,13 +105,15 @@ router.get('/csv', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
     if (qids.length > 0) {
       builder.whereIn("questions.id", qids);
     }
-    console.log(builder.toString());
     builder.then(function(data) {
       data.forEach(function(r) {
         obj[r.user_id] = obj[r.user_id] || {};
         obj[r.user_id][r.cid] = obj[r.user_id][r.cid] || {};
         obj[r.user_id][r.cid].user_id = r.user_id;
         obj[r.user_id][r.cid][r.text] = r.value;
+        if (questionToIdMap[r.text] === undefined) {
+          questionToIdMap[r.text] = r.qid;
+        }
       });
       obj = _.map(obj, function(value, key){
         return value;
@@ -122,6 +125,7 @@ router.get('/csv', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
         }
       });
 
+      objs.unshift(questionToIdMap);
       var fs = require('fs');
       json2csv({data: objs, del: '\t', quotes: ''}, function(err, csv){
         fs.writeFile('file.csv', csv, function(err) {
@@ -132,7 +136,7 @@ router.get('/csv', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
   } else if (include === 'last' || include === 'first') {
 
     var query = multiline.stripIndent(function(){/*
-      select comps.survey_id, comps.user_id, q.text, a.value
+      select comps.survey_id, comps.user_id, q.text, q.id, a.value
       from 
           (select distinct on (c.user_id, c.survey_id) c.id, c.survey_id,
                   c.version_id, c.user_id, c.created_at, c.updated_at
@@ -167,12 +171,16 @@ router.get('/csv', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
         obj[r.user_id] = obj[r.user_id] || {};
         obj[r.user_id].user_id = r.user_id;
         obj[r.user_id][r.text] = r.value;
+        if (questionToIdMap[r.text] === undefined) {
+          questionToIdMap[r.text] = r.id;
+        }
       });
 
       var objs = _.map(obj, function(value, key){
         return value;
       });
 
+      objs.unshift(questionToIdMap);
       var fs = require('fs');
       json2csv({data: objs, del: '\t', quotes: ''}, function(err, csv){
         fs.writeFile('file.csv', csv, function(err) {
