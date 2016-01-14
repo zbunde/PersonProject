@@ -41,29 +41,11 @@ router.post('/', function(req, res){
         return new Answer({completion_id: model.id, question_id: key, value: value}).save();
       }));
     }).then(function(model){
-
-      // Scores
-      if(req.body.survey.name !== "Body Consciousness Scale" &&
-         req.body.survey.name !== "Perceived Stress Survey" &&
-         req.body.survey.name !== "Extraversion"
-      ){
+      if(req.body.survey.algorithm){
+        var score = require('../../../lib/algorithms/' + req.body.survey.algorithm)(req.body.answers);
+        new Score({completion_id: completion_id, value: score}).save().then(function(){return res.json({valid: true});});
+      }else {
         return res.json({valid: true});
-      }
-
-      if(req.body.survey.name === "Body Consciousness Scale" ||
-         req.body.survey.name === "Perceived Stress Survey" ||
-         req.body.survey.name === "Extraversion"
-        ){
-        var sum = _.reduce(req.body.answers, function(acc, val, key){
-          return acc + (val * 1);
-        }, 0);
-        var avg = sum / Object.keys(req.body.answers).length;
-
-        new Score({completion_id: completion_id, value: avg})
-        .save()
-        .then(function(){
-          return res.json({valid: true});
-        });
       }
     }).catch(function(err) {
       return res.status(500).json({error: err});
