@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
     t.increments('id').primary();
     t.integer('version').notNullable();
     t.string('status').notNullable();
+    t.string('algorithm');
     t.integer('survey_id').references('surveys.id');
     t.timestamps();
   });
