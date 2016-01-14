@@ -14,6 +14,10 @@ var User = require('../../../models/user');
 var bookshelf = require('../../../config/connection').surveys;
 var auth = require('../../../middleware/auth/index');
 
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+
 router.post('/', function(req, res){
   var survey_id =  req.body.survey.survey_id;
   var version_id = req.body.survey.version_id;
@@ -67,18 +71,24 @@ router.post('/', function(req, res){
   }
 });
 
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+
 router.get('/:id', function (req, res){
   var query = multiline.stripIndent(function(){/*
     select q.id as q_id, q.group_number as q_group_number, q.group_type as q_group_type,
       q.group_title as q_group_title, q.text as q_text, q.position as q_position,
       q.dependent_id as q_dependent_id, q.dependent_value as q_dependent_value, q.master_id as q_master_id,
       f.id as f_id, f.value as f_value, f.position as f_position,
-      f.text as f_text, f.widget as f_widget, qv.version_id, s.id as s_id, s.name as s_name
+      f.text as f_text, f.widget as f_widget, qv.version_id, s.id as s_id, s.name as s_name,
+      v.status, v.algorithm
     from fields f
     inner join fields_questions fq on f.id = fq.field_id
     inner join questions q on q.id = fq.question_id
     inner join questions_versions qv on qv.question_id = q.id
     inner join surveys s on s.id = q.survey_id
+    inner join versions v on v.survey_id = s.id
     where fq.question_id in
       (select q.id
       from questions q
@@ -92,8 +102,10 @@ router.get('/:id', function (req, res){
     var group;
 
     obj.name = data.rows[0].s_name;
-    obj.survey_id = data.rows[0].s_id
+    obj.survey_id = data.rows[0].s_id;
     obj.version_id = data.rows[0].version_id;
+    obj.status = data.rows[0].status;
+    obj.algorithm = data.rows[0].algorithm;
     obj.groups = [];
 
     _.shuffle(data.rows).forEach(function(r){
@@ -153,5 +165,9 @@ router.get('/:id', function (req, res){
     res.status(500).json({error: err});
   });
 });
+
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
 
 module.exports = router;
