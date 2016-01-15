@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
       res.json(surveys);
     });
   } else {
-    Survey.fetchAll().then(function (surveys) {
+    Survey.query({where: {is_listed: true}}).fetchAll().then(function (surveys) {
       res.json(surveys);
     });
   }
