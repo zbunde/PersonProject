@@ -4,7 +4,8 @@ var data = {
   survey: {
     name: "Feedback",
     description: "Great - we're almost ready to show your results! Before we do, we'd like you to answer a few quick questions. It is critical for our research purposes that you answer the next questions with complete honesty",
-    est_completion_time_minutes: 5
+    est_completion_time_minutes: 5,
+    is_listed: false
   },
   version: {
     version: 1,

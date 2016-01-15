@@ -4,7 +4,8 @@ var data = {
   survey: {
     name: "Demographics",
     description: "",
-    est_completion_time_minutes: 20
+    est_completion_time_minutes: 20,
+    is_listed: false
   },
   version: {
     version: 1,
