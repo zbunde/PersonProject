@@ -159,6 +159,34 @@ var data = {
       position: 3,
       text: "5 - 7 days: Most or all of the time",
       widget: 'radio'
+    },
+    {
+      id: 'dprs-f1r',
+      value: 4,
+      position: 0,
+      text: "Less than 1 day: Rarely",
+      widget: 'radio'
+    },
+    {
+      id: 'dprs-f2r',
+      value: 3,
+      position: 1,
+      text: "1 - 2 days: Some or a little of the time",
+      widget: 'radio'
+    },
+    {
+      id: 'dprs-f3r',
+      value: 2,
+      position: 2,
+      text: "3 - 4 days: Occasionally or a moderate amount of the time",
+      widget: 'radio'
+    },
+    {
+      id: 'dprs-f4r',
+      value: 1,
+      position: 3,
+      text: "5 - 7 days: Most or all of the time",
+      widget: 'radio'
     }
   ],
   mappings: [
@@ -176,7 +204,7 @@ var data = {
     },
     {
       qid: 'dprs-q4',
-      fid: ['dprs-f1','dprs-f2','dprs-f3','dprs-f4']
+      fid: ['dprs-f1r','dprs-f2r','dprs-f3r','dprs-f4r']
     },
     {
       qid: 'dprs-q5',
@@ -192,15 +220,15 @@ var data = {
     },
     {
       qid: 'dprs-q8',
-      fid: ['dprs-f1','dprs-f2','dprs-f3','dprs-f4']
+      fid: ['dprs-f1r','dprs-f2r','dprs-f3r','dprs-f4r']
     },
     {
       qid: 'dprs-q9',
-      fid: ['dprs-f1','dprs-f2','dprs-f3','dprs-f4']
+      fid: ['dprs-f1r','dprs-f2r','dprs-f3r','dprs-f4r']
     },
     {
       qid: 'dprs-q10',
-      fid: ['dprs-f1','dprs-f2','dprs-f3','dprs-f4']
+      fid: ['dprs-f1r','dprs-f2r','dprs-f3r','dprs-f4r']
     },
     {
       qid: 'dprs-q11',
