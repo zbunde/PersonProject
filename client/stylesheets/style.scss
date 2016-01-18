@@ -39,14 +39,13 @@
   }
 }
 
-// li {
-//   list-style-type: none;
-// }
-//
-// li a:hover {
-//   color: #223333;
-//   text-decoration: none;
-// }
+li.survey-list-item {
+  a:hover {
+    color: #223333;
+    text-decoration: none;
+  }
+}
+
 table.admin-table {
   width: auto;
 
