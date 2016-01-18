@@ -1,4 +1,4 @@
-<table class='table-responsive table table-striped'>
+<table class='table-responsive table table-striped survey-table'>
   <thead>
     <tr>
       <th>&nbsp;</th>
@@ -12,7 +12,7 @@
         </td>
         <span>
         <td ng-repeat='field in question.fields | orderBy: "+position"'>
-          <label>
+          <label class="label-block">
             <input type='radio' ng-model="answers[question.data.question_id]" value="{{field.value}}">
           </label>
         </td>
