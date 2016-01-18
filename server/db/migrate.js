@@ -28,9 +28,14 @@ if (process.argv[2]) {
 
     return client.migrate.latest().then(function () {
       console.log('%s database migrations complete', database)
+    }, function (err) {
+      console.log('Migration failed due to', err);
+    }).then(function () {
       return client.destroy()
     })
   })).then(function () {
     console.log('All migrations complete')
+  }, function (err) {
+    console.log('Migrations failed due to', err);
   })
 }
