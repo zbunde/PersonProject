@@ -152,6 +152,12 @@ app.controller('SurveyItemController', ["$rootScope", "$scope",  "$state", "$loc
     if(!$rootScope.survey) return;
 
     SurveyItemsService.find($rootScope.survey.id).then(function(response){
+      $scope.recordedTime = 0;
+
+      setInterval(function(){
+        $scope.recordedTime += 1;
+      }, 1000);
+
       $scope.keys = Object.keys;
       $scope.answers = {};
       $scope.survey = response;
@@ -159,7 +165,7 @@ app.controller('SurveyItemController', ["$rootScope", "$scope",  "$state", "$loc
   });
 
   $scope.submitSurvey = function(){
-    SurveyItemsService.submitSurvey({survey: $scope.survey, answers: $scope.answers, userToken: LocalAuthService.getToken()}).then(function(){
+    SurveyItemsService.submitSurvey({recordedTime: $scope.recordedTime, survey: $scope.survey, answers: $scope.answers, userToken: LocalAuthService.getToken()}).then(function(){
 
       if($scope.survey.name !== "Demographics" && $scope.survey.name !== "Feedback"){
         $state.go('user.survey', {survey_id: 'Feedback'});

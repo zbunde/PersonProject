@@ -33,7 +33,7 @@ router.post('/', function(req, res){
     var completion_id;
 
     // Completion
-    new Completion({survey_id: survey_id, version_id: version_id, user_id: user_id}).save()
+    new Completion({recorded_time: req.body.recordedTime, survey_id: survey_id, version_id: version_id, user_id: user_id}).save()
     .then(function(model){
       completion_id = model.id;
       // Answers
