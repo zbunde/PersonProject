@@ -329,7 +329,7 @@ app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$loc
         if(LocalAuthService.isAdmin()){
           $location.path('/admin/surveys');
         } else {
-          $location.path('/users/surveys');
+          $location.path('/');
         }
       } else {
         throw new Error("Login Failed");
