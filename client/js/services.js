@@ -240,6 +240,11 @@ app.factory('UsersService', ["$http", "LocalAuthService",
 
   var users;
   return {
+    completedSurveys: function() {
+      return $http.get('/api/v1/users/completed-surveys').then(function (response) {
+        return response.data;
+      });
+    },
     result: function() {
       return $http.post('/api/v1/users/result', {userToken: LocalAuthService.getToken()}).then(function (response) {
         return response.data;

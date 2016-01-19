@@ -1,1 +1,26 @@
-<h1>user dashboard</h1>
+<div class="user jumbotron">
+  <h3>User Dashboard</h3>
+
+  <a ui-sref="user.results">View Most Recent Survey</a>
+
+  <h3>List of Completed Surveys</h3>
+
+  <table class='table-responsive table table-striped survey-table'>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Score</th>
+        <th>Time (s)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="c in completions | orderBy: '+id'">
+        <td>{{c.id}}</td>
+        <td>{{c.name}}</td>
+        <td>{{c.value}}</td>
+        <td>{{c.recorded_time}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

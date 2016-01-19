@@ -29,6 +29,24 @@ var usersApi = function(passport) {
   /* -------------------------------------------------------------------------- */
   /* -------------------------------------------------------------------------- */
 
+  router.get('/completed-surveys', function(req, res){
+    var query = multiline.stripIndent(function(){/*
+      select sur.name, c.id, c.recorded_time, s.value
+      from completions c
+      inner join scores s on c.id = s.completion_id
+      inner join surveys sur on sur.id = c.survey_id
+      where c.user_id = ?
+    */});
+
+    bookshelf.knex.raw(query, [req.session.passport.user]).then(function(data){
+      res.json({rows: data.rows});
+    });
+  });
+
+  /* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
+
   router.post('/signin', function (req, res, next) {
     passport.authenticate('local-signin', function(err, user, info) {
       if (err || !user) return res.status(401).json( {error: "Invalid login"} );
