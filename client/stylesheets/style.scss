@@ -1,4 +1,5 @@
-@import "homepage.scss";
+@import "colors.scss";
+@import "mixins.scss";
 
 // SURVEYS
 
@@ -33,7 +34,7 @@
   background-color: $brightRed;
   color: $bone;
   border-radius: 8;
-  @include bgTransition;
+  @include transition(background-color 0.3s);
   &:hover {
     background-color: darken($brightRed, 10%);
   }
@@ -167,7 +168,7 @@ p.empty {
 
 .jumbotron {
   margin-top: 60px;
-  background-color: #FFFFFF;
+  background-color: $white;
 }
 
 .jumbotron h1 {
