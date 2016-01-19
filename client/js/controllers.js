@@ -306,7 +306,7 @@ app.controller('UsersController', ["$state", "$rootScope", "$scope", "UsersServi
   });
 
   $scope.dashboard = function(){
-    $state.go('user.dashboard', {user_id: 3});
+    $state.go('user.dashboard', {user_id: LocalAuthService.userId()});
   };
 
   $scope.signup = function() {
