@@ -39,30 +39,67 @@
   }
 }
 
-li {
-  list-style-type: none;
+li.survey-list-item {
+  a:hover {
+    color: #223333;
+    text-decoration: none;
+  }
 }
 
-li a:hover {
-  color: #223333;
-  text-decoration: none;
+table.admin-table {
+  width: auto;
+
+  td {
+    vertical-align: middle;
+  }
 }
 
-tr {
-  border: 1px solid lightgray;
-}
-th {
+.td-checkbox {
+  padding: 0;
   text-align: center;
-  border: 1px solid lightgray;
-  background-color: lightgray;
+
+  label {
+    display: block;
+  }
 }
 
-td {
-  padding: 0px;
-  border: 1px solid lightgray;
+.auto-width {
+  width: auto;
 }
 
-label {
+table.survey-table {
+  > thead > tr > th  {
+    width: 100px;
+  }
+
+  > tbody > tr > td.questionText {
+    text-align: left;
+    padding: 10px;
+  }
+
+  > tbody > tr > td  {
+    padding: 0px;
+    text-align: center;
+    vertical-align:middle;
+  }
+
+  tr {
+    border: 1px solid lightgray;
+  }
+
+  th {
+    text-align: center;
+    border: 1px solid lightgray;
+    background-color: lightgray;
+  }
+
+  td {
+    padding: 0px;
+    border: 1px solid lightgray;
+  }
+}
+
+label.label-block {
   font-weight: normal;
   padding: 10px;
   display: block;
@@ -86,21 +123,6 @@ label {
 p.empty {
   padding: 10px;
   overflow: hidden;
-}
-
-.table>thead>tr>th  {
-  width: 100px;
-}
-
-.table>tbody>tr>td.questionText {
-  text-align: left;
-  padding: 10px;
-}
-
-.table>tbody>tr>td  {
-  padding: 0px;
-  text-align: center;
-  vertical-align:middle;
 }
 
 .jumbotron p {
@@ -151,6 +173,7 @@ p.empty {
 .jumbotron h1 {
   color: #337ab7;
 }
+
 .surveys.jumbotron, .users.jumbotron, .show-user.jumbotron  {
   padding-left: 30px;
   padding-right: 30px;
@@ -170,7 +193,6 @@ input.ng-invalid{
 }
 
 .signup {
-  opacity: 1;
   width: 50%;
   margin-right: auto;
   margin-left: auto;
@@ -178,5 +200,6 @@ input.ng-invalid{
   -webkit-box-shadow: 4px 3px 15px -1px rgba(0,0,0,0.75);
   -moz-box-shadow: 4px 3px 15px -1px rgba(0,0,0,0.75);
   box-shadow: 4px 3px 15px -1px rgba(0,0,0,0.75);
-  background-color: #FF6600;
+  background-color: rgba(255, 102, 0, .95);
+  padding: 2em;
 }
