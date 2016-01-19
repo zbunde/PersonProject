@@ -295,12 +295,19 @@ app.controller('UserDashboardController', ["$rootScope", "$scope", "UsersService
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-
-
-app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
-  function ($rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
+app.controller('UsersController', ["$state", "$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
+  function ($state, $rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
 
   $scope.view = {loginInfo: {}};
+
+  setTimeout(function(){
+    $scope.username = LocalAuthService.username();
+    $scope.$apply();
+  });
+
+  $scope.dashboard = function(){
+    $state.go('user.dashboard', {user_id: 3});
+  };
 
   $scope.signup = function() {
     UsersService.create($scope.newUser).then(function(response) {

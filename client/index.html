@@ -21,6 +21,7 @@
             <li><a id="about" ng-click="goToElement('about-section')">About</a></li>
             <li><a id="contact" ng-click="goToElement('contact-section')">Contact</a></li>
             <li ng-hide="rAuth.isAuthenticated()" ng-click="signin()"><a id="signin-link" ng-href="/signin" class="btn btn-default">Sign In</a></li>
+            <li ng-show="rAuth.isAuthenticated() && username" ng-click="dashboard()"><a href="#">{{username}}</a></li>
             <li ng-show="rAuth.isAuthenticated()" ng-click="logout()"><a href="#">Log Out</a></li>
           </ul>
         </div>

@@ -54,9 +54,11 @@ app.factory('LocalAuthService', function() {
       if (isAuthenticated()) {
         return user.id;
       }
-
-      // If the user is not authneticated, there is no id
-      return undefined;
+    },
+    username: function() {
+      if (isAuthenticated()) {
+        return user.username;
+      }
     },
     setToken: function () {
       if(!localStorage.getItem('userToken')){
