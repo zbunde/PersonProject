@@ -127,9 +127,9 @@ router.get('/csv', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
 
       objs.unshift(questionToIdMap);
       var fs = require('fs');
-      json2csv({data: objs, del: '\t', quotes: ''}, function(err, csv){
-        fs.writeFile('file.csv', csv, function(err) {
-          res.download('file.csv');
+      json2csv({data: objs, del: '\t', quotes: ''}, function(err, tsv){
+        fs.writeFile('file.tsv', tsv, function(err) {
+          res.download('file.tsv');
         });
       });
     });
@@ -182,9 +182,9 @@ router.get('/csv', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
 
       objs.unshift(questionToIdMap);
       var fs = require('fs');
-      json2csv({data: objs, del: '\t', quotes: ''}, function(err, csv){
-        fs.writeFile('file.csv', csv, function(err) {
-          res.download('file.csv');
+      json2csv({data: objs, del: '\t', quotes: ''}, function(err, tsv){
+        fs.writeFile('file.tsv', tsv, function(err) {
+          res.download('file.tsv');
         });
       });
     });
