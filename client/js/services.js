@@ -243,6 +243,11 @@ app.factory('UsersService', ["$http", "LocalAuthService",
         return response.data;
       });
     },
+    migrate: function() {
+      return $http.post('/api/v1/users/migrate', {userToken: LocalAuthService.getToken()}).then(function (response) {
+        return response.data;
+      });
+    },
     create: function(attrs) {
       return $http.post('/api/v1/users', attrs).then(function (response) {
         LocalAuthService.setUserInfo(response.data);

@@ -297,7 +297,9 @@ app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$loc
         $scope.newUser = {};
         $location.path('/signup');
       } else {
-        $location.path('/');
+        UsersService.migrate().then(function(){
+          $location.path('/');
+        });
       }
     });
   };
