@@ -295,14 +295,13 @@ app.controller('UserDashboardController', ["$rootScope", "$scope", "UsersService
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('UsersController', ["$state", "$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
-  function ($state, $rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
+app.controller('UsersController', ["$timeout", "$state", "$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
+  function ($timeout, $state, $rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
 
   $scope.view = {loginInfo: {}};
 
-  setTimeout(function(){
+  $timeout(function(){
     $scope.username = LocalAuthService.username();
-    $scope.$apply();
   });
 
   $scope.dashboard = function(){
@@ -336,7 +335,7 @@ app.controller('UsersController', ["$state", "$rootScope", "$scope", "UsersServi
         if(LocalAuthService.isAdmin()){
           $location.path('/admin/surveys');
         } else {
-          $location.path('/');
+          window.location = '/';
         }
       } else {
         throw new Error("Login Failed");
