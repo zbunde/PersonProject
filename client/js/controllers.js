@@ -297,7 +297,7 @@ app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$loc
         $scope.newUser = {};
         $location.path('/signup');
       } else {
-        $location.path('/users/surveys');
+        $location.path('/');
       }
     });
   };
