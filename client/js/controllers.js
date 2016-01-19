@@ -285,6 +285,18 @@ app.controller('AdminSelectSurveyItemsController', ["$scope", "$state", "AdminSe
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
+app.controller('UserDashboardController', ["$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
+  function ($rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
+
+  console.log('user dashboard');
+}]);
+
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+
+
+
 app.controller('UsersController', ["$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
   function ($rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
 

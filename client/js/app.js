@@ -12,11 +12,12 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
   .state('signup', {url: '/signup', templateUrl: '/partials/registrations/new.html', controller: 'UsersController'})
   .state('signin', {url: '/signin', templateUrl: '/partials/users/signin.html', controller: 'UsersController'})
   .state('surveys', {url: '/surveys', templateUrl: '/partials/surveys/index.html', controller: 'SurveysController'})
-  .state('user', {url: '/users', templateUrl: '/partials/users/dashboard.html', controller: 'UsersController'})
+  .state('user', {url: '/users', templateUrl: '/partials/users/template.html', controller: 'UsersController'})
   .state('user.survey', {url: '/surveys/:survey_id', controller: 'SurveyController',
       views: {'' :                        {templateUrl: '/partials/surveys/show.html', controller: 'SurveyController'},
               'surveyItems@user.survey' : {templateUrl: 'partials/survey_items/show.html', controller: 'SurveyItemController as vm'}}})
   .state('user.results', {url: '/results', templateUrl: 'partials/users/results.html', controller: 'ResultsController',})
+  .state('user.dashboard', {url: '/:user_id', templateUrl: 'partials/users/dashboard.html', controller: 'UserDashboardController',})
   .state('admin', {url: '/admin', templateUrl: '/partials/admin/dashboard.html', controller: 'AdminController'})
   .state('admin.new', {url: '/new', templateUrl: '/partials/admin/new.html', controller: 'UsersController'})
   .state('admin.select_surveys', {url: '/surveys', templateUrl: 'partials/admin/select_surveys.html', controller: 'AdminSelectSurveysController'})
