@@ -6,7 +6,7 @@ var data = {
     description: "For each statement below, please indicate your agreement or disagreement.",
     est_completion_time_minutes: 20,
     is_featured: true,
-    position: 8
+    position: 7
   },
   version: {
     version: 1,

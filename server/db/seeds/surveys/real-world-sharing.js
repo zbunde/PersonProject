@@ -6,7 +6,7 @@ var data = {
     description: "",
     est_completion_time_minutes: 20,
     is_featured: true,
-    position: 6
+    position: 5
   },
   version: {
     version: 1,

@@ -6,7 +6,7 @@ var data = {
     description: "Please indicate how OFTEN you have experienced the following in the PAST WEEK.",
     est_completion_time_minutes: 30,
     is_featured: true,
-    position: 1
+    position: 2
   },
   version: {
     version: 1,
