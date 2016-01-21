@@ -136,6 +136,14 @@ app.controller('ResultsController', ["$scope",  "$state", "LocalAuthService", "U
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
+app.controller('ResultsDetailController', ["$scope",  "$state", "LocalAuthService", "UsersService", function($scope, $state, LocalAuthService, UsersService){
+  $scope.x = 3;
+}]);
+
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+
 app.controller('SurveyItemController', ["$rootScope", "$scope",  "$state", "$location", "SurveyItemsService", "$stateParams", "LocalAuthService",
   function ($rootScope, $scope, $state, $location, SurveyItemsService, $stateParams, LocalAuthService) {
 

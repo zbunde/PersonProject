@@ -8,17 +8,15 @@
   <table class='table-responsive table table-striped survey-table'>
     <thead>
       <tr>
-        <th>Id</th>
         <th>Name</th>
         <th>Score</th>
-        <th>Time (s)</th>
+        <th>Duration (seconds)</th>
         <th>Date</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="c in completions | orderBy: '-id'">
-        <td>{{c.id}}</td>
-        <td>{{c.name}}</td>
+        <td><a ui-sref="user.results_detail({completion_id: c.id})">{{c.name}}</a></td>
         <td>{{c.value}}</td>
         <td>{{c.recorded_time}}</td>
         <td>{{c.created_at | date:'medium'}}</td>

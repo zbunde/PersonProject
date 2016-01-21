@@ -17,6 +17,7 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
       views: {'' :                        {templateUrl: '/partials/surveys/show.html', controller: 'SurveyController'},
               'surveyItems@user.survey' : {templateUrl: 'partials/survey_items/show.html', controller: 'SurveyItemController as vm'}}})
   .state('user.results', {url: '/results', templateUrl: 'partials/users/results.html', controller: 'ResultsController',})
+  .state('user.results_detail', {url: '/results/:completion_id', templateUrl: 'partials/users/results.html', controller: 'ResultsDetailController',})
   .state('user.dashboard', {url: '/:user_id', templateUrl: 'partials/users/dashboard.html', controller: 'UserDashboardController',})
   .state('admin', {url: '/admin', templateUrl: '/partials/admin/dashboard.html', controller: 'AdminController'})
   .state('admin.new', {url: '/new', templateUrl: '/partials/admin/new.html', controller: 'UsersController'})
