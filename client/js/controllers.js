@@ -395,13 +395,9 @@ app.controller('UsersController', ["$timeout", "$state", "$rootScope", "$scope",
 
   $scope.view = {loginInfo: {}};
 
-  function setUsername(){
-    $timeout(function(){
-      $rootScope.username = LocalAuthService.username();
-    });
-  }
-
-  setUsername();
+  $scope.$on('login', function(){
+    $scope.username = LocalAuthService.username();
+  });
 
   $scope.dashboard = function(){
     $state.go('user.dashboard', {user_id: LocalAuthService.userId()});
@@ -415,7 +411,6 @@ app.controller('UsersController', ["$timeout", "$state", "$rootScope", "$scope",
         $location.path('/signup');
       } else {
         UsersService.migrate().then(function(){
-          setUsername();
           $state.go('home');
         });
       }
@@ -435,7 +430,6 @@ app.controller('UsersController', ["$timeout", "$state", "$rootScope", "$scope",
         if(LocalAuthService.isAdmin()){
           $location.path('/admin/surveys');
         } else {
-          setUsername();
           $state.go('home');
         }
       } else {

@@ -18,7 +18,7 @@ app.service("AuthInterceptor", ['$location', '$q', 'LocalAuthService',
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.factory('LocalAuthService', function() {
+app.factory('LocalAuthService', ["$rootScope", function($rootScope) {
   var user;
 
   var isAuthenticated = function() {
@@ -29,6 +29,7 @@ app.factory('LocalAuthService', function() {
     setUserInfo: function(userInfo) {
       if (userInfo && userInfo.username && userInfo.admin !== undefined) {
         user = userInfo;
+        $rootScope.$broadcast('login');
         if (userInfo.facebook_user_info && userInfo.facebook_user_info.displayName) {
           user.username = user.displayName;
         } else if (userInfo.facebook_user_info && userInfo.facebook_user_info.givenName) {
@@ -69,7 +70,7 @@ app.factory('LocalAuthService', function() {
       return localStorage.getItem('userToken');
     }
   };
-});
+}]);
 
 /* *********************************************************************************** */
 /* *********************************************************************************** */
