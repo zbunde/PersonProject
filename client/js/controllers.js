@@ -127,17 +127,9 @@ app.controller('ResultsController', ["$scope",  "$state", "LocalAuthService", "U
   };
 
   $scope.isAnon = !LocalAuthService.isAuthenticated();
-  UsersService.result().then(function(result){
+  UsersService.result($state.params.completion_id).then(function(result){
     $scope.result = result;
   });
-}]);
-
-/* *********************************************************************************** */
-/* *********************************************************************************** */
-/* *********************************************************************************** */
-
-app.controller('ResultsDetailController', ["$scope",  "$state", "LocalAuthService", "UsersService", function($scope, $state, LocalAuthService, UsersService){
-  $scope.x = 3;
 }]);
 
 /* *********************************************************************************** */

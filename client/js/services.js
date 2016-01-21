@@ -245,8 +245,8 @@ app.factory('UsersService', ["$http", "LocalAuthService",
         return response.data;
       });
     },
-    result: function() {
-      return $http.post('/api/v1/users/result', {userToken: LocalAuthService.getToken()}).then(function (response) {
+    result: function(completion_id) {
+      return $http.post('/api/v1/users/result', {completion_id: completion_id, userToken: LocalAuthService.getToken()}).then(function (response) {
         return response.data;
       });
     },

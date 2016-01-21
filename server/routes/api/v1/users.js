@@ -112,7 +112,7 @@ var usersApi = function(passport) {
   /* -------------------------------------------------------------------------- */
 
   router.post('/result', function (req, res, next) {
-    var query = multiline.stripIndent(function(){/*
+    var query1 = multiline.stripIndent(function(){/*
       select su.name, s.*
       from scores s
       inner join completions c on c.id = s.completion_id
@@ -125,7 +125,23 @@ var usersApi = function(passport) {
         order by id desc limit 1);
     */});
 
-    bookshelf.knex.raw(query, [req.session.passport.user || req.body.userToken]).then(function(data1){
+    var query2 = multiline.stripIndent(function(){/*
+      select su.name, s.*
+      from scores s
+      inner join completions c on c.id = s.completion_id
+      inner join surveys su on su.id = c.survey_id
+      where s.completion_id = ?
+    */});
+
+    if(req.body.completion_id){
+      var query = query2;
+      var params = [req.body.completion_id];
+    }else{
+      var query = query1;
+      var params = [req.session.passport.user || req.body.userToken];
+    }
+
+    bookshelf.knex.raw(query, params).then(function(data1){
       var query = multiline.stripIndent(function(){/*
         select s.*
         from scores s
