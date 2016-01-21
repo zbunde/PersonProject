@@ -303,7 +303,9 @@ app.controller('UsersController', ["$timeout", "$state", "$rootScope", "$scope",
   $scope.view = {loginInfo: {}};
 
   function setUsername(){
-    $rootScope.username = LocalAuthService.username();
+    $timeout(function(){
+      $rootScope.username = LocalAuthService.username();
+    });
   }
 
   setUsername();
