@@ -76,6 +76,9 @@ router.get('/items', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
   });
 });
 
+router.post('/featured-order', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
+});
+
 // Example query string:
 // sid=7&q2=demo-q5&q7=lone-q19&q7=lone-q17&q7=lone-q16&q7=lone-q13&q7=lone-q12
 router.get('/csv', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
