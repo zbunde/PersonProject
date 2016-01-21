@@ -31,7 +31,7 @@ var usersApi = function(passport) {
 
   router.get('/completed-surveys', function(req, res){
     var query = multiline.stripIndent(function(){/*
-      select sur.name, c.id, c.recorded_time, s.value
+      select sur.name, c.id, c.recorded_time, c.created_at, s.value
       from completions c
       inner join scores s on c.id = s.completion_id
       inner join surveys sur on sur.id = c.survey_id

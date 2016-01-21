@@ -12,6 +12,7 @@
         <th>Name</th>
         <th>Score</th>
         <th>Time (s)</th>
+        <th>Date</th>
       </tr>
     </thead>
     <tbody>
@@ -20,6 +21,7 @@
         <td>{{c.name}}</td>
         <td>{{c.value}}</td>
         <td>{{c.recorded_time}}</td>
+        <td>{{c.created_at | date:'medium'}}</td>
       </tr>
     </tbody>
   </table>
