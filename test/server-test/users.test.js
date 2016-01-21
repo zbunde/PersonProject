@@ -4,6 +4,7 @@ var app = require('../../server')
 var request = require('supertest')(app)
 var User = require('../../server/models/user')
 var createUser = require('../../server/lib/create_user');
+var createAdmin = require('../../server/lib/create_admin');
 
 function truncateAll(knex) {
   var sql = "SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname='public';"
@@ -12,6 +13,96 @@ function truncateAll(knex) {
     return dbConfig.users.knex.raw('TRUNCATE ' + tableNames.join() + ' CASCADE');
   })
 }
+
+describe("/api/v1/admin/users", function() {
+  beforeEach(function () {
+    return Promise.all([
+      truncateAll(dbConfig.users.knex),
+      truncateAll(dbConfig.surveys.knex)
+    ])
+  });
+
+  describe("Unauthenticated request", function() {
+    it("should not allow an unauthenticated user to create an admin", function(done) {
+      request.post('/api/v1/admin/users')
+        .send({username: 't@testing.com', password: 'password123'})
+        .expect(401)
+        .end(function(err, res) {
+          if (err) return done(err);
+          done();
+        });
+    });
+
+    describe("Authenticated, but not admin", function() {
+      var authCookies;
+      beforeEach(function(done) {
+        request.post('/api/v1/users')
+          .send({username: 't@testing.com', password: 'password123'})
+          .expect(200)
+          .end(function (err, res) {
+            if (err) return done(err);
+            authCookies = res.headers['set-cookie'].map(function(cookie) {
+              return cookie.split(';')[0];
+            }).join(';');
+            done();
+          });
+      });
+
+      it("Should not allow an authenticated, non admin user to create an admin", function(done) {
+        request.post('/api/v1/admin/users')
+          .send({username: 't@testing.com', password: 'password123'})
+          .set('Cookie', authCookies)
+          .expect(401)
+          .end(function(err, res) {
+            if (err) return done(err);
+            done();
+          });
+      })
+    });
+
+    describe("Authenticated admins", function() {
+      var authCookies;
+      beforeEach(function(done) {
+        createAdmin('t@testing.com', 'password123').then(function() {
+          request.post('/api/v1/users/signin')
+            .send({username: 't@testing.com', password: 'password123'})
+            .expect(200)
+            .end(function (err, res) {
+              if (err) return done(err);
+              authCookies = res.headers['set-cookie'].map(function(cookie) {
+                return cookie.split(';')[0];
+              }).join(';');
+              done();
+            });
+        });
+      });
+
+      it("allows an authenticted admin user to create a new admin", function(done) {
+        request.post('/api/v1/admin/users')
+          .send({username: 'admin@testing.com', password: 'password123'})
+          .set('Cookie', authCookies)
+          .expect(200)
+          .end(function(err, res) {
+            if (err) return done(err);
+
+            new User({username: 'admin@testing.com'}).fetch().then(function(user) {
+              expect(user).to.exist;
+              expect(user.get('username')).to.exist;
+              expect(user.get('username')).to.equal("admin@testing.com");
+              expect(user.get('hashed_pass')).to.exist;
+              expect(user.get('hashed_pass')) .to.not.equal('password123');
+              expect(user.get('admin')).to.exist;
+              expect(user.get('admin')).to.be.a('boolean');
+              expect(user.get('admin')).to.be.true;
+              done();
+            }).catch(function(error) {
+              throw error;
+            });
+          });
+      });
+    });
+  })
+});
 
 describe("/api/v1/users", function () {
 
@@ -208,8 +299,10 @@ describe("/api/v1/users", function () {
 
   describe("/signin", function() {
     var userData = {username: 'testing@testing.com', password: 'password'};
-    beforeEach(function () {
-      return createUser(userData.username, userData.password);
+    beforeEach(function (done) {
+      createUser(userData.username, userData.password).then(function() {
+        done()
+      });
     });
 
     it("authenticates an existing user", function(done) {

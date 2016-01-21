@@ -1,8 +1,11 @@
-<div class="jumbotron signup" ng-controller="UsersController">
+<div class="success" ng-show="messages">
+  {{ messages }}
+</div>
+<div class="jumbotron signup">
   <div class="errors" ng-show="errors">
     {{ errors }}
   </div>
-  <form ng-submit="newAdmin()">
+  <form ng-submit="createAdmin()">
     <div class="form-group">
       <h3 class='form-title'>Create A New Admin</h3>
       <label for="email">Username</label>

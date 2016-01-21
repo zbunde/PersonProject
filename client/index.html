@@ -16,8 +16,9 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
+            <li ng-show="rAuth.isAdmin()"><a ui-sref="admin.select_surveys">Admin</a></li>
             <li ng-class="{active: isActive()}"><a id="feat-experiments" ng-click="goToElement('feat-experiments-section')">Experiments</a></li>
-            <!-- <li ng-click="allSurveys()"><a id="all-experiments" ng-href="/surveys">All Experiments</a></li> -->
+
             <li><a id="about" ng-click="goToElement('about-section')">About</a></li>
             <li><a id="contact" ng-click="goToElement('contact-section')">Contact</a></li>
             <li ng-hide="rAuth.isAuthenticated()" ng-click="signin()"><a id="signin-link" ng-href="/signin" class="btn btn-default">Sign In</a></li>

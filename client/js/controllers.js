@@ -2,7 +2,21 @@
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('AdminController', ["$scope", function ($scope) {
+app.controller('AdminController', ["$scope", "UsersService",
+  function ($scope, UsersService) {
+    $scope.admin = {};
+
+    $scope.createAdmin = function () {
+      UsersService.createAdmin($scope.admin).then(function (response) {
+        if(response.error){
+          $scope.admin = {};
+          $scope.errors = response.error;
+        } else {
+          $scope.admin = {};
+          $scope.messages = "Admin created: " + response.username;
+        }
+      });
+    };
 }]);
 
 /* *********************************************************************************** */
@@ -353,18 +367,6 @@ app.controller('UsersController', ["$timeout", "$state", "$rootScope", "$scope",
       $scope.view.loginInfo.password = "";
       $scope.errors = error.statusText || error.message || "Login Failed";
     });
-  };
-
-  $scope.newAdmin = function () {
-    UsersService.createAdmin($scope.admin).then(function (response) {
-      if(response.error){
-        $scope.admin = {};
-        $scope.errors = response.error;
-      } else {
-        $scope.admin = {};
-        $location.path('/')
-      }
-    })
   };
 
   $scope.show = function(user) {

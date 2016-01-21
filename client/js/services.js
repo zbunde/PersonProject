@@ -274,7 +274,7 @@ app.factory('UsersService', ["$http", "LocalAuthService",
       });
     },
     createAdmin: function (admin) {
-      return $http.post('/api/v1/users', admin).then(function (response) {
+      return $http.post('/api/v1/admin/users', admin).then(function (response) {
         return response.data;
       });
     },
