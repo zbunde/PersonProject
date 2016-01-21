@@ -322,7 +322,8 @@ app.controller('UsersController', ["$timeout", "$state", "$rootScope", "$scope",
         $location.path('/signup');
       } else {
         UsersService.migrate().then(function(){
-          $location.path('/');
+          setUsername();
+          $state.go('home');
         });
       }
     });
