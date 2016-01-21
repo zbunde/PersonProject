@@ -23,8 +23,8 @@ app.controller('AdminController', ["$scope", "UsersService",
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('FeaturedSurveysController', ["$scope", "SurveysService",
-  function ($scope, SurveysService) {
+app.controller('FeaturedSurveysController', ["$scope", "SurveysService", "AdminService",
+  function ($scope, SurveysService, AdminService) {
     $scope.view = {};
     var MAX_FEATURED_SURVEYS = 8;
 
@@ -92,8 +92,15 @@ app.controller('FeaturedSurveysController', ["$scope", "SurveysService",
     };
 
     $scope.saveSurveyOrder = function() {
-      console.log("TODO: Save survey order");
-      $scope.view.messages = "Order Saved";
+      var data = {};
+      data.featuredOrder = sortedFeaturedSurveys().map(function(survey) {
+        return {id: survey.id, position: survey.position};
+      });
+      AdminService.surveys.featuredOrder(data).then(function() {
+        $scope.view.messages = "Order Saved";
+      }).catch(function() {
+        $scope.view.error = "Order Failed To Save";
+      })
     };
 
 }]);

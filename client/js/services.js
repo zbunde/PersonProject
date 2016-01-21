@@ -88,6 +88,11 @@ app.factory('AdminService', ["$http", "$window",
           return data.data;
         });
       },
+      featuredOrder: function(order) {
+        return $http.post(url + '/surveys/featured-order', order).then(function(data) {
+          return data.data;
+        });
+      },
       items: function(ids) {
         var query;
         if (Array.isArray(ids)) { query = '?id=' + ids.join('&id='); }

@@ -5,6 +5,29 @@ var auth = require('../../../../middleware/auth/index');
 var bookshelf = require('../../../../config/connection').surveys;
 var json2csv = require('json2csv');
 var _ = require('lodash');
+var Promise = require('bluebird');
+
+var MAX_FEATURED_SURVEYS = 8;
+
+function validateFeaturedOrder(data) {
+  if (!_.isObject(data) || !_.isArray(data.featuredOrder) || !data.featuredOrder.length > 0) return false;
+  var duplicates = {id: [], position: []};
+  return data.featuredOrder.reduce(function(acc, item) {
+    if (!_.isFinite(Number(item.id)) || !_.isFinite(Number(item.position))) {
+      acc = false;
+    } else if (Number(item.position) > MAX_FEATURED_SURVEYS ||
+               Number(item.position) < 0) {
+      acc = false;
+    } else if (duplicates.id.indexOf(Number(item.id)) > -1 ||
+               duplicates.position.indexOf(Number(item.position)) > -1) {
+      acc = false;
+    } else {
+      duplicates.id.push(Number(item.id));
+      duplicates.position.push(Number(item.position));
+    }
+    return acc;
+  }, true);
+}
 
 function getQueryParamAsArray(req, param, options) {
   var vals = [];
@@ -24,6 +47,7 @@ function getQueryParamAsArray(req, param, options) {
   
   return vals;
 }
+
 router.get('/', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
   bookshelf.knex.select("surveys.id", "surveys.name")
                 .count("*")
@@ -77,6 +101,27 @@ router.get('/items', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
 });
 
 router.post('/featured-order', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
+  if (validateFeaturedOrder(req.body) === false) {
+    return res.status(404).send({erorr: "Invalid input"});
+  }
+
+  bookshelf.knex.transaction(function(trx) {
+    return bookshelf.knex("surveys")
+            .transacting(trx)
+            .update({is_featured: false, position: null})
+            .then(function() {
+              return Promise.map(req.body.featuredOrder, function(item) {
+                return bookshelf.knex("surveys")
+                        .transacting(trx)
+                        .where('id', Number(item.id))
+                        .update({is_featured: true, position: Number(item.position)});
+              })
+            });
+  }).then(function(updates) {
+    res.send({success: "order updated"});
+  }).catch(function(error) {
+    res.status(404).send({error: error, message: "Invalid input"});
+  });
 });
 
 // Example query string:
