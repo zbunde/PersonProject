@@ -19,7 +19,7 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
   .state('user.results', {url: '/results', templateUrl: 'partials/users/results.html', controller: 'ResultsController',})
   .state('user.results_detail', {url: '/results/:completion_id', templateUrl: 'partials/users/results.html', controller: 'ResultsController',})
   .state('user.password', {url: '/password', templateUrl: 'partials/users/password.html', controller: 'UserPasswordController',})
-  .state('user.dashboard', {url: '/:user_id', templateUrl: 'partials/users/dashboard.html', controller: 'UserDashboardController',})
+  .state('user.dashboard', {url: '/dashboard', templateUrl: 'partials/users/dashboard.html', controller: 'UserDashboardController',})
   .state('admin', {url: '/admin', templateUrl: '/partials/admin/dashboard.html', controller: 'AdminController'})
   .state('admin.new', {url: '/new', templateUrl: '/partials/admin/new.html', controller: 'AdminController'})
   .state('admin.featured', {url: '/featured', templateUrl: '/partials/admin/featured.html', controller: 'FeaturedSurveysController'})
