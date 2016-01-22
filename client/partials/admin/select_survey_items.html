@@ -1,15 +1,20 @@
 <form ng-submit="createCSV()">
   <div ng-repeat="survey in view.surveys">
-    <div>{{survey.name}}</div>
+    <div class="admin-table-title">{{survey.name}}</div>
     <table class="table admin-table table-bordered table-striped table-compact">
       <tr>
-        <th>Include</th>
+        <th>
+          Include
+          (All<span class="admin-select-all">
+            <input type="checkbox" ng-model="survey.selectAll" ng-click="selectAll(survey)">
+          </span>)
+        </th>
         <th>Question</th>
       </tr>
       <tr ng-repeat="question in survey.questions">
         <td class="td-checkbox">
           <label>
-            <input type="checkbox" ng-click="selectSurveyQuestion(survey.id, question.id)">
+            <input type="checkbox" ng-model="question.selected">
           </label>
         </td>
         <td>{{question.text}}</td>

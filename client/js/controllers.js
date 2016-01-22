@@ -351,8 +351,7 @@ app.controller('AdminSelectSurveysController', ["$scope", "$state", "AdminServic
 
 app.controller('AdminSelectSurveyItemsController', ["$scope", "$state", "AdminService",  "$location", "LocalAuthService",
   function ($scope, $state, AdminService, $location, LocalAuthService) {
-
-  $scope.view = {selected: {}};
+  $scope.view = {};
   $scope.view.options = [{value: "first", display: "Include first result for users"},
                          {value: "last", display: "Include last result for user"},
                         ];
@@ -362,26 +361,43 @@ app.controller('AdminSelectSurveyItemsController', ["$scope", "$state", "AdminSe
   $scope.view.include = "";
   AdminService.surveys.items($location.search().id).then(function(data) {
     $scope.view.surveys = data.surveys;
+    if ($scope.view.surveys && _.isArray($scope.view.surveys)) {
+      $scope.view.surveys.forEach(function(survey) {
+        if (_.isArray(survey.questions)) {
+          survey.selectAll = false;
+          survey.questions.forEach(function(question) {
+            question.selected = false;
+          });
+        }
+      });
+    }
   });
 
-  $scope.selectSurveyQuestion = function(surveyId, questionId) {
-    if ($scope.view.selected[surveyId] !== undefined) {
-      var index = $scope.view.selected[surveyId].indexOf(questionId);
-      if (index >= 0) {
-        $scope.view.selected[surveyId].splice(index, 1);
-        if ($scope.view.selected[surveyId].length === 0) {
-          delete $scope.view.selected[surveyId];
-        }
-      } else {
-        $scope.view.selected[surveyId].push(questionId);
-      }
+  $scope.selectAll = function(survey) {
+    if (survey.selectAll === true) {
+      survey.questions.forEach(function(question) {
+        question.selected = true;
+      });
     } else {
-      $scope.view.selected[surveyId] = [questionId];
+      survey.questions.forEach(function(question) {
+        question.selected = false;
+      });
     }
   };
 
   $scope.createCSV = function() {
-    AdminService.surveys.csv($scope.view.selected, $scope.view.include);
+    var selected = {};
+    $scope.view.surveys.forEach(function(survey) {
+      survey.questions.forEach(function(question) {
+        if (question.selected === true) {
+          if (selected[survey.id] === undefined) {
+            selected[survey.id] = [];
+          }
+          selected[survey.id].push(question.id);
+        }
+      });
+    });
+    AdminService.surveys.csv(selected, $scope.view.include);
   };
 }]);
 
