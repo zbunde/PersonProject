@@ -228,7 +228,11 @@ app.controller('ResultsController', ["$scope",  "$state", "LocalAuthService", "U
 
   $scope.isAnon = !LocalAuthService.isAuthenticated();
   UsersService.result($state.params.completion_id).then(function(result){
-    $scope.result = result;
+    if(result.survey === "Not Implemented"){
+      $state.go('user.dashboard');
+    }else{
+      $scope.result = result;
+    }
   });
 }]);
 
