@@ -397,6 +397,17 @@ app.controller('UserDashboardController', ["$rootScope", "$scope", "UsersService
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
+app.controller('UserPasswordController', ["$timeout", "$state", "$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
+  function ($timeout, $state, $rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
+
+  console.log('pwd controller');
+
+}]);
+
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+
 app.controller('UsersController', ["$timeout", "$state", "$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
   function ($timeout, $state, $rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
 
