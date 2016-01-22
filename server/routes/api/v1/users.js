@@ -130,12 +130,12 @@ var usersApi = function(passport) {
       from scores s
       inner join completions c on c.id = s.completion_id
       inner join surveys su on su.id = c.survey_id
-      where s.completion_id = ?
+      where c.user_id = ? and s.completion_id = ?
     */});
 
     if(req.body.completion_id){
       var query = query2;
-      var params = [req.body.completion_id];
+      var params = [req.session.passport.user || req.body.userToken, req.body.completion_id];
     }else{
       var query = query1;
       var params = [req.session.passport.user || req.body.userToken];
