@@ -1,6 +1,6 @@
 var dbConfig = require('../../server/config/connection')
 var knex = require('knex')
-var app = require('../../server')
+var app = require('../../server/app')
 var request = require('supertest')(app)
 var User = require('../../server/models/user')
 var createUser = require('../../server/lib/create_user');
