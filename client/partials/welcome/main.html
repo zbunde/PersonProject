@@ -16,7 +16,7 @@
         </p>
       </div>
       <div class="col-sm-2 text-center">
-        <a id="register" class="btn btn-default" ng-href="/signup">Register Now</a>
+        <a id="register" ng-hide="rAuth.isAuthenticated()" class="btn btn-default" ng-href="/signup">Register Now</a>
       </div>
     </div>
   </div>
