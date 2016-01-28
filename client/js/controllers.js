@@ -448,7 +448,11 @@ app.controller('UsersController', ["$timeout", "$state", "$rootScope", "$scope",
         $scope.newUser = {};
         $location.path('/signup');
       } else {
-        UsersService.migrate().then(function(){
+        UsersService.migrate().then(function(response){
+          if(response.demographics){
+            LocalAuthService.setCompletedDemographics();
+          }
+
           $state.go('home');
         });
       }
