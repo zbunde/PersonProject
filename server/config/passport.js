@@ -15,7 +15,8 @@ module.exports = function(passport) {
       username: user.attributes.username,
       admin: user.attributes.admin,
       facebook_user_info: user.attributes.facebook_user_info,
-      completed_demographics: user.attributes.completed_demographics
+      completed_demographics: user.attributes.completed_demographics,
+      email: user.attributes.email
     }
   }
   // used to serialize the user for the session

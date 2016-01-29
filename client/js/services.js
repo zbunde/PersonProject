@@ -61,6 +61,11 @@ app.factory('LocalAuthService', ["$rootScope", function($rootScope) {
         return user.username;
       }
     },
+    email: function() {
+      if (isAuthenticated()) {
+        return user.email;
+      }
+    },
     setToken: function () {
       if(!localStorage.getItem('userToken')){
         localStorage.setItem("userToken", uuid.v4());

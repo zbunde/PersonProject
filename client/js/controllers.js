@@ -408,6 +408,8 @@ app.controller('AdminSelectSurveyItemsController', ["$scope", "$state", "AdminSe
 app.controller('UserDashboardController', ["$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
   function ($rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
 
+  $scope.email = LocalAuthService.email();
+
   UsersService.completedSurveys().then(function(data){
     $scope.completions = data.rows;
   });

@@ -9,6 +9,7 @@ var multiline = require('multiline');
 var _ = require('lodash');
 var surveysDb = require('../../../config/connection').surveys;
 var usersDb = require('../../../config/connection').users;
+var User = require('../../../models/user');
 
 var usersApi = function(passport) {
 
@@ -75,7 +76,8 @@ var usersApi = function(passport) {
         if (err) return next(err);
         return res.json({id: user.id,
                          admin: user.admin === true ? true : false,
-                         username: user.username, completed_demographics: user.completed_demographics}
+                         username: user.username, completed_demographics: user.completed_demographics,
+                         email: user.email}
           );
       });
     })(req, res, next);
@@ -90,21 +92,16 @@ var usersApi = function(passport) {
 
   router.post('/', function(req, res, next) {
 
-    console.log('****body****', req.body);
-
     passport.authenticate('local-signup', function(err, user, info) {
-
-      console.log('****user****', user);
-
-
       if (err || !user) return res.status(401).json( {error: "Invalid login"} );
-      req.login(user, function(err) {
-        if (err) return next(err);
-        return res.json({id: user.id,
-                         admin: user.admin === true ? true : false,
-                         username: user.username}
-        );
+
+      new User({id: user.id, email: req.body.email}).save().then(function(){
+        req.login(user, function(err) {
+          if (err) return next(err);
+          return res.json({id: user.id, admin: user.admin === true ? true : false, username: user.username, email: req.body.email});
+        });
       });
+
     })(req, res, next);
   });
 
