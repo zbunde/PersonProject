@@ -89,7 +89,14 @@ var usersApi = function(passport) {
   // the user who is creating an admin is an admin
 
   router.post('/', function(req, res, next) {
+
+    console.log('****body****', req.body);
+
     passport.authenticate('local-signup', function(err, user, info) {
+
+      console.log('****user****', user);
+
+
       if (err || !user) return res.status(401).json( {error: "Invalid login"} );
       req.login(user, function(err) {
         if (err) return next(err);
