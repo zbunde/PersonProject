@@ -2,6 +2,17 @@
   {{ messages }}
 </div>
 <div class="jumbotron signup">
+  <h3 class='form-title'>Admin Users</h3>
+  <div ng-repeat="user in users">
+    <form ng-submit="deleteAdmin(user.id)">
+      <div class="form-group">
+        {{user.username}}
+        <button type="submit" class="btn btn-default" aria-label="Remove">
+          <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+        </button>
+      </div>
+    </form>
+  </div>
   <div class="errors" ng-show="errors">
     {{ errors }}
   </div>

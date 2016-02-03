@@ -2,9 +2,34 @@
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('AdminController', ["$scope", "UsersService",
-  function ($scope, UsersService) {
+app.controller('AdminController', ["$scope", "UsersService", "ModalService",
+  function ($scope, UsersService, ModalService) {
     $scope.admin = {};
+    $scope.users = [];
+
+    UsersService.getAdmins().then(function (users) {
+      $scope.users = users;
+    });
+
+    $scope.deleteAdmin = function(userId) {
+      ModalService.showModal({
+        templateUrl: "/partials/admin/delete_admin_modal.html",
+        controller: "AdminDeleteController",
+      }).then(function(modal) {
+        modal.element.modal();
+        modal.close.then(function(result) {
+          if (result) {
+            UsersService.deleteAdmin(userId).then(function() {
+              $scope.users = $scope.users.filter(function(user) {
+                return user.id !== userId;
+              });
+            });
+          }
+        });
+      });
+
+
+    };
 
     $scope.createAdmin = function () {
       UsersService.createAdmin($scope.admin).then(function (response) {
@@ -13,10 +38,24 @@ app.controller('AdminController', ["$scope", "UsersService",
           $scope.errors = response.error;
         } else {
           $scope.admin = {};
-          $scope.messages = "Admin created: " + response.username;
+          $scope.users.push(response)
         }
       });
     };
+}]);
+
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+
+app.controller('AdminDeleteController', ["$scope", "close",
+  function($scope, close) {
+    console.log("the admin controller is created!");
+    $scope.dismissModal = function(result) {
+      console.log("result", result);
+      close(result, 200);
+    }
+
 }]);
 
 /* *********************************************************************************** */

@@ -289,6 +289,16 @@ app.factory('UsersService', ["$http", "LocalAuthService",
         return response.data;
       });
     },
+    deleteAdmin: function(userId) {
+      return $http.delete('/api/v1/admin/users/' + userId).then(function(response) {
+        return response.data;
+      });
+    },
+    getAdmins: function() {
+      return $http.get('/api/v1/admin/users').then(function(response) {
+        return response.data;
+      });
+    },
     find: function(user){
       return $http.get('/api/v1/users/' + user.id).then(function (response) {
         return response
