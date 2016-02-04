@@ -448,7 +448,9 @@ app.controller('UserDashboardController', ["$rootScope", "$scope", "UsersService
   $scope.email = LocalAuthService.email();
 
   $scope.destroy = function(){
-    console.log('delete account');
+    UsersService.destroy().then(function(data){
+      console.log('****nuke:', data);
+    });
   };
 
   UsersService.completedSurveys().then(function(data){

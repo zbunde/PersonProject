@@ -313,9 +313,9 @@ app.factory('UsersService', ["$http", "LocalAuthService",
         return error;
       })
     },
-    destroy: function (user) {
-      return $http.delete('/api/v1/users/' + user).then(function (response) {
-        return response.status === 200 ? true : false;
+    destroy: function() {
+      return $http.delete('/api/v1/users').then(function (response) {
+        return response;
       })
     }
   };
