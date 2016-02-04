@@ -7,6 +7,10 @@ router.get('/', function (req, res, next) {
     Survey.query({where: {is_featured: true}}).fetchAll().then(function (surveys) {
       res.json(surveys);
     });
+  } else if (req.query['all-surveys'] === 'true') {
+    Survey.fetchAll().then(function (surveys) {
+      res.json(surveys);
+    });
   } else {
     Survey.query({where: {is_listed: true}}).fetchAll().then(function (surveys) {
       res.json(surveys);
