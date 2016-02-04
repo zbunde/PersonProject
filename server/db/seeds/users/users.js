@@ -9,8 +9,9 @@ var createAdmin = require('../../../lib/create_admin');
 Promise.all([
   createAdmin("admin@admin.com", "admin1234"),
   createUser("user@user.com", "user1234"),
-  createUser("bob@user.com", "bob1234"),
-  createUser("alice@user.com", "alice1234")
+  createUser("bob@user.com", "123"),
+  createUser("sam@user.com", "123"),
+  createUser("alice@user.com", "123")
 ]).then(function() {
   console.log("Users seeded successfully");
   process.exit();
