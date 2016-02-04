@@ -262,6 +262,11 @@ app.factory('UsersService', ["$http", "LocalAuthService",
         return response.data;
       });
     },
+    changePassword: function(password) {
+      return $http.put('/api/v1/users/password', {password: password}).then(function (response) {
+        return response.data;
+      });
+    },
     result: function(completion_id) {
       return $http.post('/api/v1/users/result', {completion_id: completion_id, userToken: LocalAuthService.getToken()}).then(function (response) {
         return response.data;
