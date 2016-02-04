@@ -530,7 +530,9 @@ app.controller('UserProfileController', ["$timeout", "$state", "$rootScope", "$s
   function ($timeout, $state, $rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
     $scope.change = function(profile){
       UsersService.changeProfile(profile).then(function(){
-        $state.go('user.dashboard');
+        UsersService.verifyLogin().then(function(){
+          $state.go('user.dashboard');
+        });
       });
     };
 }]);
