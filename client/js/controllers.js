@@ -491,14 +491,15 @@ app.controller('AdminSelectSurveyItemsController', ["$scope", "$state", "AdminSe
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('UserDashboardController', ["$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
-  function ($rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
+app.controller('UserDashboardController', ["$state", "$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
+  function ($state, $rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
 
   $scope.email = LocalAuthService.email();
 
   $scope.destroy = function(){
     UsersService.destroy().then(function(data){
-      console.log('****nuke:', data);
+      LocalAuthService.clearCredentials();
+      $state.go('home');
     });
   };
 

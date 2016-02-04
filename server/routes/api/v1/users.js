@@ -117,30 +117,40 @@ var usersApi = function(passport) {
   /* -------------------------------------------------------------------------- */
   /* -------------------------------------------------------------------------- */
 
-  // delete c, a, s
-  // from completions c
-  // inner join answers a on c.id = a.completion_id
-  // inner join scores s on c.id = s.completion_id
-  // where c.user_id = ?
-
-
-
   router.delete('/', auth.ensureLoggedIn, function(req, res, next) {
 
-    return res.json({});
-
-    var query1 = multiline.stripIndent(function(){/*
-      delete completions
-      from completions
+    var scores = multiline.stripIndent(function(){/*
+      delete from scores s
+      using completions c
+      where c.id = s.completion_id and c.user_id = ?
     */});
 
+    var answers = multiline.stripIndent(function(){/*
+      delete from answers a
+      using completions c
+      where c.id = a.completion_id and c.user_id = ?
+    */});
 
-    surveysDb.knex.raw(query1, []).then(function(data1){
-      console.log('*******', req.session.passport.user);
-      return res.json(data1);
+    var completions = multiline.stripIndent(function(){/*
+      delete from completions c
+      where c.user_id = ?
+    */});
+
+    var users = multiline.stripIndent(function(){/*
+      delete from users u
+      where u.id = ?
+    */});
+
+    surveysDb.knex.raw(scores, [req.session.passport.user]).then(function(rScores){
+      surveysDb.knex.raw(answers, [req.session.passport.user]).then(function(rAnswers){
+        surveysDb.knex.raw(completions, [req.session.passport.user]).then(function(rCompletions){
+          usersDb.knex.raw(users, [req.session.passport.user]).then(function(rUsers){
+            req.logout();
+            return res.json({success: "Logged out"});
+          });
+        });
+      });
     });
-
-
   });
 
   /* -------------------------------------------------------------------------- */
