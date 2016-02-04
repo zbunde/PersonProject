@@ -525,6 +525,20 @@ app.controller('UserPasswordController', ["$timeout", "$state", "$rootScope", "$
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
+app.controller('UserProfileController', ["$timeout", "$state", "$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
+  function ($timeout, $state, $rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
+    $scope.change = function(profile){
+      console.log('****', profile);
+      // UsersService.changePassword(password).then(function(){
+      //   $state.go('user.dashboard');
+      //});
+    };
+}]);
+
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+
 app.controller('UsersController', ["$timeout", "$state", "$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
   function ($timeout, $state, $rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
 
