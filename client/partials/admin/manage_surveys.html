@@ -1,0 +1,21 @@
+
+<div  ng-show="surveyForEdit">
+  <button type="button" class="close" aria-label="Close" ng-click="dismissEdit()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <textarea class="survey-edit">
+    {{surveyForEdit}}
+  </textarea>
+</div>
+<table class="table admin-table table-bordered table-striped table-compact">
+  <tr>
+    <th>Survey</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  <tr ng-repeat="survey in surveys | orderBy: survey.name">
+    <td>{{survey.name}}</td>
+    <td><button type="button" class="btn btn-default" ng-click="showSurvey(survey)">Edit</button></td>
+    <td><button type="button" class="btn btn-default" ng-click="deleteSurvey(survey)">Delete</button></td>
+  </tr>
+</table>

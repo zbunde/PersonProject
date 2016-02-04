@@ -214,8 +214,14 @@ app.factory('SurveysService', ["$http",
 
   var url = '/api/v1';
   return {
-    all: function () {
-      return $http.get(url + '/surveys').then(function (response) {
+    all: function (includeUnlisted) {
+      var promise;
+      if (includeUnlisted === true) {
+        promise = $http.get(url + '/surveys?all-surveys=true');
+      } else {
+        promise = $http.get(url + '/surveys');
+      }
+      return promise.then(function (response) {
         return response.data;
       });
     },

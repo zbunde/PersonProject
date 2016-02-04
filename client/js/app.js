@@ -23,10 +23,11 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
   .state('admin', {url: '/admin', templateUrl: '/partials/admin/dashboard.html', controller: 'AdminController'})
   .state('admin.manage', {url: '/manage', templateUrl: '/partials/admin/manage.html', controller: 'AdminController'})
   .state('admin.featured', {url: '/featured', templateUrl: '/partials/admin/featured.html', controller: 'FeaturedSurveysController'})
-  .state('admin.select_surveys', {url: '/surveys', templateUrl: 'partials/admin/select_surveys.html', controller: 'AdminSelectSurveysController'})
-  .state('admin.select_survey_items', {url: '/surveys/download', templateUrl: 'partials/admin/select_survey_items.html', controller: 'AdminSelectSurveyItemsController'})
+  .state('admin.select_surveys', {url: '/csv-surveys', templateUrl: 'partials/admin/select_surveys.html', controller: 'AdminSelectSurveysController'})
+  .state('admin.select_survey_items', {url: '/csv-surveys/download', templateUrl: 'partials/admin/select_survey_items.html', controller: 'AdminSelectSurveyItemsController'})
   .state('admin.new_survey', {url: '/surveys/new', templateUrl: '/partials/surveys/new', controller: 'SurveyController as vm'})
   .state('admin.survey', {url: '/surveys/:survey_id', templateUrl: '/partials/surveys/show.html', controller: 'SurveyController'})
+  .state('admin.surveys', {url: '/surveys', templateUrl: '/partials/admin/manage_surveys.html', controller: 'AdminSurveysController'})
   .state('admin.users', {url: '/users', templateUrl: '/partials/users/index.html', controller: 'UsersController'})
   .state('admin.user', {url: '/users/:user_id', templateUrl: '/partials/admin/show_user.html', controller: 'UsersController'})
 }]);

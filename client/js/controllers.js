@@ -48,13 +48,55 @@ app.controller('AdminController', ["$scope", "UsersService", "ModalService",
 
 app.controller('AdminDeleteController', ["$scope", "close",
   function($scope, close) {
-    console.log("the admin controller is created!");
     $scope.dismissModal = function(result) {
-      console.log("result", result);
       close(result, 200);
     }
 
 }]);
+
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+
+app.controller('AdminSurveysController', ["$scope", "SurveysService", "ModalService",
+  function($scope, SurveysService, ModalService) {
+    $scope.surveys;
+    $scope.surveyForEdit;
+
+    SurveysService.all(true).then(function(data) {
+      $scope.surveys = data;
+    });
+
+    $scope.showSurvey = function(survey) {
+      $scope.surveyForEdit = survey;
+    };
+
+    $scope.dismissEdit = function() {
+      $scope.surveyForEdit = undefined;
+    };
+
+    $scope.deleteSurvey = function(survey) {
+      ModalService.showModal({
+        templateUrl: "/partials/admin/delete_survey_modal.html",
+        controller: "AdminDeleteController",
+      }).then(function(modal) {
+        modal.element.modal();
+        modal.close.then(function(result) {
+          if (result) {
+            // TODO: Is this a good idea?  Would we ever want to do this?
+            //AdminService.deleteServey(survey.id).then(function() {
+            $scope.surveys = $scope.surveys.filter(function(s) {
+              return s.id !== survey.id;
+            });
+            //});
+          }
+        });
+      });
+    };
+
+
+}]);
+
 
 /* *********************************************************************************** */
 /* *********************************************************************************** */
@@ -464,8 +506,6 @@ app.controller('UserDashboardController', ["$rootScope", "$scope", "UsersService
 
 app.controller('UserPasswordController', ["$timeout", "$state", "$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
   function ($timeout, $state, $rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
-
-  console.log('pwd controller');
 
 }]);
 
