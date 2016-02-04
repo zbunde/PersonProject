@@ -27,8 +27,6 @@ app.controller('AdminController', ["$scope", "UsersService", "ModalService",
           }
         });
       });
-
-
     };
 
     $scope.createAdmin = function () {
