@@ -447,6 +447,10 @@ app.controller('UserDashboardController', ["$rootScope", "$scope", "UsersService
 
   $scope.email = LocalAuthService.email();
 
+  $scope.destroy = function(){
+    console.log('delete account');
+  };
+
   UsersService.completedSurveys().then(function(data){
     $scope.completions = data.rows;
   });
