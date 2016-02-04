@@ -72,6 +72,11 @@ router.get('/', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
   });
 });
 
+
+router.post('/', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
+  res.status(404).send({error: "Not yet implemented"});
+});
+
 router.get('/items', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res) {
   var ids = [], obj = {surveys: []}, dataStorage = {}, query;
   ids = getQueryParamAsArray(req, 'id', {number: true});

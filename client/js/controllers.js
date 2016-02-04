@@ -58,10 +58,11 @@ app.controller('AdminDeleteController', ["$scope", "close",
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('AdminSurveysController', ["$scope", "SurveysService", "ModalService",
-  function($scope, SurveysService, ModalService) {
+app.controller('AdminSurveysController', ["$scope", "SurveysService", "SurveyItemsService", "ModalService", "AdminService",
+  function($scope, SurveysService, SurveyItemsService, ModalService, AdminService) {
     $scope.surveys;
     $scope.surveyForEdit;
+    $scope.surveyJSON;
 
     SurveysService.all(true).then(function(data) {
       $scope.surveys = data;
@@ -69,10 +70,18 @@ app.controller('AdminSurveysController', ["$scope", "SurveysService", "ModalServ
 
     $scope.showSurvey = function(survey) {
       $scope.surveyForEdit = survey;
+      SurveyItemsService.find(survey.id).then(function(json) {
+        $scope.surveyJSON = {survey: survey, items: json};
+      });
     };
 
     $scope.dismissEdit = function() {
       $scope.surveyForEdit = undefined;
+      $scope.surveyJSON = undefined;
+    };
+
+    $scope.updateSurvey = function(survey) {
+
     };
 
     $scope.deleteSurvey = function(survey) {
@@ -93,8 +102,6 @@ app.controller('AdminSurveysController', ["$scope", "SurveysService", "ModalServ
         });
       });
     };
-
-
 }]);
 
 
