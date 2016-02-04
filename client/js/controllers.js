@@ -495,6 +495,7 @@ app.controller('UserDashboardController', ["$state", "$rootScope", "$scope", "Us
   function ($state, $rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
 
   $scope.email = LocalAuthService.email();
+  $scope.username = LocalAuthService.username();
 
   $scope.destroy = function(){
     UsersService.destroy().then(function(data){
