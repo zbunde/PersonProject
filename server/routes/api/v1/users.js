@@ -117,6 +117,36 @@ var usersApi = function(passport) {
   /* -------------------------------------------------------------------------- */
   /* -------------------------------------------------------------------------- */
 
+  // delete c, a, s
+  // from completions c
+  // inner join answers a on c.id = a.completion_id
+  // inner join scores s on c.id = s.completion_id
+  // where c.user_id = ?
+
+
+
+  router.delete('/', auth.ensureLoggedIn, function(req, res, next) {
+
+    return res.json({});
+
+    var query1 = multiline.stripIndent(function(){/*
+      delete completions
+      from completions
+    */});
+
+
+    surveysDb.knex.raw(query1, []).then(function(data1){
+      console.log('*******', req.session.passport.user);
+      return res.json(data1);
+    });
+
+
+  });
+
+  /* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
+
   router.delete('/session', auth.ensureLoggedIn, function(req, res, next) {
     req.logout();
     return res.json({success: "Logged out"});
