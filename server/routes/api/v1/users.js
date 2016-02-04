@@ -3,6 +3,7 @@ var router = express.Router();
 var db = require('../../../lib/users');
 var validate = require('../../../lib/user_validation');
 var createUser = require('../../../lib/create_user');
+var updateUser = require('../../../lib/update_user');
 var createAdmin = require('../../../lib/create_admin');
 var auth = require('../../../middleware/auth/index');
 var multiline = require('multiline');
@@ -170,6 +171,16 @@ var usersApi = function(passport) {
     db.remove(req.params.id).then(function (response) {
       res.json(response)
     })
+  });
+
+  /* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
+
+  router.put('/password', auth.ensureLoggedIn, function (req, res, next) {
+    updateUser.password(req.session.passport.user, req.body.password).then(function(){
+      return res.json({});
+    });
   });
 
   /* -------------------------------------------------------------------------- */
