@@ -187,6 +187,16 @@ var usersApi = function(passport) {
   /* -------------------------------------------------------------------------- */
   /* -------------------------------------------------------------------------- */
 
+  router.put('/profile', auth.ensureLoggedIn, function (req, res, next) {
+    updateUser.profile(req.session.passport.user, req.body.username, req.body.email).then(function(){
+      return res.json({});
+    });
+  });
+
+  /* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
+
   router.post('/result', function (req, res, next) {
     var query1 = multiline.stripIndent(function(){/*
       select su.name, s.*
