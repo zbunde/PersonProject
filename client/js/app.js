@@ -9,7 +9,7 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpP
   $stateProvider
   .state('home', {url: '/', templateUrl: '/partials/welcome/main.html', controller: 'SurveysController'})
   .state('terms', {url: '/terms', templateUrl: '/partials/welcome/terms.html', controller: 'UsersController'})
-  .state('signup', {url: '/signup', templateUrl: '/partials/registrations/new.html', controller: 'UsersController'})
+  .state('signup', {url: '/signup', templateUrl: '/partials/users/new.html', controller: 'UsersController'})
   .state('signin', {url: '/signin', templateUrl: '/partials/users/signin.html', controller: 'UsersController'})
   .state('surveys', {url: '/surveys', templateUrl: '/partials/surveys/index.html', controller: 'SurveysController'})
   .state('user', {url: '/users', templateUrl: '/partials/users/template.html', controller: 'UsersController'})
