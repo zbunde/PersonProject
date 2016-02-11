@@ -62,7 +62,7 @@ module.exports = function(passport) {
     passReqToCallback : true
   },
     function(req, username, password, done) {
-      validate.userExists(username).then(function(user) {
+      validate.userOrEmailExists(username).then(function(user) {
         if (user && validate.checkPassword(password, user.attributes)) {
           return done(null, user.attributes, {success: "Logged in"});
         } else {
