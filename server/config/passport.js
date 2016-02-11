@@ -46,7 +46,7 @@ module.exports = function(passport) {
         if (results) {
           return done(null, false, {error: 'Incorrect username or password'});
         } else {
-          createUser(username, password).then(function (user) {
+          createUser(username, password, req.body.email).then(function (user) {
             return done(null, user.attributes, {success: "Logging in"});
           }).catch(function(error) {
             return done(error);

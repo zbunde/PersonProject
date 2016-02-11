@@ -18,6 +18,18 @@ var usersApi = function(passport) {
   /* -------------------------------------------------------------------------- */
   /* -------------------------------------------------------------------------- */
 
+  function userAsJson(user) {
+    var email = user.email;
+    if (email === "" || email === null) {
+      email = undefined;
+    }
+    return {id: user.id,
+            admin: user.admin === true ? true : false,
+            username: user.username,
+            completed_demographics: user.completed_demographics,
+            email: email};
+  }
+
   router.post('/migrate', function(req, res){
     var query1 = multiline.stripIndent(function(){/*
       update completions set user_id = ? where user_id = ?
@@ -75,11 +87,7 @@ var usersApi = function(passport) {
       if (err || !user) return res.status(401).json( {error: "Invalid login"} );
       req.login(user, function(err) {
         if (err) return next(err);
-        return res.json({id: user.id,
-                         admin: user.admin === true ? true : false,
-                         username: user.username, completed_demographics: user.completed_demographics,
-                         email: user.email}
-          );
+        return res.json(userAsJson(user));
       });
     })(req, res, next);
   });
@@ -95,12 +103,9 @@ var usersApi = function(passport) {
 
     passport.authenticate('local-signup', function(err, user, info) {
       if (err || !user) return res.status(401).json( {error: "Invalid login"} );
-
-      new User({id: user.id, email: req.body.email}).save().then(function(){
-        req.login(user, function(err) {
-          if (err) return next(err);
-          return res.json({id: user.id, admin: user.admin === true ? true : false, username: user.username, email: req.body.email});
-        });
+      req.login(user, function(err) {
+        if (err) return next(err);
+        return res.json(userAsJson(user));
       });
 
     })(req, res, next);
