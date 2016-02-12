@@ -183,7 +183,6 @@ var usersApi = function(passport) {
   /* -------------------------------------------------------------------------- */
 
   router.put('/password', auth.ensurePasswordWithCredentials, function (req, res, next) {
-    eval(require("locus"));
     updateUser.password(req.user.id, req.body.new_password).then(function(){
       return res.json({});
     });
@@ -193,8 +192,8 @@ var usersApi = function(passport) {
   /* -------------------------------------------------------------------------- */
   /* -------------------------------------------------------------------------- */
 
-  router.put('/profile', auth.ensureLoggedIn, function (req, res, next) {
-    updateUser.profile(req.session.passport.user, req.body.username, req.body.email).then(function(){
+  router.put('/profile', auth.ensurePasswordWithCredentials, function (req, res, next) {
+    updateUser.profile(req.user.id, req.body.username, req.body.email).then(function(){
       return res.json({});
     });
   });

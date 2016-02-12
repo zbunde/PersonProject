@@ -513,8 +513,8 @@ app.controller('UserDashboardController', ["$state", "$rootScope", "$scope", "Us
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('UserPasswordController', ["$timeout", "$state", "$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
-  function ($timeout, $state, $rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
+app.controller('UserPasswordController', ["$scope", "$state", "UsersService",
+  function ($scope, $state, UsersService) {
     $scope.change = function(password, new_password){
       UsersService.changePassword(password, new_password).then(function(){
         $state.go('user.dashboard');
@@ -526,13 +526,13 @@ app.controller('UserPasswordController', ["$timeout", "$state", "$rootScope", "$
 /* *********************************************************************************** */
 /* *********************************************************************************** */
 
-app.controller('UserProfileController', ["$timeout", "$state", "$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
-  function ($timeout, $state, $rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
+app.controller('UserProfileController', ["$scope", "$state", "UsersService",
+  function ($scope, $state, UsersService) {
     $scope.change = function(profile){
       UsersService.changeProfile(profile).then(function(){
-        UsersService.verifyLogin().then(function(){
-          $state.go('user.dashboard');
-        });
+        return UsersService.verifyLogin();
+      }).then(function(){
+        $state.go('user.dashboard');
       });
     };
 }]);
