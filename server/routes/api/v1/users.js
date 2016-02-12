@@ -5,7 +5,7 @@ var validate = require('../../../lib/user_validation');
 var createUser = require('../../../lib/create_user');
 var updateUser = require('../../../lib/update_user');
 var createAdmin = require('../../../lib/create_admin');
-var auth = require('../../../middleware/auth/index');
+var auth = require('../../../middleware/auth');
 var multiline = require('multiline');
 var _ = require('lodash');
 var surveysDb = require('../../../config/connection').surveys;
@@ -182,8 +182,9 @@ var usersApi = function(passport) {
   /* -------------------------------------------------------------------------- */
   /* -------------------------------------------------------------------------- */
 
-  router.put('/password', auth.ensureLoggedIn, function (req, res, next) {
-    updateUser.password(req.session.passport.user, req.body.password).then(function(){
+  router.put('/password', auth.ensurePasswordWithCredentials, function (req, res, next) {
+    eval(require("locus"));
+    updateUser.password(req.user.id, req.body.new_password).then(function(){
       return res.json({});
     });
   });

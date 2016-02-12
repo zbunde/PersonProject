@@ -515,8 +515,8 @@ app.controller('UserDashboardController', ["$state", "$rootScope", "$scope", "Us
 
 app.controller('UserPasswordController', ["$timeout", "$state", "$rootScope", "$scope", "UsersService", "$location", "LocalAuthService", "$stateParams",
   function ($timeout, $state, $rootScope, $scope, UsersService, $location, LocalAuthService, $stateParams) {
-    $scope.change = function(password){
-      UsersService.changePassword(password).then(function(){
+    $scope.change = function(password, new_password){
+      UsersService.changePassword(password, new_password).then(function(){
         $state.go('user.dashboard');
       });
     };
