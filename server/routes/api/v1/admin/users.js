@@ -5,7 +5,7 @@ var auth = require('../../../../middleware/auth/index');
 var usersDb = require('../../../../config/connection').users;
 
 router.post('/', auth.ensureLoggedIn, auth.ensureAdmin, function(req, res, next) {
-  createAdmin(req.body.username, req.body.password).then(function(admin) {
+  createAdmin(req.body.username, req.body.password, req.body.email).then(function(admin) {
     res.send({id: admin.attributes.id, username: admin.attributes.username});
   }).catch(function(error) {
     res.status(500).send({error: "Could not create an admin"});
