@@ -18,7 +18,7 @@ app.controller('AdminController', ["$scope", "UsersService", "ModalService",
       }).then(function(modal) {
         modal.element.modal();
         modal.close.then(function(result) {
-          if (result) {
+          if (result === "DELETE") {
             UsersService.deleteAdmin(userId).then(function() {
               $scope.users = $scope.users.filter(function(user) {
                 return user.id !== userId;
@@ -91,7 +91,7 @@ app.controller('AdminSurveysController', ["$scope", "SurveysService", "SurveyIte
       }).then(function(modal) {
         modal.element.modal();
         modal.close.then(function(result) {
-          if (result) {
+          if (result === "DELETE") {
             // TODO: Is this a good idea?  Would we ever want to do this?
             //AdminService.deleteServey(survey.id).then(function() {
             $scope.surveys = $scope.surveys.filter(function(s) {

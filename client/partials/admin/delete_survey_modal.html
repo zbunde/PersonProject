@@ -5,12 +5,13 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <p>You are about to permenantly DELETE A SURVEY.  Are you sure?
+        <p>You are about to permenantly DELETE A SURVEY.  All data for the survey will be lost.  If you are certain, please type DELETE in all caps.
         </p>
+        <input ng-model="confirmation" type="text">
       </div>
       <div class="modal-footer">
         <button ng-click="dimissModal(false)" type="button" class="btn btn-default" data-dismiss="modal">NO, Cancel</button>
-        <button ng-click="dismissModal(true)" type="button" class="btn btn-primary" data-dismiss="modal">Yes, Delete</button>
+        <button ng-click="dismissModal(confirmation)" type="button" class="btn btn-primary" data-dismiss="modal">Yes, Delete</button>
       </div>
     </div>
   </div>
